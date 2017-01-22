@@ -1,5 +1,5 @@
-# SaturatedThickness
-This visualization displays a contour map of Saturated thinkness of Ogallala Aquifier in 2013.
+# Saturated Thickness of Ogallala
+This visualization displays a contour map of Saturated thickness of Ogallala Aquifier in 2013.
 
 https://tommy-dang.github.io/WaterLevel/Contour/
 
