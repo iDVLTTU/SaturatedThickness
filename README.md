@@ -1,3 +1,4 @@
 # SaturatedThickness
-THis project provide a contour map of water levels in Ogalala area.
+THis project display a contour map of Saturated thinkness of Ogallala Aquifier in 2014.
 
+https://tommy-dang.github.io/WaterLevel/Contour/
