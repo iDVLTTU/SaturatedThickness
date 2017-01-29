@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity {
     private static final String TAG = "MapsActivity";
@@ -185,8 +186,8 @@ public class MapsActivity extends FragmentActivity {
         else {
             PointPixelData val = this.data2d[yCoord][xCoord];
             waterLevel = val.getWaterValue() <= 0 ? -9999 : val.getWaterValue();
-            longtitude = String.valueOf(val.getPointData().getLongtitude());
-            lattitude = String.valueOf(val.getPointData().getLatitude());
+            longtitude = String.format(Locale.US, "%.4f", val.getPointData().getLongtitude());
+            lattitude = String.format(Locale.US, "%.4f", val.getPointData().getLatitude());
         }
 
        return "X:" + CoordUntil.getXCoordinate(xDp) + "  Y: " + CoordUntil.getYCoordinate(yDp) +
