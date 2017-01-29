@@ -1,6 +1,7 @@
 package com.example.hoanglong.googlemaptest;
 
 import android.content.Context;
+import android.support.v4.util.LongSparseArray;
 
 //import org.opencv.core.Mat;
 //import org.opencv.core.Point;
@@ -10,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 //import java.util.ArrayList;
 //import java.util.List;
 
@@ -22,7 +25,7 @@ public class CSVReader {
     public static int DATA_WIDTH = 598;
 
 
-    public static PointPixelData[][] readFileToMatrix(Context context, int resourceId, boolean ignoreFirstRow) {
+    public static PointPixelData[][] readFileToMatrix(Context context, int resourceId, boolean ignoreFirstRow, LongSparseArray rasterData) {
 
         PointPixelData [][]map = new PointPixelData[MAX_DATA_ROWS][MAX_DATA_COLS];
         InputStream fis = null;
@@ -58,7 +61,8 @@ public class CSVReader {
                     }
                     else {
                         id ++;
-                        tmp = new PointPixelData(id, waterVal);
+
+                        tmp = new PointPixelData(id, waterVal, (PointData) rasterData.get(id));
                     }
 
                     tmp.setRow(row);
@@ -89,14 +93,15 @@ public class CSVReader {
         return map;
     }
 
-    public static List<PointData> readPointData(Context context, int resourceId, boolean ignoreFirstRow, String delimiter) {
-        List<PointData> pointList = new ArrayList<>();
+    public static LongSparseArray readPointData(Context context, int resourceId, boolean ignoreFirstRow, String delimiter) {
+        LongSparseArray pointList = new LongSparseArray<>();
         InputStream fis = null;
         try {
             fis = context.getResources().openRawResource(resourceId);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
             String line;
             boolean didIgnore = false;
+            long pointId;
             while ((line = reader.readLine()) != null) {
                 if (ignoreFirstRow && !didIgnore) {
                     didIgnore = true;
@@ -108,12 +113,20 @@ public class CSVReader {
                     continue;
                 }
 
-                pointList.add(new PointData(Long.parseLong(rowData[0]), Double.parseDouble(rowData[1]), Double.parseDouble(rowData[2]), Double.parseDouble(rowData[3])));
+                pointId = Long.parseLong(rowData[0]);
+                if (pointList.get(pointId) != null) {
+                    throw new Exception("The data point exists.");
+                }
+
+                pointList.put(pointId, new PointData(pointId, Double.parseDouble(rowData[1]), Double.parseDouble(rowData[2]), Double.parseDouble(rowData[3])));
             }
         }
         catch (IOException ex) {
             // handle exception
             ex.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         finally {
             try {

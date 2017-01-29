@@ -5,11 +5,21 @@ public class PointPixelData {
     private double waterValue;
     private int row;
     private int col;
-
+    private PointData pointData;
 
     public PointPixelData(long id, double waterValue) {
         this.id = id;
         this.waterValue = waterValue;
+    }
+
+    public PointPixelData(long id, double waterValue, PointData pointData) {
+        this.id = id;
+        this.waterValue = waterValue;
+        this.pointData = pointData;
+    }
+
+    public PointData getPointData() {
+        return this.pointData;
     }
 
     public long getId() {

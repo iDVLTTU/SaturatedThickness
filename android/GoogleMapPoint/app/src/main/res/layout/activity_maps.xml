@@ -25,13 +25,12 @@
         android:orientation="vertical">
         <TextView
             android:layout_width="360dp"
-            android:layout_height="40dp"
             android:background="#000000"
             android:textColor="#ffffff"
             android:id="@+id/textInfo"
             android:padding="0dp"
             android:gravity="top"
-            />
+            android:layout_height="60dp" />
 
         <ImageView
             android:padding="0dp"

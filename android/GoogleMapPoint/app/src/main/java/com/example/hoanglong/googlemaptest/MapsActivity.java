@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.LongSparseArray;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity {
     private static final String TAG = "MapsActivity";
 
@@ -25,6 +28,8 @@ public class MapsActivity extends FragmentActivity {
     double latitude;
 
     private PointPixelData[][] data2d;
+    private LongSparseArray rasterData;
+
     private PointFinder pointFinder;
     private ImageView myMap;
     private ImageView myPosition;
@@ -49,14 +54,17 @@ public class MapsActivity extends FragmentActivity {
     public static final double SCALE_X_DPI_FACTOR_480 = 2.0; // 50dp per 100 units of x;
     public static final double SCALE_Y_DPI_FACTOR_480 = 3.076923077; // 65dp per 200 units of y;
 
-    public static double SCALE_X = 2; // 50dp per 100 units of x; dpi=3
-    public static double SCALE_Y = 3.076923077; // 65dp per 200 units of y; dpi=3
 
     private static final int POSITION_ICON_WIDTH = 20; //dp;
     private static final int POSITION_ICON_HEIGHT = 32; //dp;
 
     public static final int COOR_X = 20; //dp
     public static final int COOR_Y = 15; // dp
+
+    public static final int INFORMATION_TEXT_HEIGHT = 60; // dp
+
+    public static double SCALE_X = 2; // 50dp per 100 units of x; dpi=3
+    public static double SCALE_Y = 3.076923077; // 65dp per 200 units of y; dpi=3
     private int xDp;
     private int yDp;
 
@@ -96,8 +104,12 @@ public class MapsActivity extends FragmentActivity {
         myPosition = (ImageView)findViewById(R.id.position);
         vAnimator = new ValueAnimator();
 
-        this.data2d = CSVReader.readFileToMatrix(this, R.raw.ascii_2013, true);
-        pointFinder = new PointFinder(CSVReader.readPointData(this, R.raw.raster_to_point, true, ","));
+        rasterData = CSVReader.readPointData(this, R.raw.raster_to_point, true, ",");
+
+        this.data2d = CSVReader.readFileToMatrix(this, R.raw.ascii_2013, true, rasterData);
+
+        pointFinder = new PointFinder(rasterData);
+
         if (!canAccessLocation()) {
             requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
         }
@@ -122,14 +134,15 @@ public class MapsActivity extends FragmentActivity {
                 Log.v(TAG + "-Touch", "XDp==" + String.valueOf(xDp) + " YDp==" + String.valueOf(yDp));
                 Log.v(TAG + "-Touch", "XCoord==" + CoordUntil.getXCoordinate(xDp) + " YCoord==" + CoordUntil.getYCoordinate(yDp));
 
-                //myText.setText("X: " + String.valueOf(x) + "  Z: " + getWaterValue() + "  cX:" + getXCoordinate() + " cY: " + getYCoordinate() + "\nY: " + String.valueOf(y));
-                myText.setText("X:" + CoordUntil.getXCoordinate(xDp) + "  Y: " + CoordUntil.getYCoordinate(yDp) + "\nZ: " + getWaterValue());
+                myText.setText(getInformationText());
+
                 Log.d(TAG, "My map width: " + myMap.getWidth());
                 Log.d(TAG, "My map Height: " + myMap.getHeight());
                 Log.d(TAG, "Image width: " + myPosition.getWidth());
                 Log.d(TAG, "Image height: " + myPosition.getHeight());
                 Log.d(TAG, "Image measured width: " + myPosition.getMeasuredWidth());
                 Log.d(TAG, "Image measured height: " + myPosition.getMeasuredHeight());
+
                 showGPS();
 
                 return false;
@@ -155,6 +168,33 @@ public class MapsActivity extends FragmentActivity {
         vAnimator.start();
     }
 
+    private String getInformationText() {
+
+        int yCoord = CoordUntil.getYCoordinate(this.yDp);
+        int xCoord = CoordUntil.getXCoordinate(this.xDp);
+        String longtitude = "undefined";
+        String lattitude = "undefined";
+
+        double waterLevel = -9999;
+
+        if (yCoord >= CSVReader.MAX_DATA_ROWS || xCoord >= CSVReader.MAX_DATA_COLS || yCoord< 0 || xCoord< 0) {
+            waterLevel = -9999;
+            longtitude = "undefined";
+            lattitude = "undefined";
+        }
+        else {
+            PointPixelData val = this.data2d[yCoord][xCoord];
+            waterLevel = val.getWaterValue() <= 0 ? -9999 : val.getWaterValue();
+            longtitude = String.valueOf(val.getPointData().getLongtitude());
+            lattitude = String.valueOf(val.getPointData().getLatitude());
+        }
+
+       return "X:" + CoordUntil.getXCoordinate(xDp) + "  Y: " + CoordUntil.getYCoordinate(yDp) +
+               "\nLong.:" + longtitude + "  Lat.: " + lattitude +
+               "\nSaturated Thickness: " + waterLevel
+       ;
+    }
+
     private void displayGeoPointOnMap(double latitude, double longitude) {
         longitude = -101.8756988f;
         latitude = 33.5874824f;
@@ -172,9 +212,12 @@ public class MapsActivity extends FragmentActivity {
         Log.d(TAG, "Found pointDATA id: " + myPoint.getId());
 
         PointPixelData pointPixel = this.findPointPixel(myPoint);
-//        if (pointPixel == null) {
-//            return;
-//        }
+        if (pointPixel == null) {
+            return;
+        }
+
+        this.xDp = pointPixel.getXDp();
+        this.yDp = pointPixel.getYDp();
 
         Log.d(TAG, "Found closest point: id=" + pointPixel.getId() + ";water: " + pointPixel.getWaterValue());
         Log.d(TAG, "Closest: row=" + pointPixel.getRow() + "; col=" + pointPixel.getCol());
@@ -182,7 +225,7 @@ public class MapsActivity extends FragmentActivity {
 
         myPosition.setX(Math.round(pointPixel.getXPixel() - DPI_FACTOR *(POSITION_ICON_WIDTH/2)));
 //        myPosition.setX(0);
-        myPosition.setY(Math.round(pointPixel.getYPixel() - DPI_FACTOR *POSITION_ICON_HEIGHT + 40* DPI_FACTOR));
+        myPosition.setY(Math.round(pointPixel.getYPixel() - DPI_FACTOR *POSITION_ICON_HEIGHT + INFORMATION_TEXT_HEIGHT* DPI_FACTOR));
 //        myPosition.setY(0);
         Log.d(TAG, "Image width: " + myPosition.getWidth());
         Log.d(TAG, "Image height: " + myPosition.getHeight());
@@ -190,7 +233,8 @@ public class MapsActivity extends FragmentActivity {
         Log.d(TAG, "Image measured height: " + myPosition.getMeasuredHeight());
 
         myPosition.setVisibility(View.VISIBLE);
-        myText.setText("X:" + pointPixel.getRow() + "  Y: " +  pointPixel.getCol() + "\nZ: " + pointPixel.getWaterValue());
+
+        myText.setText(getInformationText());
 
         //this.createBlinking();
     }
@@ -250,8 +294,6 @@ public class MapsActivity extends FragmentActivity {
         if (yCoord >= CSVReader.MAX_DATA_ROWS || xCoord >= CSVReader.MAX_DATA_COLS || yCoord< 0 || xCoord< 0) {
             return -9999;
         }
-
-
 
         PointPixelData val = this.data2d[yCoord][xCoord];
 
