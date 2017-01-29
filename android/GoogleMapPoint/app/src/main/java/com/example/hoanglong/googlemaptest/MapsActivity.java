@@ -197,8 +197,8 @@ public class MapsActivity extends FragmentActivity {
     }
 
     private void displayGeoPointOnMap(double latitude, double longitude) {
-        longitude = -101.8756988f;
-        latitude = 33.5874824f;
+//        longitude = -101.8756988f;
+//        latitude = 33.5874824f;
 
         Log.d(TAG, "Found lat=" + latitude + "; lon=" + longitude);
 
@@ -237,7 +237,7 @@ public class MapsActivity extends FragmentActivity {
 
         myText.setText(getInformationText());
 
-        //this.createBlinking();
+        this.createBlinking();
     }
 
     private PointPixelData findPointPixel(PointData point) {
@@ -246,9 +246,6 @@ public class MapsActivity extends FragmentActivity {
 
         for(int i=0; i<data2d.length; i++) {
             for(int j=0; j<data2d[i].length; j++) {
-//                if (data2d[i][j].getId() < 2) {
-//                    Log.d(TAG, "PointPixID:" + data2d[i][j].getId() + "; waterValue:" + data2d[i][j].getWaterValue());
-//                }
                 if (data2d[i][j].getWaterValue() < 0) {
                     continue;
                 }
@@ -275,9 +272,6 @@ public class MapsActivity extends FragmentActivity {
         if(gps.canGetLocation()){
             longitude = gps.getLongitude();
             latitude = gps.getLatitude();
-//            Log.v(TAG + "-Touch", "Longitude==" + longitude + " Y==" + latitude);
-
-//            myGPS.setText("Longitude:"+ Double.toString(longitude)+"\nLatitude:"+ Double.toString(latitude));
         }
         else
         {
@@ -285,20 +279,6 @@ public class MapsActivity extends FragmentActivity {
 
             gps.showSettingsAlert();
         }
-    }
-
-    private double getWaterValue() {
-
-        int yCoord = CoordUntil.getYCoordinate(this.yDp);
-        int xCoord = CoordUntil.getXCoordinate(this.xDp);
-
-        if (yCoord >= CSVReader.MAX_DATA_ROWS || xCoord >= CSVReader.MAX_DATA_COLS || yCoord< 0 || xCoord< 0) {
-            return -9999;
-        }
-
-        PointPixelData val = this.data2d[yCoord][xCoord];
-
-        return val.getWaterValue() <= 0 ? -9999 : val.getWaterValue();
     }
 
     @Override
