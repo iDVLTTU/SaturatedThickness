@@ -5,6 +5,8 @@ import android.animation.IntEvaluator;
 import android.animation.ValueAnimator;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -21,7 +23,7 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends FragmentActivity implements LocationListener{
     private static final String TAG = "MapsActivity";
 
     private TrackGPS gps;
@@ -135,7 +137,7 @@ public class MapsActivity extends FragmentActivity {
                 Log.v(TAG + "-Touch", "XDp==" + String.valueOf(xDp) + " YDp==" + String.valueOf(yDp));
                 Log.v(TAG + "-Touch", "XCoord==" + CoordUntil.getXCoordinate(xDp) + " YCoord==" + CoordUntil.getYCoordinate(yDp));
 
-                myText.setText(getInformationText());
+                myText.setText(getInformationText(CoordUntil.getXCoordinate(xDp), CoordUntil.getYCoordinate(yDp)));
 
                 Log.d(TAG, "My map width: " + myMap.getWidth());
                 Log.d(TAG, "My map Height: " + myMap.getHeight());
@@ -169,10 +171,8 @@ public class MapsActivity extends FragmentActivity {
         vAnimator.start();
     }
 
-    private String getInformationText() {
+    private String getInformationText(int xCoord, int yCoord) {
 
-        int yCoord = CoordUntil.getYCoordinate(this.yDp);
-        int xCoord = CoordUntil.getXCoordinate(this.xDp);
         String longtitude = "undefined";
         String lattitude = "undefined";
 
@@ -185,6 +185,7 @@ public class MapsActivity extends FragmentActivity {
         }
         else {
             PointPixelData val = this.data2d[yCoord][xCoord];
+            Log.d(TAG, "information point id: " + val.getId());
             waterLevel = val.getWaterValue() <= 0 ? -9999 : val.getWaterValue();
             if (waterLevel> 0) {
                 longtitude = String.format(Locale.US, "%.4f", val.getPointData().getLongtitude());
@@ -237,7 +238,7 @@ public class MapsActivity extends FragmentActivity {
 
         myPosition.setVisibility(View.VISIBLE);
 
-        myText.setText(getInformationText());
+        myText.setText(getInformationText(pointPixel.getCol() , pointPixel.getRow()));
 
         this.createBlinking();
     }
@@ -287,11 +288,14 @@ public class MapsActivity extends FragmentActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        Log.d(TAG, "location permission result");
         switch(requestCode) {
 
             case LOCATION_REQUEST:
                 gps = new TrackGPS(this);
                 this.displayGeoPointOnMap(gps.getLatitude(), gps.getLongitude());
+                Log.d(TAG, "longtitude: " + gps.getLongitude() + "; latitude: " + gps.getLatitude());
 
                 break;
         }
@@ -301,5 +305,29 @@ public class MapsActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         gps.stopUsingGPS();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Log.d(TAG, "Location changed");
+
+        gps.setLocation(location);
+        this.displayGeoPointOnMap(location.getLatitude(), location.getLongitude());
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

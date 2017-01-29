@@ -21,9 +21,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class TrackGPS extends Service implements LocationListener {
+public class TrackGPS extends Service {
 
-    private final Context mContext;
+    private final MapsActivity mContext;
 
 
     private boolean checkGPS = false;
@@ -41,7 +41,7 @@ public class TrackGPS extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
     protected LocationManager locationManager;
 
-    public TrackGPS(Context mContext) {
+    public TrackGPS(MapsActivity mContext) {
         this.mContext = mContext;
         getLocation();
     }
@@ -72,7 +72,7 @@ public class TrackGPS extends Service implements LocationListener {
                         locationManager.requestLocationUpdates(
                                 LocationManager.NETWORK_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this.mContext);
                         Log.d("Network", "Network");
                         if (locationManager != null) {
                             loc = locationManager
@@ -85,7 +85,7 @@ public class TrackGPS extends Service implements LocationListener {
                             longitude = loc.getLongitude();
                         }
                     } catch (SecurityException e) {
-
+                        e.printStackTrace();
                     }
                 }
             }
@@ -97,7 +97,7 @@ public class TrackGPS extends Service implements LocationListener {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this.mContext);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
 
@@ -173,7 +173,7 @@ public class TrackGPS extends Service implements LocationListener {
     public void stopUsingGPS() {
         if (locationManager != null ) {
 
-            locationManager.removeUpdates(TrackGPS.this);
+            locationManager.removeUpdates(this.mContext);
         }
     }
 
@@ -182,23 +182,7 @@ public class TrackGPS extends Service implements LocationListener {
         return null;
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
+    public void setLocation(Location location) {
         this.loc = location;
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
     }
 }
