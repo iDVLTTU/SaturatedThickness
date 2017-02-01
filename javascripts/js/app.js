@@ -82,7 +82,7 @@ idv.load = function() {
                 y: wellYCoordinates,
                 mode: 'markers',
                 type: 'scatter',
-                name: "Wells",
+                name: "Well",
                 marker: {
                     size: 10,
                     color: "#f00"
@@ -141,9 +141,37 @@ idv.load = function() {
             // plot my position
             idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
 
+            idv.enableWellClick();
         });
     });
 };
+
+idv.enableWellClick = function() {
+    // var myPlot = document.getElementById(idv.CONTOUR_DIV_ID);
+    // myPlot.on('plotly_click', function(data){
+    //     var pts = '';
+    //     for(var i=0; i < data.points.length; i++){
+    //         pts = 'x = '+data.points[i].x +'\ny = '+
+    //             data.points[i].y.toPrecision(4) + '\n\n';
+    //     }
+    //     alert('Closest point clicked:\n\n'+pts);
+    // });
+
+    var svg = d3.select("svg");
+
+    var elements = svg.selectAll(".point");
+    console.log(elements);
+
+    elements.on("click", function(d,i) {
+        alert(i);
+    });
+
+    // d3.selectAll(".point").on('click', function(d) {
+    //    console.log("item click");
+    // });
+
+};
+
 
 getLocation();
 

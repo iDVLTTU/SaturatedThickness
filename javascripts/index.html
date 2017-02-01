@@ -5,6 +5,7 @@
   <script src="lib/jquery.min.js"></script>
   <script src="lib/plotly-latest.min.js"></script> 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="app.css" />
 </head>
 
 <body>
@@ -12,8 +13,19 @@
   
 
 <!-- GPS location-->
-  
-    <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <table>
+      <tr>
+          <td>
+            <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+          </td>
+          <td valign="top">
+            <div id="myWellInfo">
+                This is a well
+            </div>
+          </td>
+      </tr>
+  </table>
 
     <p id="demo"></p>
 
