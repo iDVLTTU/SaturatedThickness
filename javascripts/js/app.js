@@ -4,7 +4,7 @@ idv.pointMap = {}; //
 idv.CONTOUR_DIV_ID = "myDiv";
 idv.TOTAL_WELLS = 10;
 idv.TOTAL_COLS = 588;
-var wellMap = {};
+idv.wellMap = {};
 var wellXs = [];
 var wellYs = [];
 
@@ -89,7 +89,28 @@ idv.load = function() {
                 }
             };
 
+
             Plotly.addTraces(contourDivId, wellMarkers);
+
+
+            // var myData = [];
+            // for(var i = 0; i <wellXCoordinates.length; i++) {
+            //     myData.push([wellXCoordinates[i], wellYCoordinates[i]]);
+            // }
+            //
+            // var color = d3.scale.category10();
+            //
+            // d3.select("svg")
+            //     .selectAll("circle")
+            //         .data(myData)
+            //     .enter().append("circle")
+            //         .attr("transform", function(d) { return "translate(" + d + ")"; })
+            //         .attr("r", 10)
+            //         .style("fill", function(d, i) { return color(i); })
+            //         .on("click", function (d, i) {
+            //             alert(d);
+            //         })
+            // ;
         };
 
         d3.tsv("data/ascii_2013.csv", function (error, pixelData) {
@@ -119,11 +140,21 @@ idv.load = function() {
                             "index": index
                         };
 
-                        if (wellData != null && wellMap != undefined) {
-                            wellMap[wellData.Well_ID] = wellData;
-                            coord = getCoordinateFromPointId(pointId);
-                            wellXs.push(coord.x);
-                            wellYs.push(coord.y);
+                        if (wellData != null && wellData != undefined) {
+                            idv.wellMap[wellData.Well_ID] = {
+                                "id": wellData.Well_ID,
+                                "pointId": index,
+                                "pointX": col,
+                                "pointY": i+1,
+                                "minX": col - 10,
+                                "minY": i+1-5,
+                                "maxX": col + 10,
+                                "maxY": i+1 + 5,
+                                "detail": wellData
+                            };
+                            //coord = getCoordinateFromPointId(pointId);
+                            wellXs.push(col);
+                            wellYs.push(i+1);
                             wellCount ++;
                         }
                     }
@@ -132,6 +163,13 @@ idv.load = function() {
                 data2D.push(currentRow);
             }
 
+            for (var k in idv.wellMap) {
+                if (!idv.wellMap.hasOwnProperty(k)) {
+                    continue;
+                }
+
+                console.log(idv.wellMap[k]);
+            }
             // plot contour map
             plotContourMap(idv.CONTOUR_DIV_ID, data2D);
 
@@ -140,37 +178,52 @@ idv.load = function() {
 
             // plot my position
             idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
-
+            //
             idv.enableWellClick();
         });
     });
 };
 
-idv.enableWellClick = function() {
-    // var myPlot = document.getElementById(idv.CONTOUR_DIV_ID);
-    // myPlot.on('plotly_click', function(data){
-    //     var pts = '';
-    //     for(var i=0; i < data.points.length; i++){
-    //         pts = 'x = '+data.points[i].x +'\ny = '+
-    //             data.points[i].y.toPrecision(4) + '\n\n';
-    //     }
-    //     alert('Closest point clicked:\n\n'+pts);
-    // });
+idv.findWellFromCoords = function(x, y) {
+    var foundWell = null, tmpWell;
+    for (var key in idv.wellMap) {
+        if (!idv.wellMap.hasOwnProperty(key)) {
+            continue;
+        }
 
-    var svg = d3.select("svg");
+        tmpWell = idv.wellMap[key];
+        if (tmpWell.minX <= x && tmpWell.minY <= y && tmpWell.maxX >= x && tmpWell.maxY >= y) {
+            foundWell = tmpWell;
+            break;
+        }
+    }
 
-    var elements = svg.selectAll(".point");
-    console.log(elements);
-
-    elements.on("click", function(d,i) {
-        alert(i);
-    });
-
-    // d3.selectAll(".point").on('click', function(d) {
-    //    console.log("item click");
-    // });
-
+    return foundWell;
 };
+
+idv.handleWellOnClick = function(well) {
+    alert("found you");
+};
+
+idv.enableWellClick = function() {
+    var myPlot = document.getElementById(idv.CONTOUR_DIV_ID);
+    myPlot.on('plotly_click', function(data){
+        var x, y;
+        for(var i=0; i < data.points.length; i++){
+            x = Math.round(data.points[i].x);
+            y = Math.round(data.points[i].y)
+        }
+
+        var well = idv.findWellFromCoords(x, y);
+        if (well == null) {
+            return;
+        }
+
+        idv.handleWellOnClick(well);
+    });
+};
+
+
 
 
 getLocation();
