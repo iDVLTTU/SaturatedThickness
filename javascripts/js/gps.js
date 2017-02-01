@@ -1,8 +1,88 @@
 var x = document.getElementById("demo");
+var idv = idv || {};
+idv.handlePositionSuccess = function(position) {
+    idv.myPosition = {lon: position.coords.longitude, lat: position.coords.latitude};
+    console.log("Position success");
+
+    idv.load();
+};
+
+idv.showMyPosition = function(myPosition, plotMyPositionAtPointCallback) {
+    if (myPosition == null) {
+        return;
+    }
+
+    var lat = myPosition.lat;
+    var lon = myPosition.lon;
+
+    d3.csv("data/raster_to_point.csv", function(error, rasterData) {
+        var index = -1;
+        var min = 1000;
+        for (var i = 0; i < rasterData.length; i++) {
+            var x = rasterData[i].x_center;
+            var y = rasterData[i].y_center;
+            var dis = (lon - x) * (lon - x) + (lat - y) * (lat - y);
+            if (dis < min) {
+                min = dis;
+                index = i;
+            }
+        }
+
+        var pointId = index + 1;
+        plotMyPositionAtPointCallback(pointId);
+    });
+
+};
+
+idv.plotMyPositionAtPoint = function(pointId) {
+    if (pointId<1) {
+        console.log("Could not find my position");
+        return; // position not found in map
+    }
+
+    var myPoint = idv.pointMap[pointId];
+    var myPositionMarker = [{
+        x: [myPoint.x],
+        y: [myPoint.y],
+        // line: {'color': 'rgb(0, 0, 0,)',},
+        // mode: 'circle',
+        name: "Current Position",
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            color: "#a0f",
+            size: 10
+        }
+    }];
+
+    Plotly.addTraces(idv.CONTOUR_DIV_ID , myPositionMarker);
+    alertFunc();
+    function alertFunc() {
+        //alert("Hello!");
+        d3.selectAll(".point").style("stroke-width", function (d) {
+            return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? 1 : false;
+            // return 1;
+
+        });
+
+        d3.selectAll(".point").transition()
+            .style("stroke", function(d) {
+                return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? "#a0f" : false;
+                // return "#a0f";
+            })
+            .style("stroke-width", function (d) {
+                return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? 12 : false;
+                // return 12;
+
+            });
+
+        setTimeout(alertFunc, 500);
+    }
+};
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError);
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -46,21 +126,38 @@ function showPosition(position) {
       var data2 = [{
           x: [row],
           y: [col],
-          line: {'color': 'rgb(0, 0, 0,)',},
-          mode: 'circle'
+          // line: {'color': 'rgb(0, 0, 0,)',},
+          // mode: 'circle',
+          name: "Current Position",
+          mode: 'markers',
+          type: 'scatter',
+          marker: {
+              color: "#a0f",
+              size: 10
+          }
         }
       ];
-      Plotly.addTraces('myDiv', data2);
+       Plotly.addTraces('myDiv', data2);
 
       alertFunc();
       function alertFunc() {  
         //alert("Hello!");
-        d3.selectAll(".point").style("stroke-width",1);
+        d3.selectAll(".point").style("stroke-width", function (d) {
+            return d.trace != null && d.trace.x == row && d.trace.y==col ? 1 : false;
 
-        //d3.selectAll(".point")[0].attr("class","location");
+        });
+
         d3.selectAll(".point").transition()
-        .style("stroke","#a0f").style("stroke-width",12);
-        setTimeout(alertFunc, 500);
+            .style("stroke", function(d) {
+                // console.log(d);
+                return d.trace != null && d.trace.x == row && d.trace.y==col ? "#a0f" : false;
+            })
+            .style("stroke-width", function (d) {
+                return d.trace != null && d.trace.x == row && d.trace.y==col ? 12 : false;
+
+            });
+
+          setTimeout(alertFunc, 500);
       }
 
     });      
@@ -81,5 +178,7 @@ function showError(error) {
             x.innerHTML = "An unknown error occurred."
             break;
     }
+
+    idv.load();
 }
 
