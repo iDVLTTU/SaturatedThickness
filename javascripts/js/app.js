@@ -203,14 +203,25 @@ idv.findWellFromCoords = function(x, y) {
 
 idv.handleWellOnClick = function(well) {
 
+    // var data = [
+    //     {
+    //         x: ['2013-10-04', '2013-11-04', '2013-12-04'],
+    //         y: [1, 3, 6],
+    //         type: 'scatter'
+    //     }
+    // ];
+    //
+    // Plotly.newPlot('wellTimeSeries', data);
+
+    // console.log(well);
+
     var chart = c3.generate({
         bindto: '#wellTimeSeries',
         data: {
             x: 'year',
             columns: [
                 ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
-                ['well1', 30, 200, 100, 400, 150, 250],
-                ['well2', 50, 20, 10, 40, 15, 25]
+                ['Well ' + well.id, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)],
             ]
         },
         axis: {
@@ -252,29 +263,13 @@ idv.enableWellClick = function() {
 
 
 getLocation();
-// var chart = c3.generate({
-//     bindto: '#wellTimeSeries',
-//     data: {
-//         x: 'year',
-//         columns: [
-//             ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
-//             ['well1', 30, 200, 100, 400, 150, 250],
-//             ['well2', 50, 20, 10, 40, 15, 25]
-//         ]
-//     },
-//     axis: {
-//         y: {
-//             label: { // ADD
-//                 text: 'Saturated Thickness',
-//                 position: 'outer-middle'
-//             }
-//         },
-//         x: {
-//             label: {
-//                 text: 'Year',
-//                 position: 'outer'
-//             }
-//         }
-//     }
-// });
 
+// var data = [
+//     {
+//         x: ['2013-10-04 22:23:00', '2013-11-04 22:23:00', '2013-12-04 22:23:00'],
+//         y: [1, 3, 6],
+//         type: 'scatter'
+//     }
+// ];
+//
+// Plotly.newPlot('wellTimeSeries', data);
