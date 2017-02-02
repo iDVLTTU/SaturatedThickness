@@ -202,7 +202,32 @@ idv.findWellFromCoords = function(x, y) {
 };
 
 idv.handleWellOnClick = function(well) {
-    alert("found you");
+
+    var chart = c3.generate({
+        bindto: '#wellTimeSeries',
+        data: {
+            x: 'year',
+            columns: [
+                ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
+                ['well1', 30, 200, 100, 400, 150, 250],
+                ['well2', 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        axis: {
+            y: {
+                label: { // ADD
+                    text: 'Saturated Thickness',
+                    position: 'outer-middle'
+                }
+            },
+            x: {
+                label: {
+                    text: 'Year',
+                    position: 'outer'
+                }
+            }
+        }
+    });
 };
 
 idv.enableWellClick = function() {
@@ -227,5 +252,29 @@ idv.enableWellClick = function() {
 
 
 getLocation();
-
+// var chart = c3.generate({
+//     bindto: '#wellTimeSeries',
+//     data: {
+//         x: 'year',
+//         columns: [
+//             ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
+//             ['well1', 30, 200, 100, 400, 150, 250],
+//             ['well2', 50, 20, 10, 40, 15, 25]
+//         ]
+//     },
+//     axis: {
+//         y: {
+//             label: { // ADD
+//                 text: 'Saturated Thickness',
+//                 position: 'outer-middle'
+//             }
+//         },
+//         x: {
+//             label: {
+//                 text: 'Year',
+//                 position: 'outer'
+//             }
+//         }
+//     }
+// });
 
