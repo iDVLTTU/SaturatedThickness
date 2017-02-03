@@ -63,15 +63,21 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 idv.wellManager.handleWellSingleClick = function(well) {
     idv.clicked = false;
+    var label = 'well' + well.id;
+    var myData = {
+        x: 'year',
+        columns: [
+            ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
+            [label, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)],
+        ],
+        colors: {
+        }
+    };
+    myData.colors[label] = well.color;
+
     var chart = c3.generate({
         bindto: '#wellTimeSeries',
-        data: {
-            x: 'year',
-            columns: [
-                ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
-                ['Well ' + well.id, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)],
-            ]
-        },
+        data: myData,
         axis: {
             y: {
                 label: { // ADD
