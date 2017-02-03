@@ -11,6 +11,9 @@ idv.timeChartManager.generateTimeChart = function() {
             idv.timeChartManager.xAxis
         ],
         colors: {
+        },
+        types: {
+
         }
     };
 
@@ -40,8 +43,14 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
     if (well.active == true) {
         var colors = {};
         colors[label] = well.color;
+        var types = {};
+        types[label] = "area-spline";
         var newColumn = [label, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)]
-        idv.timeChartManager.timeChart.load({columns: [idv.timeChartManager.xAxis, newColumn], colors: colors});
+        idv.timeChartManager.timeChart.load({
+            columns: [idv.timeChartManager.xAxis, newColumn],
+            colors: colors,
+            types: types
+        });
     }
     else {
         idv.timeChartManager.timeChart.unload(
