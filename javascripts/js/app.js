@@ -6,6 +6,7 @@ idv.TOTAL_WELLS = 10;
 idv.TOTAL_COLS = 588;
 idv.wellMap = {};
 idv.clicked = false;
+idv.timeChart = null;
 
 var wellXs = [];
 var wellYs = [];
@@ -145,6 +146,10 @@ idv.load = function() {
             idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
             //
             idv.wellManager.enableWellClick();
+
+            // plot time chart
+            idv.timeChartManager.generateTimeChart();
+            // console.log(idv.timeChart);
         });
     });
 };

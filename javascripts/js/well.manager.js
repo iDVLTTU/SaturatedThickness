@@ -63,41 +63,12 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 idv.wellManager.handleWellSingleClick = function(well) {
     idv.clicked = false;
-    var label = 'well' + well.id;
-    var myData = {
-        x: 'year',
-        columns: [
-            ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
-            [label, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)],
-        ],
-        colors: {
-        }
-    };
-    myData.colors[label] = well.color;
-
-    var chart = c3.generate({
-        bindto: '#wellTimeSeries',
-        data: myData,
-        axis: {
-            y: {
-                label: { // ADD
-                    text: 'Saturated Thickness',
-                    position: 'outer-middle'
-                }
-            },
-            x: {
-                label: {
-                    text: 'Year',
-                    position: 'outer'
-                }
-            }
-        }
-    });
 
     well.active = !well.active; // active or deactive the well
 
     idv.wellManager.updateWellColor(well, '0xf00');
-
+    // update time chart color if the well active
+    idv.timeChartManager.updateTimeChartForWell(well);
 };
 
 
