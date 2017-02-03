@@ -72,11 +72,3 @@
 @keyframes b7 { 0% { top: 89%; } 44.5% { top: 0%; } 94.5% { top: 100%; } 100% { top: 89%; } }
 @-webkit-keyframes b7 { 0% { top: 89%; } 44.5% { top: 0%; } 94.5% { top: 100%; } 100% { top: 89%; } }
 
-html, body {
-  margin: 0;
-  height: 100%;
-}
-
-body {
- 
-}

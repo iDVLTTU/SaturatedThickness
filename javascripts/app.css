@@ -1,3 +1,11 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 1800px;
+    overflow: auto;
+}
+
+
 #myWellInfo {
     margin-top: 100px;
     width: 100px;

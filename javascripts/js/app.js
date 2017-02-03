@@ -5,8 +5,11 @@ idv.CONTOUR_DIV_ID = "myDiv";
 idv.TOTAL_WELLS = 10;
 idv.TOTAL_COLS = 588;
 idv.wellMap = {};
+idv.clicked = false;
+
 var wellXs = [];
 var wellYs = [];
+var wellIds = [];
 
 idv.load = function() {
     d3.csv('data/well_data.csv', function(error, allWellData) {
@@ -76,43 +79,6 @@ idv.load = function() {
 
         };
 
-        var plotWellMarkerOnContour = function(contourDivId, wellXCoordinates, wellYCoordinates) {
-            var wellMarkers = {
-                x: wellXCoordinates,
-                y: wellYCoordinates,
-                mode: 'markers',
-                type: 'scatter',
-                name: "Well",
-                marker: {
-                    size: 10,
-                    color: "#f00"
-                }
-            };
-
-
-            Plotly.addTraces(contourDivId, wellMarkers);
-
-
-            // var myData = [];
-            // for(var i = 0; i <wellXCoordinates.length; i++) {
-            //     myData.push([wellXCoordinates[i], wellYCoordinates[i]]);
-            // }
-            //
-            // var color = d3.scale.category10();
-            //
-            // d3.select("svg")
-            //     .selectAll("circle")
-            //         .data(myData)
-            //     .enter().append("circle")
-            //         .attr("transform", function(d) { return "translate(" + d + ")"; })
-            //         .attr("r", 10)
-            //         .style("fill", function(d, i) { return color(i); })
-            //         .on("click", function (d, i) {
-            //             alert(d);
-            //         })
-            // ;
-        };
-
         d3.tsv("data/ascii_2013.csv", function (error, pixelData) {
             var pointId = 0;
             var wellData;
@@ -150,11 +116,17 @@ idv.load = function() {
                                 "minY": i+1-5,
                                 "maxX": col + 10,
                                 "maxY": i+1 + 5,
-                                "detail": wellData
+                                "active": false,
+                                "color": idv.util.getRandomColor(), // current color
+                                "detail": wellData,
+                                "getMyColor": function() {
+                                    return this.active ? this.color : idv.wellManager.DEFAULT_WELL_COLOR;
+                                }
                             };
                             //coord = getCoordinateFromPointId(pointId);
                             wellXs.push(col);
                             wellYs.push(i+1);
+                            wellIds.push(wellData.Well_ID);
                             wellCount ++;
                         }
                     }
@@ -163,103 +135,19 @@ idv.load = function() {
                 data2D.push(currentRow);
             }
 
-            for (var k in idv.wellMap) {
-                if (!idv.wellMap.hasOwnProperty(k)) {
-                    continue;
-                }
-
-                console.log(idv.wellMap[k]);
-            }
             // plot contour map
             plotContourMap(idv.CONTOUR_DIV_ID, data2D);
 
             // plot well on top of contour
-            plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, wellXs, wellYs);
+            idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, wellXs, wellYs, wellIds);
 
             // plot my position
             idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
             //
-            idv.enableWellClick();
+            idv.wellManager.enableWellClick();
         });
     });
 };
-
-idv.findWellFromCoords = function(x, y) {
-    var foundWell = null, tmpWell;
-    for (var key in idv.wellMap) {
-        if (!idv.wellMap.hasOwnProperty(key)) {
-            continue;
-        }
-
-        tmpWell = idv.wellMap[key];
-        if (tmpWell.minX <= x && tmpWell.minY <= y && tmpWell.maxX >= x && tmpWell.maxY >= y) {
-            foundWell = tmpWell;
-            break;
-        }
-    }
-
-    return foundWell;
-};
-
-idv.handleWellOnClick = function(well) {
-
-    // var data = [
-    //     {
-    //         x: ['2013-10-04', '2013-11-04', '2013-12-04'],
-    //         y: [1, 3, 6],
-    //         type: 'scatter'
-    //     }
-    // ];
-    //
-    // Plotly.newPlot('wellTimeSeries', data);
-
-    // console.log(well);
-
-    var chart = c3.generate({
-        bindto: '#wellTimeSeries',
-        data: {
-            x: 'year',
-            columns: [
-                ['year', '1995', '1996', '1997', '1998', '1999', '2000'],
-                ['Well ' + well.id, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)],
-            ]
-        },
-        axis: {
-            y: {
-                label: { // ADD
-                    text: 'Saturated Thickness',
-                    position: 'outer-middle'
-                }
-            },
-            x: {
-                label: {
-                    text: 'Year',
-                    position: 'outer'
-                }
-            }
-        }
-    });
-};
-
-idv.enableWellClick = function() {
-    var myPlot = document.getElementById(idv.CONTOUR_DIV_ID);
-    myPlot.on('plotly_click', function(data){
-        var x, y;
-        for(var i=0; i < data.points.length; i++){
-            x = Math.round(data.points[i].x);
-            y = Math.round(data.points[i].y)
-        }
-
-        var well = idv.findWellFromCoords(x, y);
-        if (well == null) {
-            return;
-        }
-
-        idv.handleWellOnClick(well);
-    });
-};
-
-
 
 
 getLocation();
