@@ -1,7 +1,11 @@
 var idv = idv || {};
 idv.timeChartManager = idv.timeChartManager || {};
 idv.timeChartManager.timeChart = null;
-idv.timeChartManager.xAxis = ['year', '1995', '1996', '1997', '1998', '1999', '2000'];
+idv.timeChartManager.xAxis = [
+    'year',
+    '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005',
+    '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016'
+];
 
 idv.timeChartManager.generateTimeChart = function() {
 
@@ -37,6 +41,18 @@ idv.timeChartManager.generateTimeChart = function() {
     });
 };
 
+idv.timeChartManager.generateWellData = function(well) {
+    var wellData = [];
+    var label = 'well' + well.id;
+
+    wellData.push(label);
+
+    for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
+        wellData.push(Math.round(Math.random()*200));
+    }
+
+    return wellData;
+};
 idv.timeChartManager.updateTimeChartForWell = function(well){
     var label = 'well' + well.id;
 
@@ -45,7 +61,7 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
         colors[label] = well.color;
         var types = {};
         types[label] = "area-spline";
-        var newColumn = [label, Math.round(Math.random()*30), Math.round(Math.random()*200), Math.round(Math.random()*100), Math.round(Math.random()*400), Math.round(Math.random()*150), Math.round(Math.random()*250)]
+        var newColumn = idv.timeChartManager.generateWellData(well);
         idv.timeChartManager.timeChart.load({
             columns: [idv.timeChartManager.xAxis, newColumn],
             colors: colors,
