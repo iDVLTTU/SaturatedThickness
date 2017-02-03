@@ -53,12 +53,13 @@ idv.timeChartManager.generateWellData = function(well) {
 
     return wellData;
 };
+
 idv.timeChartManager.updateTimeChartForWell = function(well){
     var label = 'well' + well.id;
 
     if (well.active == true) {
         var colors = {};
-        colors[label] = well.color;
+        colors[label] = well.getMyColor();
         var types = {};
         types[label] = "area-spline";
         var newColumn = idv.timeChartManager.generateWellData(well);

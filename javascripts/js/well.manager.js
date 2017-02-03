@@ -7,7 +7,23 @@ idv.wellManager.selectAllWells = function() {
     return d3.selectAll(".point");
 };
 
-idv.wellManager.updateWellColor = function(well, color) {
+idv.wellManager.updateWellColor = function(well) {
+
+    debugger;
+    if (well.active == true) {
+        var unusedColorKey = idv.colorManager.getUnusedColorKey();
+        if (unusedColorKey === false) {
+            alert("Support only " + idv.colorManager.SUPPORTED_COLOR_COUNT + " active wells");
+            return false;
+        }
+
+        well.color = unusedColorKey;
+    }
+    else {
+        // clear used color
+        idv.colorManager.resetUsedColor(well.color);
+    }
+
     idv.wellManager.selectAllWells().style("fill",
         function(d) {
             if (d.tx == null || d.tx == undefined) {
@@ -19,6 +35,8 @@ idv.wellManager.updateWellColor = function(well, color) {
             return relatedWell.getMyColor();
         }
     );
+
+    return true;
 };
 
 idv.wellManager.findWellFromCoords = function(x, y) {
@@ -66,9 +84,11 @@ idv.wellManager.handleWellSingleClick = function(well) {
 
     well.active = !well.active; // active or deactive the well
 
-    idv.wellManager.updateWellColor(well, '0xf00');
+    var updated = idv.wellManager.updateWellColor(well);
     // update time chart color if the well active
-    idv.timeChartManager.updateTimeChartForWell(well);
+    if (updated == true) {
+        idv.timeChartManager.updateTimeChartForWell(well);
+    }
 };
 
 

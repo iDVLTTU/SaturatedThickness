@@ -118,10 +118,18 @@ idv.load = function() {
                                 "maxX": col + 10,
                                 "maxY": i+1 + 5,
                                 "active": false,
-                                "color": idv.util.getRandomColor(), // current color
+                                "color": false, // current color
                                 "detail": wellData,
                                 "getMyColor": function() {
-                                    return this.active ? this.color : idv.wellManager.DEFAULT_WELL_COLOR;
+                                    if (this.active == false) {
+                                        return idv.wellManager.DEFAULT_WELL_COLOR;
+                                    }
+
+                                    if (this.color == null || this.color == undefined) {
+                                        alert('Invalid color setting');
+                                        return idv.wellManager.DEFAULT_WELL_COLOR;
+                                    }
+                                    return idv.colorManager.getColorObject(this.color).code;
                                 }
                             };
                             //coord = getCoordinateFromPointId(pointId);
