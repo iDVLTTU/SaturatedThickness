@@ -149,7 +149,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         }
 
         idv.wellMap[tmpWell.Well_ID]["detail"] = myWells[tmpWell.Well_ID];
-        if(wellCount > 5) {
+        if(wellCount > 10) {
             break;
         }
     }
