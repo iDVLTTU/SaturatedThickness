@@ -6,3 +6,5 @@ https://tommy-dang.github.io/WaterLevel/Contour/
 ![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
 
 This work is in collaboration with a group in the Civil Engineering department at TTU.
+
+![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/Karim/ST_2013.jpg)
