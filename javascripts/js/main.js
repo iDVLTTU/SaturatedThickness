@@ -31,7 +31,7 @@ d3.tsv("data/ascii_2013.csv", function(error, data_) {
   var layout = {
     title: 'Saturated Thickness of Ogallala Aquifier in 2013',
     width: 850,
-    height: 1000,
+    height: 200,
 
     xaxis: {
       side: 'top' 
@@ -46,7 +46,7 @@ d3.tsv("data/ascii_2013.csv", function(error, data_) {
   console.log("DONE Plotly contours")
 
   // Get current GPS location
-  getLocation();
+  //getLocation();
 
 });
 

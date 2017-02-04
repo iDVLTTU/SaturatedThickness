@@ -41,6 +41,7 @@ idv.plotMyPositionAtPoint = function(pointId) {
     }
 
     var myPoint = idv.pointMap[pointId];
+    console.log("pointId:"+pointId);
     var myPositionMarker = [{
         x: [myPoint.x],
         y: [myPoint.y],
