@@ -9,7 +9,6 @@ idv.wellManager.selectAllWells = function() {
 
 idv.wellManager.updateWellColor = function(well) {
 
-    debugger;
     if (well.active == true) {
         var unusedColorKey = idv.colorManager.getUnusedColorKey();
         if (unusedColorKey === false) {

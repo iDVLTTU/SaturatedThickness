@@ -8,6 +8,14 @@ idv.handlePositionSuccess = function(position) {
     idv.load();
 };
 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
 idv.showMyPosition = function(myPosition, plotMyPositionAtPointCallback) {
     if (myPosition == null) {
         return;
