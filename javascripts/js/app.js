@@ -111,6 +111,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
             myWells[tmpWell.Well_ID]["totalMeasurementDate"] ++;
         }
         myWells[tmpWell.Well_ID][measuredDate] = tmpWell.WaterElevation;
+        idv.timeChartManager.addMeasurementDate(measuredDate);
 
 
         if (!idv.wellMap.hasOwnProperty(tmpWell.Well_ID)) {
@@ -204,7 +205,6 @@ idv.plotData = function () {
     // plot contour map
     plotContourMap(idv.CONTOUR_DIV_ID, idv.data2D);
 
-    debugger;
     // plot well on top of contour
     idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
 

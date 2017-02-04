@@ -5,10 +5,24 @@ idv.timeChartManager.dataColumnCount = 0;
 idv.timeChartManager.chartTypes = {}; // {key=>type}
 idv.timeChartManager.chartColumns = [];
 idv.timeChartManager.xAxis = [
-    'year',
-    '1995-01-01', '1996-01-01', '1997-01-01', '1998-01-01', '1999-01-01', '2000-01-01', '2001-01-01', '2002-01-01', '2003-01-01', '2004-01-01', '2005-01-01',
-    '2006-01-01', '2007-01-01', '2008-01-01', '2009-01-01', '2010-01-01', '2011-01-01', '2012-01-01', '2013-01-01', '2014-01-01', '2015-01-01', '2016-01-01'
+    'year'
 ];
+// idv.timeChartManager.xAxis = [
+//     'year',
+//     '2010-01-01', '1996-01-01', '1997-01-01', '1998-01-01', '1999-01-01', '2000-01-01', '2001-01-01', '2002-01-01',
+//     '2003-01-01', '2004-01-01', '2005-01-01', '2006-01-01', '2007-01-01', '2008-01-01', '2009-01-01', '2010-01-01',
+//     '2011-01-01', '2012-01-01', '2013-01-01', '2014-01-01', '2015-01-01', '2016-01-01'
+// ];
+idv.timeChartManager.measurementDates = {};
+idv.timeChartManager.measurementDateCount = 0;
+
+idv.timeChartManager.addMeasurementDate = function(date) {
+    if (!idv.timeChartManager.measurementDates.hasOwnProperty(date)) {
+        idv.timeChartManager.measurementDates[date] = true;
+        idv.timeChartManager.xAxis.push(date);
+        idv.timeChartManager.measurementDateCount ++;
+    }
+};
 
 idv.timeChartManager.getColumns = function () {
     return idv.timeChartManager.chartColumns;
@@ -82,11 +96,15 @@ idv.timeChartManager.generateTimeChart = function() {
         }
     };
 
+    debugger;
     this.addColumn(idv.timeChartManager.xAxis);
 
     idv.timeChartManager.timeChart = c3.generate({
         bindto: '#wellTimeSeries',
         data: myData,
+        // line: {
+        //     connect_null: true
+        // },
         axis: {
             y: {
                 label: { // ADD
@@ -118,10 +136,10 @@ idv.timeChartManager.generateTimeChart = function() {
 idv.timeChartManager.generateWellData = function(well) {
     var wellData = [];
     var label = 'well' + well.id;
-
+    debugger;
     wellData.push(label);
 
-    for (var i=1; i< idv.timeChartManager.xAxis.length + 10; i++) {
+    for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         wellData.push(Math.round(Math.random()*200));
     }
 
@@ -142,9 +160,11 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
         this.removeColumn(label);
     }
 
+    debugger;
+    var myColumns = this.getColumns();
     idv.timeChartManager.timeChart.load({
         unload:  well.active === true ? [] : [label],
-        columns: this.getColumns(),
+        columns: myColumns,
         colors: colors,
         types: this.chartTypes
     });

@@ -19,5 +19,5 @@ idv.util.getDateInYmd = function(year, month, date) {
         date = '0' + date;
     }
 
-    return year + '' + month + + '' + date
+    return year + '-' + month + '-' + date;
 };
