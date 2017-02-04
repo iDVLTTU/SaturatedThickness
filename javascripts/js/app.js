@@ -5,7 +5,6 @@ idv.CONTOUR_DIV_ID = "myDiv";
 idv.TOTAL_WELLS = 10;
 idv.TOTAL_COLS = 588;
 idv.wellMap = {};
-idv.clicked = false;
 idv.timeChart = null;
 
 var wellXs = [];
