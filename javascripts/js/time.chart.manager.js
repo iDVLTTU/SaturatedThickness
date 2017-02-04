@@ -121,7 +121,7 @@ idv.timeChartManager.generateWellData = function(well) {
 
     wellData.push(label);
 
-    for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
+    for (var i=1; i< idv.timeChartManager.xAxis.length + 10; i++) {
         wellData.push(Math.round(Math.random()*200));
     }
 
