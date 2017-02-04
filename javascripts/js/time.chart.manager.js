@@ -2,7 +2,7 @@ var idv = idv || {};
 idv.timeChartManager = idv.timeChartManager || {};
 idv.timeChartManager.timeChart = null;
 idv.timeChartManager.dataColumnCount = 0;
-idv.timeChartManager.chartTypes = {};
+idv.timeChartManager.chartTypes = {}; // {key=>type}
 idv.timeChartManager.chartColumns = [];
 idv.timeChartManager.xAxis = [
     'year',
@@ -100,6 +100,13 @@ idv.timeChartManager.generateTimeChart = function() {
                     position: 'outer'
                 }
             }
+        },
+
+        legend: {
+            item: {
+                onmouseout: function(id) { idv.timeChartManager.resetWellChart();},
+                onmouseover: function (id) { idv.timeChartManager.activateWellAsAreaChart(id);}
+            }
         }
     });
 };
@@ -120,28 +127,16 @@ idv.timeChartManager.generateWellData = function(well) {
 idv.timeChartManager.updateTimeChartForWell = function(well){
 
     var label = 'well' + well.id;
-
-    var types = {};
     var colors = {};
 
-    debugger;
     if (well.active == true) {
         colors[label] = well.getMyColor();
         var newColumn = idv.timeChartManager.generateWellData(well);
         this.addColumn(newColumn);
     }
     else {
-        // idv.timeChartManager.timeChart.unload(
-        //     {
-        //         ids: [label]
-        //     }
-        // );
-
         this.removeColumn(label);
     }
-
-    // set up types
-
 
     idv.timeChartManager.timeChart.load({
         unload:  well.active === true ? [] : [label],
@@ -149,6 +144,23 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
         colors: colors,
         types: this.chartTypes
     });
-    // console.log(idv.timeChartManager.timeChart.data.names());
+};
 
+idv.timeChartManager.activateWellAsAreaChart = function(wellId) {
+    this.chartTypes[wellId] = "area";
+
+    idv.timeChartManager.timeChart.load({
+        columns: this.getColumns(),
+        types: this.chartTypes
+    });
+};
+
+idv.timeChartManager.resetWellChart = function() {
+
+    this.updateChartTypes();
+
+    idv.timeChartManager.timeChart.load({
+        columns: this.getColumns(),
+        types: this.chartTypes
+    });
 };
