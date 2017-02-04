@@ -21,16 +21,13 @@ var wellXs = [];
 var wellYs = [];
 var wellIds = [];
 
+//if (navigator.geolocation) {
+//    navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError);
+//} else { 
+//    x.innerHTML = "Geolocation is not supported by this browser.";
+//}
 
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError);
-    } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-
-
-idv.load = function() {
+//idv.load = function() {
     d3.csv('data/well_data.csv', function(error, allWellData) {
 
         var getWellDataForPoint = function(pointId) {
@@ -75,8 +72,10 @@ idv.load = function() {
 
             var layout = {
                 title: 'Saturated Thickness of Ogallala Aquifier in 2013',
-                width: 850,
-                height: 1000,
+                //width: 850,
+                //height: 1000,
+                width: 550,
+                height: 400,
 
                 xaxis: {
                     side: 'top'
@@ -169,7 +168,7 @@ idv.load = function() {
             idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, wellXs, wellYs, wellIds);
 
             // plot my position
-            idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
+            // idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
             //
             idv.wellManager.enableWellClick();
 
@@ -178,7 +177,7 @@ idv.load = function() {
             // console.log(idv.timeChart);
         });
     });
-};
+//};
 
 
 

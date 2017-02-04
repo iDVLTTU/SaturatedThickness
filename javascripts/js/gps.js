@@ -1,7 +1,8 @@
 var x = document.getElementById("demo");
 var idv = idv || {};
+
 idv.handlePositionSuccess = function(position) {
-    idv.myPosition = {lon: position.coords.longitude, lat: position.coords.latitude};
+   // idv.myPosition = {lon: position.coords.longitude, lat: position.coords.latitude};
     console.log("Position success");
 
     idv.load();
@@ -16,6 +17,7 @@ idv.showMyPosition = function(myPosition, plotMyPositionAtPointCallback) {
     var lon = myPosition.lon;
 
     d3.csv("data/raster_to_point.csv", function(error, rasterData) {
+        console.log("raster_to_point");
         var index = -1;
         var min = 1000;
         for (var i = 0; i < rasterData.length; i++) {
@@ -89,6 +91,8 @@ function showPosition(position) {
     var lon = position.coords.longitude;
       
     d3.csv("data/raster_to_point.csv", function(error, data2) { 
+      console.log("raster_to_point2");
+        
       var index =-1;
       var min = 1000;
       for (var i=0; i<data2.length;i++){
