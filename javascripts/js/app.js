@@ -74,11 +74,11 @@ idv.getClosestPointPixelDataForPosition = function(longtitude, latitude) {
         tmpPoint = idv.pointMap[pointId];
 
         if (min === null) {
-            min = distance(longtitude, latitude, tmpPoint);
+            min = distance(longtitude, latitude, tmpPoint["position"]);
             closestPoint = tmpPoint;
         }
         else {
-            currentDistance = distance(longtitude, latitude, tmpPoint);
+            currentDistance = distance(longtitude, latitude, tmpPoint["position"]);
             if (currentDistance < min) {
                 min = currentDistance;
                 closestPoint = tmpPoint;
@@ -114,7 +114,6 @@ idv.handleWellDataLoadComplete = function(allWellData) {
 
 
         if (!idv.wellMap.hasOwnProperty(tmpWell.Well_ID)) {
-            debugger;
             tmpPoint = this.getClosestPointPixelDataForPosition(myWells[tmpWell.Well_ID]["position"]["lon"], myWells[tmpWell.Well_ID]["position"]["lat"]);
 
             idv.wellMap[tmpWell.Well_ID] = {
@@ -203,6 +202,7 @@ idv.plotData = function () {
     // plot contour map
     plotContourMap(idv.CONTOUR_DIV_ID, idv.data2D);
 
+    debugger;
     // plot well on top of contour
     idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
 
