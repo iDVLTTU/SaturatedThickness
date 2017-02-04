@@ -1,11 +1,72 @@
 var idv = idv || {};
 idv.timeChartManager = idv.timeChartManager || {};
 idv.timeChartManager.timeChart = null;
+idv.timeChartManager.dataColumnCount = 0;
+idv.timeChartManager.chartTypes = {};
+idv.timeChartManager.chartColumns = [];
 idv.timeChartManager.xAxis = [
     'year',
     '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005',
     '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016'
 ];
+
+idv.timeChartManager.getColumns = function () {
+    return idv.timeChartManager.chartColumns;
+};
+
+idv.timeChartManager.updateChartTypes = function() {
+    for(var lbl in idv.timeChartManager.chartTypes) {
+        if (!idv.timeChartManager.chartTypes.hasOwnProperty(lbl)) {
+            continue;
+        }
+
+        idv.timeChartManager.chartTypes[lbl] = this.dataColumnCount > 1 ? "line" : "area";
+    }
+};
+
+
+idv.timeChartManager.addColumn = function(column) {
+    idv.timeChartManager.chartColumns.push(column);
+    if (column[0] == 'year') {
+        return; // do not process for x axis
+    }
+
+    this.dataColumnCount ++;
+    idv.timeChartManager.chartTypes[column[0]] = 'area';
+
+    this.updateChartTypes();
+
+};
+
+idv.timeChartManager.removeColumn = function(columnKey) {
+    var columnIndex = -1;
+    var tmpColumn;
+    for(var i = 0; i < idv.timeChartManager.chartColumns.length; i++) {
+        tmpColumn = idv.timeChartManager.chartColumns[i];
+        if (tmpColumn.length < 1) {
+            continue;
+        }
+
+        if (tmpColumn[0] == columnKey) {
+            columnIndex = i;
+            break;
+        }
+    }
+
+    if (columnIndex > -1) {
+        idv.timeChartManager.chartColumns.splice(columnIndex, 1);
+    }
+
+    if (this.dataColumnCount >0) {
+        this.dataColumnCount --;
+    }
+
+    delete this.chartTypes[columnKey];
+
+    this.updateChartTypes();
+};
+
+
 
 idv.timeChartManager.generateTimeChart = function() {
 
@@ -20,6 +81,8 @@ idv.timeChartManager.generateTimeChart = function() {
 
         }
     };
+
+    this.addColumn(idv.timeChartManager.xAxis);
 
     idv.timeChartManager.timeChart = c3.generate({
         bindto: '#wellTimeSeries',
@@ -55,25 +118,37 @@ idv.timeChartManager.generateWellData = function(well) {
 };
 
 idv.timeChartManager.updateTimeChartForWell = function(well){
+
     var label = 'well' + well.id;
 
+    var types = {};
+    var colors = {};
+
+    debugger;
     if (well.active == true) {
-        var colors = {};
         colors[label] = well.getMyColor();
-        var types = {};
-        types[label] = "area-spline";
         var newColumn = idv.timeChartManager.generateWellData(well);
-        idv.timeChartManager.timeChart.load({
-            columns: [idv.timeChartManager.xAxis, newColumn],
-            colors: colors,
-            types: types
-        });
+        this.addColumn(newColumn);
     }
     else {
-        idv.timeChartManager.timeChart.unload(
-            {
-                ids: [label]
-            }
-        );
+        // idv.timeChartManager.timeChart.unload(
+        //     {
+        //         ids: [label]
+        //     }
+        // );
+
+        this.removeColumn(label);
     }
+
+    // set up types
+
+
+    idv.timeChartManager.timeChart.load({
+        unload:  well.active === true ? [] : [label],
+        columns: this.getColumns(),
+        colors: colors,
+        types: this.chartTypes
+    });
+    // console.log(idv.timeChartManager.timeChart.data.names());
+
 };
