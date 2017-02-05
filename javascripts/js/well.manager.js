@@ -58,7 +58,11 @@ idv.wellManager.findWellFromCoords = function(x, y) {
 idv.wellManager.handleWellOnClick = function(well) {
 
     idv.wellManager.handleWellSingleClick(well);
+    debugger;
+    var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
+    map.setCenter(wellGPS);
+    addPoint(well);
     // var data = [
     //     {
     //         x: ['2013-10-04', '2013-11-04', '2013-12-04'],
@@ -68,8 +72,6 @@ idv.wellManager.handleWellOnClick = function(well) {
     // ];
     //
     // Plotly.newPlot('wellTimeSeries', data);
-
-    // console.log(well);
 };
 
 

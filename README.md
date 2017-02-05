@@ -8,3 +8,7 @@ https://tommy-dang.github.io/WaterLevel/Contour/
 This work is in collaboration with a group in the Civil Engineering department at TTU.
 
 ![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/Karim/ST_2013.jpg)
+
+## References
+
+Related project from CS5331: Visualization and Visual Analytics - Fall 2016. [Demo](http://myweb.ttu.edu/jataber/unemployment/) [Github](https://github.com/jmtaber129/unemployment-visualization)

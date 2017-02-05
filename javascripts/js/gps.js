@@ -2,7 +2,7 @@ var x = document.getElementById("demo");
 var idv = idv || {};
 
 idv.handlePositionSuccess = function(position) {
-   // idv.myPosition = {lon: position.coords.longitude, lat: position.coords.latitude};
+    idv.myPosition = {lon: position.coords.longitude, lat: position.coords.latitude};
     console.log("Position success");
 
     idv.load();

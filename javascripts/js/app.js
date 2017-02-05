@@ -1,4 +1,13 @@
-var idv = idv || {};
+/* 2017 
+ * Tommy Dang, Assistant professor, iDVL@TTU
+ * Long Nguyen, PhD student, iDVL@TTU
+ *
+ * THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ * WARRANTY.  IN PARTICULAR, THE AUTHORS MAKE NO REPRESENTATION OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY
+ * OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
+ */
+
+ var idv = idv || {};
 
 idv.CONTOUR_DIV_ID = "myDiv";
 idv.TOTAL_WELLS = 10;
@@ -11,6 +20,7 @@ idv.wellMap = {};
 idv.wellXs = [];
 idv.wellYs = [];
 idv.wellIds = [];
+
 
 idv.handlePixelDataLoadComplete = function(pixelData) {
     var pointId = 0;
@@ -213,7 +223,7 @@ idv.plotData = function () {
     idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
 
     // plot my position
-    idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
+    //idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
     //
     idv.wellManager.enableWellClick();
 
