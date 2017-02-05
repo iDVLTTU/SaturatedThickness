@@ -21,6 +21,7 @@ idv.wellXs = [];
 idv.wellYs = [];
 idv.wellIds = [];
 
+
 idv.handlePixelDataLoadComplete = function(pixelData) {
     var pointId = 0;
     var col = 0;

@@ -96,7 +96,6 @@ idv.timeChartManager.generateTimeChart = function() {
         }
     };
 
-    debugger;
     this.addColumn(idv.timeChartManager.xAxis);
 
     idv.timeChartManager.timeChart = c3.generate({
