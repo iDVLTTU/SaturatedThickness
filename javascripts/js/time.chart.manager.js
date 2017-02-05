@@ -193,3 +193,11 @@ idv.timeChartManager.resetWellChart = function() {
         types: this.chartTypes
     });
 };
+
+idv.timeChartManager.hideAverage = function() {
+    // split into multiple graph
+};
+
+idv.timeChartManager.showAverage = function() {
+    // merge into one graph
+};
