@@ -58,7 +58,6 @@ idv.wellManager.findWellFromCoords = function(x, y) {
 idv.wellManager.handleWellOnClick = function(well) {
 
     idv.wellManager.handleWellSingleClick(well);
-    debugger;
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
     map.setCenter(wellGPS);
