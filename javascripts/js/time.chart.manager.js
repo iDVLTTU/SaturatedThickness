@@ -101,9 +101,9 @@ idv.timeChartManager.generateTimeChart = function() {
     idv.timeChartManager.timeChart = c3.generate({
         bindto: '#wellTimeSeries',
         data: myData,
-        // line: {
-        //     connect_null: true
-        // },
+        line: {
+            connectNull: true
+        },
         axis: {
             y: {
                 label: { // ADD
@@ -119,6 +119,7 @@ idv.timeChartManager.generateTimeChart = function() {
                 },
                 tick: {
                     format: '%Y-%m-%d'
+                    // format: '%Y-%m'
                 }
             }
         },
@@ -136,9 +137,16 @@ idv.timeChartManager.generateWellData = function(well) {
     var wellData = [];
     var label = 'well' + well.id;
     wellData.push(label);
-
+    var tmpDateInXAxis;
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
-        wellData.push(Math.round(Math.random()*200));
+        tmpDateInXAxis = idv.timeChartManager.xAxis[i];
+        if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
+            // wellData.push(null);
+            wellData.push(Math.round(Math.random()*1000) + 500);
+            continue;
+        }
+
+        wellData.push(well.detail[tmpDateInXAxis]);
     }
 
     return wellData;
