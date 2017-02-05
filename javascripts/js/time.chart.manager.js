@@ -135,7 +135,6 @@ idv.timeChartManager.generateTimeChart = function() {
 idv.timeChartManager.generateWellData = function(well) {
     var wellData = [];
     var label = 'well' + well.id;
-    debugger;
     wellData.push(label);
 
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
@@ -159,7 +158,6 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
         this.removeColumn(label);
     }
 
-    debugger;
     var myColumns = this.getColumns();
     idv.timeChartManager.timeChart.load({
         unload:  well.active === true ? [] : [label],

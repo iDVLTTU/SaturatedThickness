@@ -5,11 +5,9 @@ var map = new google.maps.Map(d3.select("#map").node(), {
   mapTypeId: google.maps.MapTypeId.TERRAIN
 });
 
-function addPoint(){
-	var var1 = {};
-	var1.value=[-120.12,36.98];
+function addPoint(well){
 	var data = {};
-	data["TU"] = [-120.12,36.98,"AIR"];
+	data[well.id+" at "+ well.detail.county] = [well.detail.position.lon,well.detail.position.lat,"Well "+well.id];
 
 
 	
