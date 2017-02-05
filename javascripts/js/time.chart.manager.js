@@ -118,8 +118,8 @@ idv.timeChartManager.generateTimeChart = function() {
                     position: 'outer'
                 },
                 tick: {
-                    format: '%Y-%m-%d'
-                    // format: '%Y-%m'
+                    // format: '%Y-%m-%d'
+                    format: '%Y-%m'
                 }
             }
         },

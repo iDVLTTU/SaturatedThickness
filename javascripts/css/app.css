@@ -6,9 +6,8 @@ html, body {
 }
 
 
-#myWellInfo {
-    margin-top: 100px;
-    width: 100px;
+#boardController {
+    width: 100%;
     height: 100px;
-    /*background-color: #00A000*/
+    background-color: #00A000;
 }
