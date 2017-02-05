@@ -100,6 +100,10 @@ idv.handleWellDataLoadComplete = function(allWellData) {
     // idv.wellMap[wellData.Well_ID] = {
     for(var idx=0; idx < allWellData.length; idx++) {
         tmpWell = allWellData[idx];
+        if (!idv.pointMap.hasOwnProperty(tmpWell.Point_ID)) {
+            continue; // ignore well with no point coordinate
+        }
+        
         if (!myWells.hasOwnProperty(tmpWell.Well_ID)) {
             myWells[tmpWell.Well_ID] = {"totalMeasurementDate": 0};
             myWells[tmpWell.Well_ID]["county"] = tmpWell.County;
@@ -115,8 +119,8 @@ idv.handleWellDataLoadComplete = function(allWellData) {
 
 
         if (!idv.wellMap.hasOwnProperty(tmpWell.Well_ID)) {
-            tmpPoint = this.getClosestPointPixelDataForPosition(myWells[tmpWell.Well_ID]["position"]["lon"], myWells[tmpWell.Well_ID]["position"]["lat"]);
-
+            // tmpPoint = this.getClosestPointPixelDataForPosition(myWells[tmpWell.Well_ID]["position"]["lon"], myWells[tmpWell.Well_ID]["position"]["lat"]);
+            tmpPoint = idv.pointMap[tmpWell.Point_ID];
             idv.wellMap[tmpWell.Well_ID] = {
                 "id": tmpWell.Well_ID,
                 "pointId": tmpPoint.id,
@@ -149,9 +153,9 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         }
 
         idv.wellMap[tmpWell.Well_ID]["detail"] = myWells[tmpWell.Well_ID];
-        if(wellCount > 10) {
-            break;
-        }
+        // if(wellCount > 10) {
+        //     break;
+        // }
     }
 };
 
