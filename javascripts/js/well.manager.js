@@ -2,9 +2,14 @@ var idv = idv || {};
 idv.wellManager = idv.wellManager || {};
 
 idv.wellManager.DEFAULT_WELL_COLOR = "#000";
+idv.wellManager.activeWell = [];
 
 idv.wellManager.selectAllWells = function() {
     return d3.selectAll(".point");
+};
+
+idv.wellManager.getActiveWells = function() {
+    return this.activeWell;
 };
 
 idv.wellManager.updateWellColor = function(well) {
@@ -58,7 +63,6 @@ idv.wellManager.findWellFromCoords = function(x, y) {
 idv.wellManager.handleWellOnClick = function(well) {
 
     idv.wellManager.handleWellSingleClick(well);
-    debugger;
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
     map.setCenter(wellGPS);
@@ -81,9 +85,16 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 
 idv.wellManager.handleWellSingleClick = function(well) {
-    idv.clicked = false;
 
     well.active = !well.active; // active or deactive the well
+    if (well.active === true) {
+        this.activeWell.push(well.id);
+    }else {
+        var index = array.indexOf(well.id);
+        if (index > -1) {
+            this.activeWell.splice(index, 1);
+        }
+    }
 
     var updated = idv.wellManager.updateWellColor(well);
     // update time chart color if the well active

@@ -22,3 +22,8 @@ idv.util.getDateInYmd = function(year, month, date) {
     // return year + '-' + month + '-' + date;
     return year + '-' + month + '-15';
 };
+
+idv.util.getChartId = function(wellName) {
+    return "My" + wellName + 'TimeSeries';
+};
+

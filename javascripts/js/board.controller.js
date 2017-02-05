@@ -17,3 +17,8 @@ idv.controller.handleAverageClick = function(averageCheckBox) {
       idv.timeChartManager.hideAverage();
   }
 };
+
+idv.controller.isAverageActivated = function() {
+    var average = document.getElementById("average");
+    return average.checked === true;
+};

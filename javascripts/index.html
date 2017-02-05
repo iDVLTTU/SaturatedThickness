@@ -25,9 +25,11 @@
 
           </td>
           <td valign="top">
-            <div id="wellTimeSeries">
-            </div>
-              <input type="checkbox" value="average" name="average" onclick="idv.controller.handleAverageClick(this);"/> Show average
+              <input id="average" type="checkbox" value="average" name="average" onclick="idv.controller.handleAverageClick(this);"/> Show average
+              <div id="wellTimeSeries"></div>
+              <br/>
+              <div id="charts">
+              </div>
               <div id="boardController">
                   <svg width="100%" height="100%">
                       <text x="15" y="12" style="pointer-events: none;" >well233201</text>

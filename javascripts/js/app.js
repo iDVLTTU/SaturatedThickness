@@ -228,7 +228,9 @@ idv.plotData = function () {
     idv.wellManager.enableWellClick();
 
     // plot time chart
-    idv.timeChartManager.generateTimeChart();
+    idv.timeChartManager.generateTimeChart("wellTimeSeries");
+
+     // idv.timeChartManager.generateTimeChart("wellTimeSeries1");
     // console.log(idv.timeChart);
 };
 

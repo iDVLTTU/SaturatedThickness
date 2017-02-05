@@ -4,8 +4,17 @@ idv.timeChartManager.timeChart = null;
 idv.timeChartManager.dataColumnCount = 0;
 idv.timeChartManager.chartTypes = {}; // {key=>type}
 idv.timeChartManager.chartColumns = [];
+idv.timeChartManager.charts = [
+    {
+        name: 'chart1',
+        chartColumns: []
+    }
+];
 idv.timeChartManager.xAxis = [
     'year'
+];
+idv.timeChartManager.averageColumn = [
+    'average'
 ];
 // idv.timeChartManager.xAxis = [
 //     'year',
@@ -38,11 +47,33 @@ idv.timeChartManager.updateChartTypes = function() {
     }
 };
 
+idv.timeChartManager.updateAverageData = function () {
+    var tmpColumn;
+    var average = ['average'];
+
+    var totalValueAllColumn = 0;
+    // var totalColumns = 0;
+    for(var d=1; d< idv.timeChartManager.xAxis.length; d++) {
+        for(var i=0; i< idv.timeChartManager.chartColumns.length; i++) {
+            tmpColumn = idv.timeChartManager.chartColumns;
+            if (tmpColumn[0] == 'year' || tmpColumn[0] == 'average') {
+                continue; // do not process for x axis or average data
+            }
+
+            // totalColumns ++;
+            totalValueAllColumn += tmpColumn[d];
+        }
+
+        average.push(totalValueAllColumn / idv.timeChartManager.dataColumnCount);
+    }
+
+    idv.timeChartManager.averageColumn = average;
+};
 
 idv.timeChartManager.addColumn = function(column) {
     idv.timeChartManager.chartColumns.push(column);
-    if (column[0] == 'year') {
-        return; // do not process for x axis
+    if (column[0] == 'year' || column[0] == 'average') {
+        return; // do not process for x axis or average data
     }
 
     this.dataColumnCount ++;
@@ -80,10 +111,7 @@ idv.timeChartManager.removeColumn = function(columnKey) {
     this.updateChartTypes();
 };
 
-
-
-idv.timeChartManager.generateTimeChart = function() {
-
+idv.timeChartManager.generateMultiTimeCharts = function() {
     var myData = {
         x: 'year',
         columns: [
@@ -98,8 +126,8 @@ idv.timeChartManager.generateTimeChart = function() {
 
     this.addColumn(idv.timeChartManager.xAxis);
 
-    idv.timeChartManager.timeChart = c3.generate({
-        bindto: '#wellTimeSeries',
+    c3.generate({
+        bindto: '#wellTimeSeries0',
         data: myData,
         line: {
             connectNull: true
@@ -131,6 +159,64 @@ idv.timeChartManager.generateTimeChart = function() {
             }
         }
     });
+};
+
+
+idv.timeChartManager.generateTimeChart = function(bindToId) {
+
+    console.log("generating chart for id#" + bindToId);
+    var myData = {
+        x: 'year',
+        columns: [
+            idv.timeChartManager.xAxis
+        ],
+        colors: {
+        },
+        types: {
+
+        }
+    };
+
+    var timeChart = c3.generate({
+        bindto: ("#" + bindToId),
+        data: myData,
+        line: {
+            connectNull: true
+        },
+        axis: {
+            y: {
+                label: { // ADD
+                    text: 'Water Elevation',
+                    position: 'outer-middle'
+                }
+            },
+            x: {
+                type: 'timeseries',
+                label: {
+                    text: 'Year',
+                    position: 'outer'
+                },
+                tick: {
+                    // format: '%Y-%m-%d'
+                    format: '%Y-%m'
+                }
+            }
+        },
+
+        legend: {
+            item: {
+                onmouseout: function(id) { idv.timeChartManager.resetWellChart();},
+                onmouseover: function (id) { idv.timeChartManager.activateWellAsAreaChart(id);}
+            }
+        }
+    });
+
+    if (bindToId == 'wellTimeSeries') {
+        idv.timeChartManager.timeChart = timeChart;
+    }
+    else {
+        idv.timeChartManager.charts[bindToId] = timeChart;
+    }
 };
 
 idv.timeChartManager.generateWellData = function(well) {
@@ -166,38 +252,89 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
         this.removeColumn(label);
     }
 
-    var myColumns = this.getColumns();
-    idv.timeChartManager.timeChart.load({
-        unload:  well.active === true ? [] : [label],
-        columns: myColumns,
-        colors: colors,
-        types: this.chartTypes
-    });
+    this.refreshTimeChart(colors, null, null, well.active === true ? [] : [label]);
+
 };
 
 idv.timeChartManager.activateWellAsAreaChart = function(wellId) {
     this.chartTypes[wellId] = "area";
 
-    idv.timeChartManager.timeChart.load({
-        columns: this.getColumns(),
-        types: this.chartTypes
-    });
+    this.refreshTimeChart();
 };
 
 idv.timeChartManager.resetWellChart = function() {
 
     this.updateChartTypes();
 
+    this.refreshTimeChart();
+};
+
+idv.timeChartManager.refreshTimeChart = function(colors, types, columns, unloads) {
+    var myColumns = columns == null ? this.getColumns() : columns;
+
     idv.timeChartManager.timeChart.load({
-        columns: this.getColumns(),
-        types: this.chartTypes
+        columns: myColumns.concat([this.xAxis]),
+        types: types == null ? this.chartTypes : types,
+        unload:  unloads == null ? [] : unloads,
+        colors: colors == null ? [] : colors
+
     });
 };
 
 idv.timeChartManager.hideAverage = function() {
     // split into multiple graph
+    // this.removeColumn('average')
 };
 
 idv.timeChartManager.showAverage = function() {
     // merge into one graph
+    // d3.selectAll('body').selectAll("#charts").selectAll('div')
+    //     .data([null, null, null])
+    //     .enter().append("div")
+    //         .attr("id", function(d, i) {
+    //
+    //             return idv.util.getChartId(i);
+    //         })
+    // ;
+
+
+    var wells = idv.wellManager.getActiveWells();
+    if (wells.length < 2) {
+        alert("Expect to have more than one active well to show average");
+        return;
+    }
+
+    var rootElement = document.getElementById("charts");
+    var element;
+    for(var i =0; i< wells.length; i++) {
+        element = document.createElement("div");
+        element.setAttribute("id", idv.util.getChartId(wells[i]));
+        rootElement.appendChild(element)
+    }
+
+    d3.selectAll('body').selectAll("#charts").selectAll('div')
+        .each(
+            function () {
+                idv.timeChartManager.generateTimeChart(this.id);
+            }
+        )
+    ;
 };
+
+idv.timeChartManager.isWellData = function (d) {
+    if (d[0] == 'average' || d[0] == 'year') {
+        return false;
+    }
+
+    return true;
+};
+
+idv.timeChartManager.getChartInstance = function(bindId) {
+
+    if (!idv.controller.isAverageActivated()) {
+        return this.timeChart;
+    }
+
+    return bindId == 'wellTimeSeries' ? this.timeChart : this.charts[bindId];
+};
+
