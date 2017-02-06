@@ -86,11 +86,12 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 idv.wellManager.handleWellSingleClick = function(well) {
 
+    debugger;
     well.active = !well.active; // active or deactive the well
     if (well.active === true) {
         this.activeWell.push(well.id);
     }else {
-        var index = array.indexOf(well.id);
+        var index = this.activeWell.indexOf(well.id);
         if (index > -1) {
             this.activeWell.splice(index, 1);
         }
