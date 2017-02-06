@@ -63,7 +63,7 @@ idv.wellManager.handleWellOnClick = function(well) {
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
     selectedWells.push(well);
-    addPoint();
+    redrawMap();
     map.setCenter(wellGPS);
     // var data = [
     //     {

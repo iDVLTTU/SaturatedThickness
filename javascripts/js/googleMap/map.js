@@ -1,10 +1,21 @@
+/* 2017 
+ * Tommy Dang, Assistant professor, iDVL@TTU
+ *
+ * THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ * WARRANTY.  IN PARTICULAR, THE AUTHORS MAKE NO REPRESENTATION OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY
+ * OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
+ */
+
 var map;
 var overlay;
 var layer;
 var bounds;
 var selectedWells=[];
 
-init();
+// Add a default well
+//selectedWells.push(idv.wellMap["233701"]);
+redrawMap();
+
 function init(){
 	map      = new google.maps.Map(d3.select("#map").node(),{
        zoom: 8,
@@ -13,7 +24,6 @@ function init(){
       mapTypeId: google.maps.MapTypeId.TERRAIN
     });
     bounds   = new google.maps.LatLngBounds();
-
   	overlay  = new google.maps.OverlayView();
     overlay.onAdd = function() {
       layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "stations");
@@ -21,7 +31,9 @@ function init(){
 }
 
 
-function addPoint() {
+
+
+function redrawMap() {
   	init();  // Reload a new map ***************
 
     var data = {};
@@ -37,7 +49,10 @@ function addPoint() {
                         .enter().append("svg:svg")
                         .each(transform)
                         .attr("class", "marker");
-
+      
+    //if (selectedWells.length>0)                    
+      layer.selectAll("svg").call(tip);
+                   
       // Add a circle.
       marker.append("svg:circle")
                         .attr("r", 4)
@@ -47,7 +62,7 @@ function addPoint() {
                         .attr("fill", function(d){
 				          	return d.value.getMyColor();
 				          })
-                        .on("mouseover",mouseover)
+                        .on("mouseover",showTip)
                         .on("mouseout",mouseout);
 
       // Add a label.
@@ -89,12 +104,6 @@ function addPoint() {
   //setInterval(function(){
   //  glow.toggleClass('glow');
   //}, 1000);
-    
-    
-
-
-
-
 
 // Create the Google Map…
 /*var map = new google.maps.Map(d3.select("#map").node(), {
