@@ -27,20 +27,31 @@ function showTip(d) {
     .html(function(d) {
       var str ="";
       debugger;
-      str+="<b> Index card data: </b>"
+      str+="<b> Well data: </b>"
         str+="<table border='0.5px'  style='width:100%'>"
         for (key in d.value) {
           if (key== "getMyColor" || key== "minX"|| key== "minY"|| key== "maxX"|| key== "maxY"
-            || key== "pointId")
+            || key== "pointId" || key== "pointY"|| key== "color")
             ;
+          else if (key== "pointX"){
+            var value1 = d.value[key];
+            var value2 = d.value["pointY"];
+            str+=  "<tr><td> Point </td> <td>  <span style='color:black'>("+value1+", "+value2+")</span> </td></tr>";
+          }
           else if (key== "detail"){
             for (key2 in d.value.detail) {
-              if (key2== "position"){
-                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:blue'>(" + d.value.detail[key2].lat+","+ d.value.detail[key2].lon+ ")</span> </td></tr>";
+              if (key2== "totalMeasurementDate"){
+                ;
+              }  
+              else if (key2== "position"){
+                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:black'>(" + d.value.detail[key2].lat+", "+ d.value.detail[key2].lon+ ")</span> </td></tr>";
+              } 
+              else if (key2== "county"){
+                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:black'>" + d.value.detail[key2]+"</span> </td></tr>";
               } 
               else{ 
                 var value2 = d.value.detail[key2];    
-                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:blue'>" + value2 + "</span> </td></tr>";
+                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:"+ d.value.getMyColor()+"; text-shadow: 0px 1px 1px #000000;'> &nbsp; &nbsp; " + Math.round(value2) + "</span> </td></tr>";
               }
             }  
           }
