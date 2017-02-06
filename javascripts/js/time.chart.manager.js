@@ -48,20 +48,27 @@ idv.timeChartManager.updateChartTypes = function() {
 };
 
 idv.timeChartManager.updateAverageData = function () {
+
+    if (idv.timeChartManager.dataColumnCount < 2) {
+        return;
+    }
+    debugger;
     var tmpColumn;
     var average = ['average'];
 
-    var totalValueAllColumn = 0;
+    var totalValueAllColumn;
+    var myCols = idv.timeChartManager.getColumns();
     // var totalColumns = 0;
     for(var d=1; d< idv.timeChartManager.xAxis.length; d++) {
-        for(var i=0; i< idv.timeChartManager.chartColumns.length; i++) {
-            tmpColumn = idv.timeChartManager.chartColumns;
+        totalValueAllColumn = 0;
+        for(var i=0; i< myCols.length; i++) {
+            tmpColumn = myCols[i];
             if (tmpColumn[0] == 'year' || tmpColumn[0] == 'average') {
                 continue; // do not process for x axis or average data
             }
 
             // totalColumns ++;
-            totalValueAllColumn += tmpColumn[d];
+            totalValueAllColumn += parseFloat(tmpColumn[d]);
         }
 
         average.push(totalValueAllColumn / idv.timeChartManager.dataColumnCount);
@@ -80,6 +87,7 @@ idv.timeChartManager.addColumn = function(column) {
     idv.timeChartManager.chartTypes[column[0]] = 'area';
 
     this.updateChartTypes();
+    this.updateAverageData();
 
 };
 
@@ -244,6 +252,7 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
     var colors = {};
 
     if (well.active == true) {
+        debugger;
         colors[label] = well.getMyColor();
         var newColumn = idv.timeChartManager.generateWellData(well);
         this.addColumn(newColumn);
@@ -271,9 +280,9 @@ idv.timeChartManager.resetWellChart = function() {
 
 idv.timeChartManager.refreshTimeChart = function(colors, types, columns, unloads) {
     var myColumns = columns == null ? this.getColumns() : columns;
-    myColumns.concat([this.xAxis]);
+    var tmpCols =  myColumns.concat([this.xAxis]);
     idv.timeChartManager.timeChart.load({
-        columns: myColumns.concat([this.xAxis]),
+        columns: tmpCols,
         types: types == null ? this.chartTypes : types,
         unload:  unloads == null ? [] : unloads,
         colors: colors == null ? [] : colors
@@ -326,7 +335,7 @@ idv.timeChartManager.showAverage = function() {
 
                 myColors[wellName] = myWell.getMyColor();
                 // var
-                idv.timeChartManager.generateTimeChart(this.id, [cols], myColors, null);
+                idv.timeChartManager.generateTimeChart(this.id, [cols, idv.timeChartManager.averageColumn], myColors, null);
             }
         )
     ;
