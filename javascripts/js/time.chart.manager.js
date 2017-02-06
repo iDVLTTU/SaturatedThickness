@@ -215,8 +215,16 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
 
         legend: {
             item: {
-                onmouseout: function(id) { idv.timeChartManager.resetWellChart();},
-                onmouseover: function (id) { idv.timeChartManager.activateWellAsAreaChart(id);}
+                onmouseout: function(id) {
+                    if (bindToId == 'wellTimeSeries') {
+                        idv.timeChartManager.resetWellChart();
+                    }
+                },
+                onmouseover: function (id) {
+                    if (bindToId == 'wellTimeSeries') {
+                        idv.timeChartManager.activateWellAsAreaChart(id);
+                    }
+                }
             }
         }
     });
