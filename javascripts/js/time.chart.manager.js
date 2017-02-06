@@ -177,7 +177,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
     var myCols = (columns == null || columns == undefined) ? [] : columns;
     var tmpCols = myCols.concat([idv.timeChartManager.xAxis]);
     var myColors = (colors == null || colors == undefined) ? {} : colors;
-    var myTypes = (myTypes == null || myTypes == undefined) ? {} : types;
+    var myTypes = (types == null || types == undefined) ? {} : types;
     var myData = {
         x: 'year',
         columns: tmpCols,
@@ -334,8 +334,12 @@ idv.timeChartManager.showAverage = function() {
                 }
 
                 myColors[wellName] = myWell.getMyColor();
+                var types = {
+                    'average': 'area'
+                };
+                types[wellName] = 'area';
                 // var
-                idv.timeChartManager.generateTimeChart(this.id, [cols, idv.timeChartManager.averageColumn], myColors, null);
+                idv.timeChartManager.generateTimeChart(this.id, [cols, idv.timeChartManager.averageColumn], myColors, types);
             }
         )
     ;
