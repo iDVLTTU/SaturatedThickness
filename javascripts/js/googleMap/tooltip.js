@@ -30,13 +30,18 @@ function showTip(d) {
       str+="<b> Index card data: </b>"
         str+="<table border='0.5px'  style='width:100%'>"
         for (key in d.value) {
-          if (key== "getMyColor")
+          if (key== "getMyColor" || key== "minX"|| key== "minY"|| key== "maxX"|| key== "maxY"
+            || key== "pointId")
             ;
           else if (key== "detail"){
             for (key2 in d.value.detail) {
-                
+              if (key2== "position"){
+                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:blue'>(" + d.value.detail[key2].lat+","+ d.value.detail[key2].lon+ ")</span> </td></tr>";
+              } 
+              else{ 
                 var value2 = d.value.detail[key2];    
                 str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:blue'>" + value2 + "</span> </td></tr>";
+              }
             }  
           }
           else{
