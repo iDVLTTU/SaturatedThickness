@@ -3,10 +3,12 @@
   height: 500px;
   margin: 0;
   padding: 0;
+  z-index: -1;
 }
 
 .stations, .stations svg {
   position: absolute;
+  z-index: 122;
 }
 
 .stations svg {
@@ -14,9 +16,11 @@
   height: 20px;
   padding-right: 100px;
   font: 10px sans-serif;
+  z-index: 123;
 }
 
 .stations circle {
   stroke: black;
   stroke-width: 0.5px;
+  z-index: 125;
 }
