@@ -3,24 +3,28 @@
   height: 500px;
   margin: 0;
   padding: 0;
-  z-index: -1;
 }
 
 .stations, .stations svg {
-  position: absolute;
-  z-index: 122;
-}
-
-.stations svg {
-  width: 60px;
-  height: 20px;
-  padding-right: 100px;
-  font: 10px sans-serif;
-  z-index: 123;
-}
-
-.stations circle {
-  stroke: black;
-  stroke-width: 0.5px;
-  z-index: 125;
-}
+    position: absolute;}
+  
+  .stations svg {
+    width: 60px;
+    height: 20px;
+    padding-right: 100px;
+    font: 12px sans-serif; }
+  
+  .stations circle {
+    stroke: black;
+    stroke-width: 0.5px;
+    -webkit-animation-name: redPulse;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite; }
+  
+  .stations circle:hover {
+    stroke-width: 1.5px;
+    cursor: pointer; }
+  
+  .marker_text {
+    fill: black;
+    visibility: hidden; }

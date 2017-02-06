@@ -65,9 +65,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
       var temp_a=['London', 'Washington'];
-
-      London = [{"latitude": "51.5112139", "long_name": "London, UK", "added": "2013-07-30T07:53:51", "location": "London", "longitude": "-0.1198244"}]
-
       var temp_d=['Capital of Great Britain', 'Capital of the United States'];
     
       var map;
@@ -78,8 +75,11 @@
     
       var n={}
       function initialize() {
-        options  = { zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN }
-        map      = new google.maps.Map(d3.select("#map_canvas").node(),options);
+        map      = new google.maps.Map(d3.select("#map_canvas").node(),{
+           zoom: 8,
+          center: new google.maps.LatLng(32.24, -101.479),
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+        });
         bounds   = new google.maps.LatLngBounds();
         overlay  = new google.maps.OverlayView();
         overlay.onAdd = function() {
@@ -88,12 +88,10 @@
       }
     
     
-    
-    
-    
       function add(inp) {
         data=JSON.parse(inp)
         console.log(data)
+        debugger;
     
         overlay.draw = function() {
           var projection = this.getProjection(), padding = 10;
@@ -144,38 +142,6 @@
         overlay.setMap(map);
       }
     
-    
-      function codeAddress(desc,address,i,temp_res) { 
-        var sAddress    = address
-        var desc        = desc
-    
-        // When using a local server for caching, you can't use Google Geocoder
-        // In this example I've just attached filed, but when you have your own geocoder server-side change it to 
-        // something like $.get('/geocoder/'+address, function(results) {
-        $.get(address, function(results) {
-          console.log(results)
-          results=JSON.parse(results)
-    
-          // Extend the bounds so that the map fits the markers
-          var myLatLng = new google.maps.LatLng(results[0].latitude, results[0].longitude);
-          bounds.extend(myLatLng)
-    
-          // I'm sure this is a death sin format, but it works.
-          // Create some temporary variables to pass on to the next iteration
-          temp_res+=',"'+desc+'":'+'['+results[0].longitude+','+results[0].latitude+',"'+desc+'",[]]'
-          desc=temp_d[i]
-          addr=temp_a[i]
-          // Make the callback, and make sure to include your results
-          // These data doesn't exist on execution time
-          c(desc,addr,i,temp_res)
-        });   
-      }
-    
-      function c(desc,addr,i,temp_res) {
-        if (i>=temp_a.length) { console.log('Completed lookups'); add('{'+temp_res.substring(1)+'}'); map.fitBounds(bounds); return; }                
-        i+=1
-        codeAddress(desc,addr,i,temp_res)
-      }
       
       // Make the markers glow
       var glow = $('.stations');
@@ -184,7 +150,7 @@
       }, 1000);
     
       initialize();    
-      c(temp_d[0],temp_a[0],0,'')
+      
     });
 </script>
 </head>
