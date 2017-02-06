@@ -212,7 +212,9 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 }
             }
         },
-
+        point: {
+            show: false
+        },
         legend: {
             item: {
                 onmouseout: function(id) {
