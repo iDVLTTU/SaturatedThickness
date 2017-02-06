@@ -13,9 +13,11 @@ idv.timeChartManager.charts = [
 idv.timeChartManager.xAxis = [
     'year'
 ];
-idv.timeChartManager.averageColumn = [
-    'average'
-];
+idv.timeChartManager.wellAverage = {
+    data: ['average'],
+    color: '#000'
+
+};
 // idv.timeChartManager.xAxis = [
 //     'year',
 //     '2010-01-01', '1996-01-01', '1997-01-01', '1998-01-01', '1999-01-01', '2000-01-01', '2001-01-01', '2002-01-01',
@@ -74,7 +76,7 @@ idv.timeChartManager.updateAverageData = function () {
         average.push(totalValueAllColumn / idv.timeChartManager.dataColumnCount);
     }
 
-    idv.timeChartManager.averageColumn = average;
+    idv.timeChartManager.wellAverage.data = average;
 };
 
 idv.timeChartManager.addColumn = function(column) {
@@ -328,7 +330,9 @@ idv.timeChartManager.showAverage = function() {
                 var wellName = idv.util.getWellNameFromChartId(this.id);
                 var cols = idv.timeChartManager.getColumnDataByKey(wellName);
                 var myWell = idv.wellMap[wellId];
-                var myColors = {};
+                var myColors = {
+                    'average': idv.timeChartManager.wellAverage.color
+                };
                 if (myWell.active === false) {
                     throw new Error("The well must be active");
                 }
@@ -339,7 +343,7 @@ idv.timeChartManager.showAverage = function() {
                 };
                 types[wellName] = 'area';
                 // var
-                idv.timeChartManager.generateTimeChart(this.id, [cols, idv.timeChartManager.averageColumn], myColors, types);
+                idv.timeChartManager.generateTimeChart(this.id, [cols, idv.timeChartManager.wellAverage.data], myColors, types);
             }
         )
     ;
