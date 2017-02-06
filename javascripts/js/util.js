@@ -27,3 +27,11 @@ idv.util.getChartId = function(wellName) {
     return "My" + wellName + 'TimeSeries';
 };
 
+idv.util.getWellNameFromChartId = function(chartId) {
+   return "well" + chartId.substring(2, chartId.length - 10);
+};
+
+idv.util.getWellIdFromChartId = function(chartId) {
+    return chartId.substring(2, chartId.length - 10);
+};
+

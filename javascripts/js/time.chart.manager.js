@@ -162,19 +162,19 @@ idv.timeChartManager.generateMultiTimeCharts = function() {
 };
 
 
-idv.timeChartManager.generateTimeChart = function(bindToId) {
+idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, types) {
 
     console.log("generating chart for id#" + bindToId);
+    debugger;
+    var myCols = (columns == null || columns == undefined) ? [] : columns;
+    var tmpCols = myCols.concat([idv.timeChartManager.xAxis]);
+    var myColors = (colors == null || colors == undefined) ? {} : colors;
+    var myTypes = (myTypes == null || myTypes == undefined) ? {} : types;
     var myData = {
         x: 'year',
-        columns: [
-            idv.timeChartManager.xAxis
-        ],
-        colors: {
-        },
-        types: {
-
-        }
+        columns: tmpCols,
+        colors: myColors,
+        types: myTypes
     };
 
     var timeChart = c3.generate({
@@ -271,7 +271,7 @@ idv.timeChartManager.resetWellChart = function() {
 
 idv.timeChartManager.refreshTimeChart = function(colors, types, columns, unloads) {
     var myColumns = columns == null ? this.getColumns() : columns;
-
+    myColumns.concat([this.xAxis]);
     idv.timeChartManager.timeChart.load({
         columns: myColumns.concat([this.xAxis]),
         types: types == null ? this.chartTypes : types,
@@ -315,7 +315,18 @@ idv.timeChartManager.showAverage = function() {
     d3.selectAll('body').selectAll("#charts").selectAll('div')
         .each(
             function () {
-                idv.timeChartManager.generateTimeChart(this.id);
+                var wellId = idv.util.getWellIdFromChartId(this.id);
+                var wellName = idv.util.getWellNameFromChartId(this.id);
+                var cols = idv.timeChartManager.getColumnDataByKey(wellName);
+                var myWell = idv.wellMap[wellId];
+                var myColors = {};
+                if (myWell.active === false) {
+                    throw new Error("The well must be active");
+                }
+
+                myColors[wellName] = myWell.getMyColor();
+                // var
+                idv.timeChartManager.generateTimeChart(this.id, [cols], myColors, null);
             }
         )
     ;
@@ -327,6 +338,23 @@ idv.timeChartManager.isWellData = function (d) {
     }
 
     return true;
+};
+
+/**
+ * The key is "well" + wellId
+ * @param key
+ */
+idv.timeChartManager.getColumnDataByKey = function(key) {
+    var myColumns = this.getColumns();
+    var tmpCol;
+    for(var i=0; i< myColumns.length; i++) {
+        tmpCol = myColumns[i];
+        if (tmpCol[0] == key) {
+            return tmpCol;
+        }
+    }
+
+    return null;
 };
 
 idv.timeChartManager.getChartInstance = function(bindId) {
