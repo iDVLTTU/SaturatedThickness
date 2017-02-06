@@ -44,9 +44,7 @@ function addPoint(well){
 	          .attr("fill", function(d){
 	          	return d.value.getMyColor();
 	          })
-	          .on("mouseover", function(d){
-	          	debugger;
-	          });
+	          .on("mouseover",function(d){ console.log("AA"+d.key); })
 
 	      // Add a label.
 	      marker.append("text")

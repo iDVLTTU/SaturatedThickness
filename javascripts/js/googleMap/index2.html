@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="http://square.github.io/crossfilter/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    
+    
+    <style type="text/css">
+        .stations, .stations svg {
+          position: absolute;
+          color: red; }
+        
+        @-webkit-keyframes redPulse {
+          from {
+            fill: #ff8e8e;
+            -webkit-box-shadow: 0 0 9px #333; }
+        
+          50% {
+            fill: #ff4444;
+            -webkit-box-shadow: 0 0 18px #91bd09; }
+        
+          to {
+            fill: #ff8e8e;
+            -webkit-box-shadow: 0 0 9px #333; } }
+        
+        .stations svg {
+          width: 60px;
+          height: 20px;
+          padding-right: 100px;
+          font: 12px sans-serif; }
+        
+        .stations circle {
+          fill: red;
+          stroke: black;
+          stroke-width: 1px;
+          -webkit-animation-name: redPulse;
+          -webkit-animation-duration: 2s;
+          -webkit-animation-iteration-count: infinite; }
+        
+        .stations circle:hover {
+          fill: blue;
+          cursor: pointer; }
+        
+        .marker_text {
+          fill: black;
+          visibility: hidden; }
+        
+        html {
+          height: 100%;
+          width: 100%; }
+
+        body {
+          height: 100%;
+          width: 100%; }
+        
+        #map_canvas {
+          width: 100%;
+          height: 100%; }
+</style>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      var temp_a=['London', 'Washington'];
+
+      London = [{"latitude": "51.5112139", "long_name": "London, UK", "added": "2013-07-30T07:53:51", "location": "London", "longitude": "-0.1198244"}]
+
+      var temp_d=['Capital of Great Britain', 'Capital of the United States'];
+    
+      var map;
+      var overlay;
+      var layer;
+      var bounds;
+    
+    
+      var n={}
+      function initialize() {
+        options  = { zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN }
+        map      = new google.maps.Map(d3.select("#map_canvas").node(),options);
+        bounds   = new google.maps.LatLngBounds();
+        overlay  = new google.maps.OverlayView();
+        overlay.onAdd = function() {
+          layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "stations");
+        }
+      }
+    
+    
+    
+    
+    
+      function add(inp) {
+        data=JSON.parse(inp)
+        console.log(data)
+    
+        overlay.draw = function() {
+          var projection = this.getProjection(), padding = 10;
+          var marker = layer.selectAll("svg").data(d3.entries(data)).each(transform)
+                            .enter().append("svg:svg")
+                            .each(transform)
+                            .attr("class", "marker");
+    
+          // Add a circle.
+          marker.append("svg:circle")
+                            .attr("r", 4.5)
+                            .attr("cx", padding)
+                            .attr("cy", padding)
+                            .on("click",expandNode)
+                            .on("dblclick",contractNode)
+                            .on("mouseover",function(d){ console.log(d.key); })
+                            //.on("mouseout",contractNode);
+    
+          // Add a label.
+          marker.append("svg:text")
+                            .attr("x", padding + 7)
+                            .attr("y", padding)
+                            .attr("dy", ".31em")
+                            .attr("class","marker_text")
+                            .text(function(d) {return d.key; });
+    
+          function transform(d) {
+            d = new google.maps.LatLng(d.value[1], d.value[0]);
+            d = projection.fromLatLngToDivPixel(d);
+            return d3.select(this).style("left", (d.x - padding) + "px").style("top", (d.y - padding) + "px");
+          }
+          // provides node animation for mouseover
+          function expandNode() {
+            d3.select(this).transition()
+                            .duration(100)
+                            .attr("r",7)
+          };
+    
+    
+          // provides node animation for mouseout
+          function contractNode(){
+            d3.select(this).transition()
+                            .duration(100)
+                            .attr("r",4.5)
+          };
+        };
+    
+        overlay.setMap(map);
+      }
+    
+    
+      function codeAddress(desc,address,i,temp_res) { 
+        var sAddress    = address
+        var desc        = desc
+    
+        // When using a local server for caching, you can't use Google Geocoder
+        // In this example I've just attached filed, but when you have your own geocoder server-side change it to 
+        // something like $.get('/geocoder/'+address, function(results) {
+        $.get(address, function(results) {
+          console.log(results)
+          results=JSON.parse(results)
+    
+          // Extend the bounds so that the map fits the markers
+          var myLatLng = new google.maps.LatLng(results[0].latitude, results[0].longitude);
+          bounds.extend(myLatLng)
+    
+          // I'm sure this is a death sin format, but it works.
+          // Create some temporary variables to pass on to the next iteration
+          temp_res+=',"'+desc+'":'+'['+results[0].longitude+','+results[0].latitude+',"'+desc+'",[]]'
+          desc=temp_d[i]
+          addr=temp_a[i]
+          // Make the callback, and make sure to include your results
+          // These data doesn't exist on execution time
+          c(desc,addr,i,temp_res)
+        });   
+      }
+    
+      function c(desc,addr,i,temp_res) {
+        if (i>=temp_a.length) { console.log('Completed lookups'); add('{'+temp_res.substring(1)+'}'); map.fitBounds(bounds); return; }                
+        i+=1
+        codeAddress(desc,addr,i,temp_res)
+      }
+      
+      // Make the markers glow
+      var glow = $('.stations');
+      setInterval(function(){
+        glow.toggleClass('glow');
+      }, 1000);
+    
+      initialize();    
+      c(temp_d[0],temp_a[0],0,'')
+    });
+</script>
+</head>
+<body>
+<div id='map_canvas'></div>
+</body>
+</html>
