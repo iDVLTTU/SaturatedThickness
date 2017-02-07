@@ -60,13 +60,16 @@ idv.wellManager.findWellFromCoords = function(x, y) {
     return foundWell;
 };
 
+
+// Event Click on a well in contour map
 idv.wellManager.handleWellOnClick = function(well) {
 
     idv.wellManager.handleWellSingleClick(well);
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
+    selectedWells.push(well);
+    redrawMap();
     map.setCenter(wellGPS);
-    addPoint(well);
     // var data = [
     //     {
     //         x: ['2013-10-04', '2013-11-04', '2013-12-04'],
@@ -133,8 +136,8 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, wellXCoordinate
         name: "Well",
         text: wellIds,
         marker: {
-            size: 10,
-            color: idv.wellManager.DEFAULT_WELL_COLOR
+            size: 7,
+            color: "rgba(0, 0, 0, 0.75)"
         }
     };
 
