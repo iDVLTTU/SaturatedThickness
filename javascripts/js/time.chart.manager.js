@@ -303,8 +303,13 @@ idv.timeChartManager.refreshTimeChart = function(colors, types, columns, unloads
 };
 
 idv.timeChartManager.hideAverage = function() {
-    // split into multiple graph
-    // this.removeColumn('average')
+
+    var chartContainer = document.getElementById("charts");
+    if (chartContainer != null) {
+        while (chartContainer.firstChild) {
+            chartContainer.removeChild(chartContainer.firstChild);
+        }
+    }
 };
 
 idv.timeChartManager.showAverage = function() {
