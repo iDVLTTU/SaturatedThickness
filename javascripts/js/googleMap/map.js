@@ -20,6 +20,10 @@ var numberNearestWell=9;
 //selectedWells.push(idv.wellMap["233701"]);
 redrawMap();
 
+
+ 
+
+
 function init(){
 	map      = new google.maps.Map(d3.select("#map").node(),{
        zoom: mapZoom,
@@ -43,6 +47,11 @@ function redrawMap(wellList) {
     	data[well.id+" at "+ well.detail.county] = well;
     }
 	
+
+    var mapDiv = d3.select("#map");
+    google.maps.event.addDomListener(mapDiv, 'click', function() {
+          window.alert('Map was clicked!');
+        });
 
    overlay.draw = function() {
       var projection = this.getProjection(), padding = 10;
@@ -71,6 +80,33 @@ function redrawMap(wellList) {
                         .attr("dy", ".31em")
                         .attr("class","marker_text")
                         .text(function(d) {return d.key; });
+
+      d3.select("svg").on("mousedown.log", function() {
+  console.log(projection.invert(d3.mouse(this)));
+});
+
+
+
+
+    google.maps.event.addListener(map, 'click', function (event) {
+      debugger;
+              displayCoordinates(event.latLng);               
+          });
+ 
+function displayCoordinates(pnt) {
+          var coordsLabel = document.getElementById("tdCursor");
+          var lat = pnt.lat();
+          lat = lat.toFixed(4);
+          var lng = pnt.lng();
+          lng = lng.toFixed(4);
+          coordsLabel.innerHTML = "Latitude: " + lat + "  Longitude: " + lng;
+      }
+
+   // google.maps.event.addListener(map, 'mousemove', function (event) {
+   //             displayCoordinates(event.latLng);               
+   //       });
+
+
 
       function transform(d) {
         //d = new google.maps.LatLng(d.value[1], d.value[0]);
