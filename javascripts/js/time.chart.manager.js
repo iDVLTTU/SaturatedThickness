@@ -215,7 +215,7 @@ idv.timeChartManager.generateWellData = function(well) {
     return wellData;
 };
 
-idv.timeChartManager.updateTimeChartForWell = function(well){
+idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart){
 
     var label = 'well' + well.id;
     var colors = {};
@@ -230,7 +230,9 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
         this.removeColumn(label);
     }
 
-    this.refreshTimeChart(colors, null, null, well.active === true ? [] : [label]);
+    if (!!refreshChart) {
+        this.refreshTimeChart(colors, null, null, well.active === true ? [] : [label]);
+    }
 
 };
 

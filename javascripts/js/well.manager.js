@@ -89,21 +89,100 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 idv.wellManager.handleWellSingleClick = function(well) {
 
-    debugger;
     well.active = !well.active; // active or deactive the well
+
     if (well.active === true) {
-        this.activeWell.push(well.id);
-    }else {
-        var index = this.activeWell.indexOf(well.id);
-        if (index > -1) {
-            this.activeWell.splice(index, 1);
-        }
+        this.activateWell(well, true);
+    }
+    else {
+        this.deactivateWell(well, true);
+    }
+};
+
+idv.wellManager.activateWell = function(well, force) {
+    if (!well.hasOwnProperty("id")) {
+        throw new Error("Invalid well");
     }
 
+    well = idv.wellMap[well.id];
+    well.active = true;
+    var index = this.activeWell.indexOf(well.id);
+    if (index < 0) {
+        this.activeWell.push(well.id);
+    }
+
+    this.updateWellTimeChart(well, force);
+};
+
+/**
+ * Activate wells and plot them onto a chart
+ * @param wells with format [{id: 1122}, {id: 123}], or [id1, id2, id3]
+ */
+idv.wellManager.activateWells = function(wells) {
+    if (!Array.isArray(wells)) {
+        throw new Error('Expect array of wells');
+    }
+
+    var tmpWell;
+    for(var i=0; i< wells.length; i++) {
+        tmpWell = wells[i];
+        if (tmpWell != null && !tmpWell.hasOwnProperty('id')) {
+            tmpWell = {id: tmpWell};
+        }
+
+        this.activateWell(tmpWell, false);
+    }
+
+    idv.timeChartManager.resetWellChart();
+};
+
+/**
+ * Deactivate wells and remove them from a chart
+ * @param wells with format [{id: 1122}, {id: 123}], or [id1, id2, id3]
+ */
+idv.wellManager.deactivateWells = function(wells) {
+    if (!Array.isArray(wells)) {
+        throw new Error('Expect array of wells');
+    }
+    debugger;
+    var tmpWell;
+    var labels = [];
+    for(var i=0; i< wells.length; i++) {
+        tmpWell = wells[i];
+        if (tmpWell != null && !tmpWell.hasOwnProperty('id')) {
+            tmpWell = {id: tmpWell};
+        }
+
+        tmpWell = this.deactivateWell(tmpWell, false);
+
+        labels.push(tmpWell.getName());
+    }
+
+    idv.timeChartManager.refreshTimeChart(null, null, null, labels);
+};
+
+idv.wellManager.deactivateWell = function(well, force) {
+    if (!well.hasOwnProperty("id")) {
+        throw new Error("Invalid well");
+    }
+
+    well = idv.wellMap[well.id];
+    well.active = false;
+    var index = this.activeWell.indexOf(well.id);
+    if (index > -1) {
+        this.activeWell.splice(index, 1);
+    }
+
+    this.updateWellTimeChart(well, force);
+
+    return well;
+};
+
+idv.wellManager.updateWellTimeChart = function(well, refreshChart) {
     var updated = idv.wellManager.updateWellColor(well);
     // update time chart color if the well active
     if (updated == true) {
-        idv.timeChartManager.updateTimeChartForWell(well);
+        idv.timeChartManager.updateTimeChartForWell(well, refreshChart);
     }
 };
 
