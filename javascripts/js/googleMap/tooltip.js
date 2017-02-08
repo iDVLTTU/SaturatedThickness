@@ -26,12 +26,11 @@ function showTip(d) {
     tip.offset([-10,-0])
     .html(function(d) {
       var str ="";
-      debugger;
       str+="<b> Well data: </b>"
         str+="<table border='0.5px'  style='width:100%'>"
         for (key in d.value) {
           if (key== "getMyColor" || key== "minX"|| key== "minY"|| key== "maxX"|| key== "maxY"
-            || key== "pointId" || key== "pointY"|| key== "color")
+            || key== "pointId" || key== "pointY"|| key== "color"|| key== "active" || key=="distanceToSelectedWell")
             ;
           else if (key== "pointX"){
             var value1 = d.value[key];
