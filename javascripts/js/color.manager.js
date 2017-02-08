@@ -1,49 +1,15 @@
 var idv = idv || {};
 idv.colorManager = idv.colorManager || {};
+idv.colorManager.colors = d3.scale.category10();
 
 idv.colorManager.SUPPORTED_COLOR_COUNT = 10;
-idv.colorManager.supportedColors = {
-    "color1": {
+idv.colorManager.supportedColors = {};
+for (var i=0; i< idv.colorManager.SUPPORTED_COLOR_COUNT; i++) {
+    idv.colorManager.supportedColors["color" + (i + 1)] = {
         used: false,
-        code: '#FF0000'
-    },
-    "color2": {
-        used: false,
-        code: '#00FF00'
-    },
-    "color3": {
-        used: false,
-        code: '#0000FF'
-    },
-    "color4": {
-        used: false,
-        code: '#FFFF00'
-    },
-    "color5": {
-        used: false,
-        code: '#00FFFF'
-    },
-    "color6": {
-        used: false,
-        code: '#FF00FF'
-    },
-    "color7": {
-        used: false,
-        code: '#C0C0C0'
-    },
-    "color8": {
-        used: false,
-        code: '#800000'
-    },
-    "color9": {
-        used: false,
-        code: '#808000'
-    },
-    "color10": {
-        used: false,
-        code: '#008000'
+        code: idv.colorManager.colors(i)
     }
-};
+}
 
 idv.colorManager.getUnusedColorKey = function() {
     var tmpColor;
