@@ -12,3 +12,6 @@ This work is in collaboration with a group in the Civil Engineering department a
 ## References
 
 Related project from CS5331: Visualization and Visual Analytics - Fall 2016. [Demo](http://myweb.ttu.edu/jataber/unemployment/) [Github](https://github.com/jmtaber129/unemployment-visualization)
+
+Tuan Dang and Leland Wilkinson. *TimeExplorer: Similarity Search Time Series by Their Signatures*.
+[PDF](http://www.myweb.ttu.edu/tnhondan/file/TimeseerVINCIjournal.pdf) 
