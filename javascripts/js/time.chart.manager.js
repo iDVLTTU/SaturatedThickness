@@ -324,7 +324,6 @@ idv.timeChartManager.isWellData = function (d) {
     if (d[0] == 'average' || d[0] == 'year') {
         return false;
     }
-
     return true;
 };
 

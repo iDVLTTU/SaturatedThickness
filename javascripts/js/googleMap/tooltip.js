@@ -30,7 +30,8 @@ function showTip(d) {
         str+="<table border='0.5px'  style='width:100%'>"
         for (key in d.value) {
           if (key== "getMyColor" || key== "minX"|| key== "minY"|| key== "maxX"|| key== "maxY"
-            || key== "pointId" || key== "pointY"|| key== "color"|| key== "active" || key=="distanceToSelectedWell")
+            || key== "pointId" || key== "pointY"|| key== "color"|| key== "active"
+             || key=="distanceToSelectedWell" || key=="getName")
             ;
           else if (key== "pointX"){
             var value1 = d.value[key];
