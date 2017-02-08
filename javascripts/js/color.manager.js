@@ -1,47 +1,48 @@
 var idv = idv || {};
 idv.colorManager = idv.colorManager || {};
+idv.colorManager.colors = d3.scale.category10();
 
 idv.colorManager.SUPPORTED_COLOR_COUNT = 10;
 idv.colorManager.supportedColors = {
     "color1": {
         used: false,
-        code: '#FF0000'
+        code: idv.colorManager.colors(0)
     },
     "color2": {
         used: false,
-        code: '#00FF00'
+        code: idv.colorManager.colors(1)
     },
     "color3": {
         used: false,
-        code: '#0000FF'
+        code: idv.colorManager.colors(2)
     },
     "color4": {
         used: false,
-        code: '#FFFF00'
+        code: idv.colorManager.colors(3)
     },
     "color5": {
         used: false,
-        code: '#00FFFF'
+        code: idv.colorManager.colors(4)
     },
     "color6": {
         used: false,
-        code: '#FF00FF'
+        code: idv.colorManager.colors(5)
     },
     "color7": {
         used: false,
-        code: '#C0C0C0'
+        code: idv.colorManager.colors(6)
     },
     "color8": {
         used: false,
-        code: '#800000'
+        code: idv.colorManager.colors(7)
     },
     "color9": {
         used: false,
-        code: '#808000'
+        code: idv.colorManager.colors(8)
     },
     "color10": {
         used: false,
-        code: '#008000'
+        code: idv.colorManager.colors(9)
     }
 };
 
