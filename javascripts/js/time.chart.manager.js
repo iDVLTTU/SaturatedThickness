@@ -121,57 +121,14 @@ idv.timeChartManager.removeColumn = function(columnKey) {
     this.updateChartTypes();
 };
 
-idv.timeChartManager.generateMultiTimeCharts = function() {
-    var myData = {
-        x: 'year',
-        columns: [
-            idv.timeChartManager.xAxis
-        ],
-        colors: {
-        },
-        types: {
-
-        }
-    };
-
-    this.addColumn(idv.timeChartManager.xAxis);
-
-    c3.generate({
-        bindto: '#wellTimeSeries0',
-        data: myData,
-        line: {
-            connectNull: true
-        },
-        axis: {
-            y: {
-                label: { // ADD
-                    text: 'Saturated Thickness',
-                    position: 'outer-middle'
-                }
-            },
-            x: {
-                type: 'timeseries',
-                label: {
-                    text: 'Year',
-                    position: 'outer'
-                },
-                tick: {
-                    // format: '%Y-%m-%d'
-                    format: '%Y-%m'
-                }
-            }
-        },
-
-        legend: {
-            item: {
-                onmouseout: function(id) { idv.timeChartManager.resetWellChart();},
-                onmouseover: function (id) { idv.timeChartManager.activateWellAsAreaChart(id);}
-            }
-        }
-    });
-};
-
-
+/**
+ * Plot the chart. If columns is undefined then we only have coordinate system
+ *
+ * @param bindToId
+ * @param columns
+ * @param colors
+ * @param types
+ */
 idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, types) {
 
     console.log("generating chart for id#" + bindToId);
