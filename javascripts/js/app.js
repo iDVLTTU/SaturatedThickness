@@ -136,6 +136,9 @@ idv.handleWellDataLoadComplete = function(allWellData) {
                 "pointId": tmpPoint.id,
                 "pointX": tmpPoint.x,
                 "pointY": tmpPoint.y,
+                "getName": function () {
+                    return "well" + this.id;
+                },
                 "minX": (tmpPoint.x - 10),
                 "minY": (tmpPoint.y-5),
                 "maxX": (tmpPoint.x + 10),
