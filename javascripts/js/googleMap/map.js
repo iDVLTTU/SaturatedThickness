@@ -21,23 +21,22 @@ var numberNearestWell=9;
 redrawMap();
 
 
- 
-
-
+// Initialize the google map
 function init(){
-	map      = new google.maps.Map(d3.select("#map").node(),{
-       zoom: mapZoom,
-       draggableCursor: 'crosshair',
-      center: new google.maps.LatLng(mapLat, mapLng),
-      mapTypeId: mapId
-    });
-    bounds   = new google.maps.LatLngBounds();
-  	overlay  = new google.maps.OverlayView();
-    overlay.onAdd = function() {
-      layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "stations");
-    }
+	map = new google.maps.Map(d3.select("#map").node(),{
+     zoom: mapZoom,
+     draggableCursor: 'crosshair',
+    center: new google.maps.LatLng(mapLat, mapLng),
+    mapTypeId: mapId
+  });
+  bounds   = new google.maps.LatLngBounds();
+	overlay  = new google.maps.OverlayView();
+  overlay.onAdd = function() {
+    layer = d3.select(this.getPanes().overlayMouseTarget).append("div").attr("class", "stations");
+  }
 }
 
+// Redraw wells on map for every click
 function redrawMap(wellList) {
   	init();  // Reload a new map ***************
 
@@ -81,25 +80,17 @@ function redrawMap(wellList) {
                         .attr("class","marker_text")
                         .text(function(d) {return d.key; });
 
-      d3.select("svg").on("mousedown.log", function() {
-  console.log(projection.invert(d3.mouse(this)));
-});
-
-
-
-
-    google.maps.event.addListener(map, 'click', function (event) {
-      debugger;
+      google.maps.event.addListener(map, 'click', function (event) {
               displayCoordinates(event.latLng);               
           });
  
-function displayCoordinates(pnt) {
+      function displayCoordinates(pnt) {
           var coordsLabel = document.getElementById("tdCursor");
           var lat = pnt.lat();
           lat = lat.toFixed(4);
           var lng = pnt.lng();
           lng = lng.toFixed(4);
-          coordsLabel.innerHTML = "Latitude: " + lat + "  Longitude: " + lng;
+          console.log("Latitude: " + lat + "  Longitude: " + lng);
       }
 
    // google.maps.event.addListener(map, 'mousemove', function (event) {
@@ -114,15 +105,7 @@ function displayCoordinates(pnt) {
         d = projection.fromLatLngToDivPixel(d);
         return d3.select(this).style("left", (d.x - padding) + "px").style("top", (d.y - padding) + "px");
       }
-      // provides node animation for mouseover
-     /* function mouseover() {
-        d3.select(this).transition()
-            .duration(100)
-            .attr("stroke-width",1)
-      };*/
-
-
-      // provides node animation for mouseout
+     
       function mouseout(d){
         tip.hide(d);
         d3.select(this).transition()
@@ -147,6 +130,7 @@ function displayCoordinates(pnt) {
         for (var i=0; i<numberNearestWell+1;i++){
           wlist2.push(wlist[i]); 
         }
+        
         // Redraw the map ***********************
         mapZoom = map.zoom;
         mapLat = map.center.lat();
@@ -154,7 +138,6 @@ function displayCoordinates(pnt) {
         mapId = map.mapTypeId;
         redrawMap(wlist2);
         var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
-      //  map.setCenter(wellGPS);
       };
     };
     overlay.setMap(map);
