@@ -54,7 +54,6 @@ idv.timeChartManager.updateAverageData = function () {
     if (idv.timeChartManager.dataColumnCount < 2) {
         return;
     }
-    debugger;
     var tmpColumn;
     var average = ['average'];
 

@@ -30,9 +30,6 @@ function init(){
     }
 }
 
-
-
-
 function redrawMap() {
   	init();  // Reload a new map ***************
 
@@ -58,12 +55,10 @@ function redrawMap() {
                         .attr("r", 4)
                         .attr("cx", padding)
                         .attr("cy", padding)
-                       // .on("click",expandNode)
-                        .attr("fill", function(d){
-				          	return d.value.getMyColor();
-				          })
+                        .attr("fill", function(d){ return d.value.getMyColor(); })
                         .on("mouseover",showTip)
-                        .on("mouseout",mouseout);
+                        .on("mouseout",mouseout)
+                        .on("click", clickWell);
 
       // Add a label.
       marker.append("svg:text")
@@ -80,11 +75,11 @@ function redrawMap() {
         return d3.select(this).style("left", (d.x - padding) + "px").style("top", (d.y - padding) + "px");
       }
       // provides node animation for mouseover
-      function mouseover() {
+     /* function mouseover() {
         d3.select(this).transition()
             .duration(100)
             .attr("stroke-width",1)
-      };
+      };*/
 
 
       // provides node animation for mouseout
@@ -92,6 +87,10 @@ function redrawMap() {
         d3.select(this).transition()
             .duration(100)
             .attr("stroke-width",0.5);
+      };
+      function clickWell(d){
+        console.log("Well click");
+       
       };
     };
 
