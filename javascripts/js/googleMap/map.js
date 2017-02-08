@@ -6,22 +6,26 @@
  * OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
  */
 
-var map;
+var map; 
+var mapZoom=8;
+var mapLat = 32.24;
+var mapLng = -101.479;
+var mapId = google.maps.MapTypeId.TERRAIN;
 var overlay;
 var layer;
 var bounds;
 var selectedWells=[];
-
+var numberNearestWell=9;
 // Add a default well
 //selectedWells.push(idv.wellMap["233701"]);
 redrawMap();
 
 function init(){
 	map      = new google.maps.Map(d3.select("#map").node(),{
-       zoom: 8,
+       zoom: mapZoom,
        draggableCursor: 'crosshair',
-      center: new google.maps.LatLng(32.24, -101.479),
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+      center: new google.maps.LatLng(mapLat, mapLng),
+      mapTypeId: mapId
     });
     bounds   = new google.maps.LatLngBounds();
   	overlay  = new google.maps.OverlayView();
@@ -30,12 +34,12 @@ function init(){
     }
 }
 
-function redrawMap() {
+function redrawMap(wellList) {
   	init();  // Reload a new map ***************
 
     var data = {};
-    for (var i=0; i<selectedWells.length;i++){
-    	well = selectedWells[i];
+    for (var i=0; i<wellList.length;i++){
+    	well = wellList[i];
     	data[well.id+" at "+ well.detail.county] = well;
     }
 	
@@ -52,7 +56,7 @@ function redrawMap() {
                    
       // Add a circle.
       marker.append("svg:circle")
-                        .attr("r", 4)
+                        .attr("r", function(d,i){ return i==0 ? 6 : 4;})
                         .attr("cx", padding)
                         .attr("cy", padding)
                         .attr("fill", function(d){ return d.value.getMyColor(); })
@@ -83,19 +87,47 @@ function redrawMap() {
 
 
       // provides node animation for mouseout
-      function mouseout(){
+      function mouseout(d){
+        tip.hide(d);
         d3.select(this).transition()
             .duration(100)
             .attr("stroke-width",0.5);
       };
+
       function clickWell(d){
-        console.log("Well click");
-       
+        tip.hide(d);
+        console.log("Well clicked");
+        var wlist = [];
+        for (var key in idv.wellMap){
+          var w = idv.wellMap[key];
+          w["distanceToSelectedWell"] = getPixelDistance(d.value, w)
+          wlist.push(w);
+        }
+        wlist.sort(function(a, b) {
+          return a["distanceToSelectedWell"] - b["distanceToSelectedWell"];
+        });
+
+        var wlist2 = [];
+        for (var i=0; i<numberNearestWell+1;i++){
+          wlist2.push(wlist[i]); 
+        }
+        // Redraw the map ***********************
+        mapZoom = map.zoom;
+        mapLat = map.center.lat();
+        mapLng = map.center.lng();
+        mapId = map.mapTypeId;
+        redrawMap(wlist2);
+        var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
+      //  map.setCenter(wellGPS);
       };
     };
-
     overlay.setMap(map);
   }
+
+function getPixelDistance(d1,d2){
+  return (d1.pointX - d2.pointX)*(d1.pointX - d2.pointX)+
+         (d1.pointY - d2.pointY)*(d1.pointY - d2.pointY)
+};
 
   
   // Make the markers glow

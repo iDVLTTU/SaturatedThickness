@@ -68,7 +68,7 @@ idv.wellManager.handleWellOnClick = function(well) {
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
     selectedWells.push(well);
-    redrawMap();
+    redrawMap(selectedWells);
     map.setCenter(wellGPS);
     // var data = [
     //     {
@@ -88,8 +88,6 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 
 idv.wellManager.handleWellSingleClick = function(well) {
-
-    debugger;
     well.active = !well.active; // active or deactive the well
     if (well.active === true) {
         this.activeWell.push(well.id);

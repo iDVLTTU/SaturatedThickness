@@ -131,7 +131,6 @@ idv.timeChartManager.removeColumn = function(columnKey) {
 idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, types) {
 
     console.log("generating chart for id#" + bindToId);
-    debugger;
     var myCols = (columns == null || columns == undefined) ? [] : columns;
     var tmpCols = myCols.concat([idv.timeChartManager.xAxis]);
     var myColors = (colors == null || colors == undefined) ? {} : colors;
@@ -220,7 +219,6 @@ idv.timeChartManager.updateTimeChartForWell = function(well){
     var colors = {};
 
     if (well.active == true) {
-        debugger;
         colors[label] = well.getMyColor();
         var newColumn = idv.timeChartManager.generateWellData(well);
         this.addColumn(newColumn);
