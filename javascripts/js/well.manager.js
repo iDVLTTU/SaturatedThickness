@@ -128,30 +128,30 @@ idv.wellManager.activateWells = function(wells) {
     }
 
     debugger;
-    // console.log(this.getActiveWells());
-    //
-    // wells.forEach(function (w) {
-    //    return w.hasOwnProperty('id') ? w : idv.wellMap[w];
-    // });
-    //
-    // var deactivateWells = [];
-    // var currentActiveWells = this.getActiveWells();
-    // var inTobeActivatedList;
-    // for(var j =0; j< currentActiveWells.length; j++) {
-    //     inTobeActivatedList = false;
-    //     for(var k=0; k < wells.length; k++) {
-    //          if (currentActiveWells[j] == wells[k].id) {
-    //              inTobeActivatedList = true;
-    //              break;
-    //          }
-    //     }
-    //
-    //     if (inTobeActivatedList == false) {
-    //         deactivateWells.push(currentActiveWells[j]);
-    //     }
-    // }
-    //
-    // debugger;
+    console.log(this.getActiveWells());
+
+    wells.forEach(function (w) {
+       return w.hasOwnProperty('id') ? w : idv.wellMap[w];
+    });
+
+    var deactivateWells = [];
+    var currentActiveWells = this.getActiveWells();
+    var inTobeActivatedList;
+    for(var j =0; j< currentActiveWells.length; j++) {
+        inTobeActivatedList = false;
+        for(var k=0; k < wells.length; k++) {
+             if (currentActiveWells[j] == wells[k].id) {
+                 inTobeActivatedList = true;
+                 break;
+             }
+        }
+
+        if (inTobeActivatedList == false) {
+            deactivateWells.push(currentActiveWells[j]);
+        }
+    }
+
+    debugger;
 
     this.deactivateWells(deactivateWells);
 
