@@ -139,7 +139,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         x: 'year',
         columns: tmpCols,
         colors: myColors,
-        types: myTypes
+        types: myTypes,
+        regions: {
+            'average': [{'style':'dashed'}] // currently 'dashed' style only
+        }
     };
 
     var timeChart = c3.generate({
@@ -202,7 +205,7 @@ idv.timeChartManager.generateWellData = function(well) {
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         tmpDateInXAxis = idv.timeChartManager.xAxis[i];
         if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-            // wellData.push(null);
+            //wellData.push(null);
             wellData.push(Math.round(Math.random()*1000) + 500);
             continue;
         }
