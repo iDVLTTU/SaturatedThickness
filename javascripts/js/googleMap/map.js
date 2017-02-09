@@ -50,7 +50,7 @@ function init(){
             console.log("Map clicked at Latitude: " + lat + "  Longitude: " + lng);
             var clickedPixel = idv.getClosestPointPixelDataForPosition(lng, lat);
             //console.log("clickedPixel: " + clickedPixel);  
-            drawNearestWells(clickedPixel.x, clickedPixel.y);                             
+            drawNearestWells(clickedPixel.x, clickedPixel.y);
       });
 }
 
@@ -165,6 +165,8 @@ function drawNearestWells(pointX, pointY){
   mapLng = map.center.lng();
   mapId = map.mapTypeId;
   redrawMap(wlist2);
+
+    idv.wellManager.activateWells(wlist2);
   //var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
 }
 

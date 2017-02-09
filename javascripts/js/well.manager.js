@@ -2,14 +2,14 @@ var idv = idv || {};
 idv.wellManager = idv.wellManager || {};
 
 idv.wellManager.DEFAULT_WELL_COLOR = "#000";
-idv.wellManager.activeWell = [];
+idv.wellManager.activeWells = [];
 
 idv.wellManager.selectAllWells = function() {
     return d3.selectAll(".point");
 };
 
 idv.wellManager.getActiveWells = function() {
-    return this.activeWell;
+    return this.activeWells;
 };
 
 idv.wellManager.updateWellColor = function(well) {
@@ -104,11 +104,15 @@ idv.wellManager.activateWell = function(well, force) {
         throw new Error("Invalid well");
     }
 
+    if (!!force) {
+        this.deactivateWells(this.getActiveWells());
+    }
+
     well = idv.wellMap[well.id];
     well.active = true;
-    var index = this.activeWell.indexOf(well.id);
+    var index = this.activeWells.indexOf(well.id);
     if (index < 0) {
-        this.activeWell.push(well.id);
+        this.activeWells.push(well.id);
     }
 
     this.updateWellTimeChart(well, force);
@@ -123,6 +127,34 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
+    debugger;
+    // console.log(this.getActiveWells());
+    //
+    // wells.forEach(function (w) {
+    //    return w.hasOwnProperty('id') ? w : idv.wellMap[w];
+    // });
+    //
+    // var deactivateWells = [];
+    // var currentActiveWells = this.getActiveWells();
+    // var inTobeActivatedList;
+    // for(var j =0; j< currentActiveWells.length; j++) {
+    //     inTobeActivatedList = false;
+    //     for(var k=0; k < wells.length; k++) {
+    //          if (currentActiveWells[j] == wells[k].id) {
+    //              inTobeActivatedList = true;
+    //              break;
+    //          }
+    //     }
+    //
+    //     if (inTobeActivatedList == false) {
+    //         deactivateWells.push(currentActiveWells[j]);
+    //     }
+    // }
+    //
+    // debugger;
+
+    this.deactivateWells(deactivateWells);
+
     var tmpWell;
     for(var i=0; i< wells.length; i++) {
         tmpWell = wells[i];
@@ -130,7 +162,9 @@ idv.wellManager.activateWells = function(wells) {
             tmpWell = {id: tmpWell};
         }
 
-        this.activateWell(tmpWell, false);
+        if (tmpWell.active === false) {
+            this.activateWell(tmpWell, false);
+        }
     }
 
     idv.timeChartManager.resetWellChart();
@@ -168,9 +202,9 @@ idv.wellManager.deactivateWell = function(well, force) {
 
     well = idv.wellMap[well.id];
     well.active = false;
-    var index = this.activeWell.indexOf(well.id);
+    var index = this.activeWells.indexOf(well.id);
     if (index > -1) {
-        this.activeWell.splice(index, 1);
+        this.activeWells.splice(index, 1);
     }
 
     this.updateWellTimeChart(well, force);
