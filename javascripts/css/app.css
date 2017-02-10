@@ -16,3 +16,7 @@ html, body {
 .c3-legend-item-tile {
     shape-rendering: initial;
 }
+
+.c3-tooltip span {
+    border-radius: 50%;
+}
