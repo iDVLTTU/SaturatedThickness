@@ -205,8 +205,8 @@ idv.timeChartManager.generateWellData = function(well) {
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         tmpDateInXAxis = idv.timeChartManager.xAxis[i];
         if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-            //wellData.push(null);
-            wellData.push(Math.round(Math.random()*1000) + 500);
+                wellData.push(null);
+           //wellData.push(Math.round(Math.random()*1000) + 500);
             continue;
         }
 
