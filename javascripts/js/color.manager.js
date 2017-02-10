@@ -60,17 +60,23 @@ idv.colorManager.getColorObject = function(colorKey) {
 };
 
 idv.colorManager.updateContourWellColors = function () {
-    idv.wellManager.selectAllWells().style("fill",
+    idv.wellManager.selectAllWells()
+        .style("fill",
         function(d) {
             if (d.tx == null || d.tx == undefined) {
                 return;
             }
 
             var relatedWell = idv.wellMap[d.tx];
-            if (relatedWell.id == '717201' || relatedWell.id == '816901') {
-                debugger;
-            }
-            var color = relatedWell.getMyColor();
             return relatedWell.getMyColor();
-        });
+        })
+        .style("fill-opacity", function (d) {
+            if (d.tx == null || d.tx == undefined) {
+                return;
+            }
+
+            var relatedWell = idv.wellMap[d.tx];
+            return relatedWell.active == true ? 1 : 0.5;
+        })
+    ;
 };
