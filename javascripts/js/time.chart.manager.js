@@ -65,6 +65,7 @@ idv.timeChartManager.updateAverageData = function () {
     var totalValueAllColumn;
     var myCols = idv.timeChartManager.getColumns();
     // var totalColumns = 0;
+    var columnHasValueCount = 0;
     for(var d=1; d< idv.timeChartManager.xAxis.length; d++) {
         totalValueAllColumn = 0;
         for(var i=0; i< myCols.length; i++) {
@@ -74,10 +75,13 @@ idv.timeChartManager.updateAverageData = function () {
             }
 
             // totalColumns ++;
-            totalValueAllColumn += parseFloat(tmpColumn[d]);
+            if (tmpColumn[d] != null) {
+                columnHasValueCount ++;
+                totalValueAllColumn += parseFloat(tmpColumn[d]);
+            }
         }
 
-        average.push(totalValueAllColumn / idv.timeChartManager.dataColumnCount);
+        average.push(columnHasValueCount > 0 ? (totalValueAllColumn/columnHasValueCount) : null);
     }
 
     idv.timeChartManager.wellAverage.data = average;
@@ -99,7 +103,7 @@ idv.timeChartManager.addColumn = function(column) {
     // idv.timeChartManager.chartTypes[column[0]] = 'area';
 
     // this.updateChartTypes();
-    this.updateAverageData();
+    // this.updateAverageData();
 
 };
 
@@ -129,6 +133,8 @@ idv.timeChartManager.removeColumn = function(columnKey) {
     delete this.chartTypes[columnKey];
 
     // this.updateChartTypes();
+    // this.updateAverageData();
+
 };
 
 /**
@@ -217,8 +223,8 @@ idv.timeChartManager.generateWellData = function(well) {
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         tmpDateInXAxis = idv.timeChartManager.xAxis[i];
         if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-            //wellData.push(null);
-            wellData.push(Math.round(Math.random()*1000) + 500);
+            wellData.push(null);
+            // wellData.push(Math.round(Math.random()*1000) + 500);
             continue;
         }
 
@@ -339,6 +345,7 @@ idv.timeChartManager.showAverage = function() {
         return;
     }
 
+    this.updateAverageData();
     var rootElement = document.getElementById("charts");
     var element;
     for(var i =0; i< wells.length; i++) {
@@ -363,9 +370,9 @@ idv.timeChartManager.showAverage = function() {
 
                 myColors[wellName] = myWell.getMyColor();
                 var types = {
-                    'average': 'area'
+                    'average': 'line'
                 };
-                types[wellName] = 'area';
+                types[wellName] = 'line';
                 // var
                 idv.timeChartManager.generateTimeChart(this.id, [cols, idv.timeChartManager.wellAverage.data], myColors, types);
             }
