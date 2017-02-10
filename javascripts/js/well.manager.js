@@ -151,9 +151,9 @@ idv.wellManager.activateWells = function(wells) {
         }
     }
 
-    debugger;
-
-    this.deactivateWells(deactivateWells);
+    // debugger;
+    //
+    // this.deactivateWells(deactivateWells);
 
     var tmpWell;
     for(var i=0; i< wells.length; i++) {
@@ -167,7 +167,7 @@ idv.wellManager.activateWells = function(wells) {
         }
     }
 
-    idv.timeChartManager.resetWellChart();
+    idv.timeChartManager.resetWellChart(deactivateWells);
 };
 
 /**
