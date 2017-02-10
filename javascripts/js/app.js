@@ -250,8 +250,9 @@ idv.load = function() {
                 idv.handleWellDataLoadComplete(allWellData);
 
                 idv.plotData();
-            });
-        });
+
+            });    
+        });    
     });
 };
 
