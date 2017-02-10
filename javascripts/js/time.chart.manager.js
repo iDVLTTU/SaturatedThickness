@@ -242,11 +242,15 @@ idv.timeChartManager.activateWellAsAreaChart = function(wellId) {
     this.refreshTimeChart();
 };
 
-idv.timeChartManager.resetWellChart = function() {
+/**
+ * reset well chart and also deactivate if deactivateWells exist
+ * @param deactivateWells
+ */
+idv.timeChartManager.resetWellChart = function(deactivateWells) {
 
     this.updateChartTypes();
 
-    this.refreshTimeChart();
+    this.refreshTimeChart(null, null, null, deactivateWells);
 };
 
 idv.timeChartManager.refreshTimeChart = function(colors, types, columns, unloads) {
