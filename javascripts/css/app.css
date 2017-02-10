@@ -11,3 +11,8 @@ html, body {
     height: 100px;
     background-color: #00A000;
 }
+
+/** circle legend */
+.c3-legend-item-tile {
+    shape-rendering: initial;
+}
