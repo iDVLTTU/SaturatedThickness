@@ -58,13 +58,14 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 idv.wellManager.handleWellSingleClick = function(well) {
 
-    well.active = !well.active; // active or deactive the well
-
+    // well.active = !well.active; // active or deactive the well
+    well.active = true; // active or deactive the well
+    console.log(well.getName());
     if (well.active === true) {
         this.activateWell(well, true);
     }
     else {
-        this.deactivateWell(well, true);
+        //this.deactivateWell(well, true);
     }
 
     idv.colorManager.updateContourWellColors();
@@ -95,6 +96,8 @@ idv.wellManager.activateWells = function(wells) {
     }
 
     idv.timeChartManager.resetWellChart(deactivateWells);
+
+    idv.colorManager.updateContourWellColors();
 };
 
 /**
