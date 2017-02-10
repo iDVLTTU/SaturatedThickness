@@ -17,6 +17,9 @@ html, body {
     shape-rendering: initial;
 }
 
+/**
+ circle tool tip
+*/
 .c3-tooltip span {
     border-radius: 50%;
 }
