@@ -40,13 +40,18 @@ idv.timeChartManager.getColumns = function () {
 };
 
 idv.timeChartManager.updateChartTypes = function() {
-    for(var lbl in idv.timeChartManager.chartTypes) {
-        if (!idv.timeChartManager.chartTypes.hasOwnProperty(lbl)) {
-            continue;
-        }
+    idv.timeChartManager.chartTypes = this.getChartTypes();
+};
 
-        idv.timeChartManager.chartTypes[lbl] = this.dataColumnCount > 1 ? "line" : "area";
-    }
+idv.timeChartManager.getChartTypes = function() {
+    var activeWells = idv.wellManager.getActiveWells();
+    var chartTypes = {};
+    activeWells.forEach(function (well) {
+        var tmpWellObj = idv.wellMap[well];
+        chartTypes[tmpWellObj.getName()] = activeWells.length > 1 ? 'line' : 'area';
+    });
+
+    return chartTypes;
 };
 
 idv.timeChartManager.updateAverageData = function () {
@@ -229,7 +234,7 @@ idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart){
     }
 
     if (!!refreshChart) {
-        this.refreshTimeChart(null, null, well.active === true ? [] : [label]);
+        this.refreshTimeChart(null, well.active === true ? [] : [label]);
     }
 
 };
@@ -248,16 +253,18 @@ idv.timeChartManager.resetWellChart = function(deactivateWells) {
 
     this.updateChartTypes();
 
-    this.refreshTimeChart(null, null, deactivateWells);
+    this.refreshTimeChart(null, deactivateWells);
 };
 
-idv.timeChartManager.refreshTimeChart = function(types, columns, unloads) {
+idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
     var myColumns = columns == null ? this.getColumns() : columns;
     var tmpCols =  myColumns.concat([this.xAxis]);
-    var myColors = this.getMyColors();
+    var myColors = this.getChartColors();
+    var myTypes = this.getChartTypes();
+
     idv.timeChartManager.timeChart.load({
         columns: tmpCols,
-        types: types == null ? this.chartTypes : types,
+        types: myTypes,
         unload:  unloads == null ? [] : unloads,
         colors: myColors
 
@@ -274,7 +281,7 @@ idv.timeChartManager.hideAverage = function() {
     }
 };
 
-idv.timeChartManager.getMyColors = function() {
+idv.timeChartManager.getChartColors = function() {
     var activeWells = idv.wellManager.getActiveWells();
     var colors = {};
     activeWells.forEach(function (well) {

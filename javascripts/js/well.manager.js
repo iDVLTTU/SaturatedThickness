@@ -185,7 +185,7 @@ idv.wellManager.deactivateWells = function(wells) {
         labels.push(tmpWell.getName());
     }
 
-    idv.timeChartManager.refreshTimeChart(null, null, labels);
+    idv.timeChartManager.refreshTimeChart(null, labels);
 };
 
 idv.wellManager.deactivateWell = function(well, force) {
