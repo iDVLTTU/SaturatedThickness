@@ -228,7 +228,8 @@ idv.plotData = function () {
     plotContourMap(idv.CONTOUR_DIV_ID, idv.data2D);
 
     // plot well on top of contour
-    idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
+    // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
+    idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true);
 
     // plot my position
     //idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
@@ -263,4 +264,4 @@ idv.load = function() {
 };
 
 
-getLocation();
+ getLocation();

@@ -96,6 +96,8 @@ idv.wellManager.activateWells = function(wells) {
         return w.hasOwnProperty('id') ? w : idv.wellMap[w];
     });
 
+    console.log(wells);
+
     var deactivateWells = this.updateWellSelection(wells);
 
     var tmpWell;
@@ -243,46 +245,86 @@ idv.wellManager.enableWellClick = function() {
     });
 };
 
-idv.wellManager.plotWellMarkerOnContour = function(contourDivId, wellXCoordinates, wellYCoordinates, wellIds) {
-   var sizes = [];
-    wellIds.forEach(
-        function (d) {
-            sizes.push(7 + Math.random()*10);
+idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGraph) {
+    var tmpWell;
+    var xCoords = [];
+    var yCoords = [];
+    var sizes = [];
+    var ids = [];
+
+    for(var wellId in allWells) {
+        if (!allWells.hasOwnProperty(wellId)) {
+            continue;
         }
-    );
+        tmpWell = allWells[wellId];
+        xCoords.push(tmpWell.pointX);
+        yCoords.push(tmpWell.pointY);
+        ids.push(tmpWell.id);
+        sizes.push(tmpWell.hasOwnProperty('radius') ? tmpWell.radius : 7);
+    }
+
     var wellMarkers = {
-        x: wellXCoordinates,
-        y: wellYCoordinates,
+        x: xCoords,
+        y: yCoords,
         mode: 'markers',
         type: 'scatter',
         name: "Well",
-        text: wellIds,
+        text: ids,
         marker: {
-            size: 7,
+            size: sizes,
             color: "rgba(0, 0, 0, 0.5)"
         }
     };
 
+    if (!!newGraph) {
+        Plotly.addTraces(contourDivId, wellMarkers);
+    }
+    else {
+        Plotly.redraw(contourDivId, wellMarkers);
+    }
 
-    Plotly.addTraces(contourDivId, wellMarkers);
-
-
-    // var myData = [];
-    // for(var i = 0; i <wellXCoordinates.length; i++) {
-    //     myData.push([wellXCoordinates[i], wellYCoordinates[i]]);
-    // }
-    //
-    // var color = d3.scale.category10();
-    //
-    // d3.select("svg")
-    //     .selectAll("circle")
-    //         .data(myData)
-    //     .enter().append("circle")
-    //         .attr("transform", function(d) { return "translate(" + d + ")"; })
-    //         .attr("r", 10)
-    //         .style("fill", function(d, i) { return color(i); })
-    //         .on("click", function (d, i) {
-    //             alert(d);
-    //         })
-    // ;
 };
+
+// idv.wellManager.plotWellMarkerOnContour = function(contourDivId, wellXCoordinates, wellYCoordinates, wellIds) {
+//    var sizes = [];
+//     wellIds.forEach(
+//         function (d) {
+//             sizes.push(7 + Math.random()*5);
+//         }
+//     );
+//     var wellMarkers = {
+//         x: wellXCoordinates,
+//         y: wellYCoordinates,
+//         mode: 'markers',
+//         type: 'scatter',
+//         name: "Well",
+//         text: wellIds,
+//         marker: {
+//             size: sizes,
+//             color: "rgba(0, 0, 0, 0.5)"
+//         }
+//     };
+//
+//
+//     Plotly.addTraces(contourDivId, wellMarkers);
+//
+//
+//     // var myData = [];
+//     // for(var i = 0; i <wellXCoordinates.length; i++) {
+//     //     myData.push([wellXCoordinates[i], wellYCoordinates[i]]);
+//     // }
+//     //
+//     // var color = d3.scale.category10();
+//     //
+//     // d3.select("svg")
+//     //     .selectAll("circle")
+//     //         .data(myData)
+//     //     .enter().append("circle")
+//     //         .attr("transform", function(d) { return "translate(" + d + ")"; })
+//     //         .attr("r", 10)
+//     //         .style("fill", function(d, i) { return color(i); })
+//     //         .on("click", function (d, i) {
+//     //             alert(d);
+//     //         })
+//     // ;
+// };
