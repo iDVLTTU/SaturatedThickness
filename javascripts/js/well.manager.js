@@ -250,7 +250,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, wellXCoordinate
         text: wellIds,
         marker: {
             size: 7,
-            color: "rgba(0, 0, 0, 0.75)"
+            color: "rgba(0, 0, 0, 0.5)"
         }
     };
 

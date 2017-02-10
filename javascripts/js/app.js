@@ -196,8 +196,8 @@ idv.plotData = function () {
             title: 'Saturated Thickness of Ogallala Aquifier in 2013',
             // width: 850,
             // height: 1000,
-            width: 550,
-            height: 400,
+            width: 700,
+            height: 450,
 
             xaxis: {
                 side: 'top'
@@ -250,8 +250,9 @@ idv.load = function() {
                 idv.handleWellDataLoadComplete(allWellData);
 
                 idv.plotData();
-            });
-        });
+
+            });    
+        });    
     });
 };
 
