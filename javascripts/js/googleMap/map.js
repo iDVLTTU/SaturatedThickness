@@ -58,12 +58,12 @@ function init(){
 
 // Redraw wells on map for every click
 function redrawMap(wellList) {
+    selectedWells = wellList;
   	init();  // Reload a new map ***************
 
     var data = {};
     for (var i=0; i<wellList.length;i++){
     	w = wellList[i];
-      w.active = true;
     	data[w.id+" at "+ w.detail.county] = w;
     }
 	

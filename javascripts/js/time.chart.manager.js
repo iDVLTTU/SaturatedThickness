@@ -236,6 +236,9 @@ idv.timeChartManager.generateWellData = function(well) {
  */
 idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart, unloads){
 
+    if (unloads != null && !Array.isArray(unloads)) {
+        unloads = [unloads];
+    }
     if (well.active == true) {
         var newColumn = idv.timeChartManager.generateWellData(well);
         this.addColumn(newColumn);

@@ -75,6 +75,7 @@ idv.colorManager.updateContourWellColors = function () {
                 return;
             }
 
+            // debugger;
             var relatedWell = idv.wellMap[d.tx];
             return relatedWell.active == true ? 1 : 0.5;
         })

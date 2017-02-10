@@ -9,7 +9,7 @@ idv.wellManager.selectAllWells = function() {
 };
 
 idv.wellManager.getActiveWells = function() {
-    return this.activeWells;
+    return this.activeWells == null ? [] : this.activeWells;
 };
 
 idv.wellManager.findWellFromCoords = function(x, y) {
@@ -36,8 +36,14 @@ idv.wellManager.handleWellOnClick = function(well) {
     idv.wellManager.handleWellSingleClick(well);
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
-    selectedWells.push(well);
-    redrawMap(selectedWells);
+    var activeWells = this.getActiveWells();
+    var mySelectedWell = [];
+    activeWells.forEach(function (d) {
+        var tmpWell = idv.wellMap[d];
+        mySelectedWell.push(tmpWell);
+    });
+
+    redrawMap(mySelectedWell);
     map.setCenter(wellGPS);
     // var data = [
     //     {
@@ -58,6 +64,10 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 idv.wellManager.handleWellSingleClick = function(well) {
 
+    debugger;
+    if (well.active == true) {
+        return;
+    }
     // well.active = !well.active; // active or deactive the well
     well.active = true; // active or deactive the well
     console.log(well.getName());
@@ -78,7 +88,6 @@ idv.wellManager.handleWellSingleClick = function(well) {
  * @param wells with format [{id: 1122}, {id: 123}], or [id1, id2, id3]
  */
 idv.wellManager.activateWells = function(wells) {
-    debugger;
     if (!Array.isArray(wells)) {
         throw new Error('Expect array of wells');
     }
@@ -109,8 +118,6 @@ idv.wellManager.activateWell = function(well, force) {
     if (!well.hasOwnProperty("id")) {
         throw new Error("Invalid well");
     }
-
-    debugger;
 
     var deactivateList;
 
@@ -228,6 +235,7 @@ idv.wellManager.enableWellClick = function() {
 
         var well = idv.wellManager.findWellFromCoords(x, y);
         if (well == null) {
+            console.log("not found any wall on that click");
             return;
         }
 
@@ -236,6 +244,12 @@ idv.wellManager.enableWellClick = function() {
 };
 
 idv.wellManager.plotWellMarkerOnContour = function(contourDivId, wellXCoordinates, wellYCoordinates, wellIds) {
+   var sizes = [];
+    wellIds.forEach(
+        function (d) {
+            sizes.push(7 + Math.random()*10);
+        }
+    );
     var wellMarkers = {
         x: wellXCoordinates,
         y: wellYCoordinates,
