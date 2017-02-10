@@ -32,3 +32,13 @@ idv.controller.testActivateWells = function(activateWellCheckbox) {
     }
 };
 
+idv.controller.testBox = function(testBox) {
+    var update = {
+        marker: {
+            size: [40, 60, 80, 100]
+        }
+    };
+
+
+    Plotly.restyle(idv.CONTOUR_DIV_ID, update, 0);
+};

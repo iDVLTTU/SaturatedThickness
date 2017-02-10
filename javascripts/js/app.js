@@ -264,4 +264,9 @@ idv.load = function() {
 };
 
 
- getLocation();
+getLocation();
+
+
+
+
+

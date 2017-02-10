@@ -108,7 +108,7 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.timeChartManager.resetWellChart(deactivateWells);
 
-    //this.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+    this.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
 
     idv.colorManager.updateContourWellColors();
 
@@ -264,14 +264,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         xCoords.push(tmpWell.pointX);
         yCoords.push(tmpWell.pointY);
         ids.push(tmpWell.id);
-        sizes.push(tmpWell.hasOwnProperty('radius') ? tmpWell.radius : 7);
-
-        if (newGraph == false) {
-            sizes.push(20);
-        }
-        else {
-            sizes.push(tmpWell.hasOwnProperty('radius') ? tmpWell.radius : 7);
-        }
+        sizes.push((tmpWell.hasOwnProperty('radius') && tmpWell.active == true) ? tmpWell.radius : 7);
     }
 
     var wellMarkers = {
@@ -300,7 +293,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
 
 
         console.log("restyle invoked");
-        Plotly.redraw(contourDivId, update, 0);
+        Plotly.restyle(contourDivId, update, 1);
     }
 
 };
