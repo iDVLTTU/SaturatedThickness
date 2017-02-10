@@ -158,8 +158,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
                     }
 
                     if (this.color == null || this.color == undefined) {
-                        alert('Invalid color setting');
-                        return idv.wellManager.DEFAULT_WELL_COLOR;
+                        this.color = idv.colorManager.getUnusedColorKey();
                     }
                     return idv.colorManager.getColorObject(this.color).code;
                 }
