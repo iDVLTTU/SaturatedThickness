@@ -171,7 +171,6 @@ idv.wellManager.deactivateWells = function(wells) {
     if (!Array.isArray(wells)) {
         throw new Error('Expect array of wells');
     }
-    debugger;
     var tmpWell;
     var labels = [];
     for(var i=0; i< wells.length; i++) {

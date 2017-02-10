@@ -62,8 +62,9 @@ function redrawMap(wellList) {
 
     var data = {};
     for (var i=0; i<wellList.length;i++){
-    	well = wellList[i];
-    	data[well.id+" at "+ well.detail.county] = well;
+    	w = wellList[i];
+      w.active = true;
+    	data[w.id+" at "+ w.detail.county] = w;
     }
 	
 
