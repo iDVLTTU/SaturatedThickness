@@ -144,6 +144,12 @@ idv.handleWellDataLoadComplete = function(allWellData) {
                 "maxX": (tmpPoint.x + 10),
                 "maxY": (tmpPoint.y + 5),
                 "active": false,
+                "setActive": function(active) {
+                    this.active = active;
+                    if (active == false) {
+                        this.color = null;
+                    }
+                },
                 "color": false, // current color
                 "detail": myWells[tmpWell.Well_ID],
                 "getMyColor": function() {

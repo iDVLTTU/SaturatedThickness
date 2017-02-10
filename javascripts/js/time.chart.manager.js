@@ -84,15 +84,21 @@ idv.timeChartManager.updateAverageData = function () {
 };
 
 idv.timeChartManager.addColumn = function(column) {
+
+    var existed = this.hasColumn(column[0]);
+    if (existed == true) {
+        return;
+    }
+
     idv.timeChartManager.chartColumns.push(column);
     if (column[0] == 'year' || column[0] == 'average') {
         return; // do not process for x axis or average data
     }
 
     this.dataColumnCount ++;
-    idv.timeChartManager.chartTypes[column[0]] = 'area';
+    // idv.timeChartManager.chartTypes[column[0]] = 'area';
 
-    this.updateChartTypes();
+    // this.updateChartTypes();
     this.updateAverageData();
 
 };
@@ -122,7 +128,7 @@ idv.timeChartManager.removeColumn = function(columnKey) {
 
     delete this.chartTypes[columnKey];
 
-    this.updateChartTypes();
+    // this.updateChartTypes();
 };
 
 /**
@@ -187,6 +193,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 },
                 onmouseover: function (id) {
                     if (bindToId == 'wellTimeSeries') {
+                        debugger;
                         idv.timeChartManager.activateWellAsAreaChart(id);
                     }
                 }
@@ -210,8 +217,8 @@ idv.timeChartManager.generateWellData = function(well) {
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         tmpDateInXAxis = idv.timeChartManager.xAxis[i];
         if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-            wellData.push(null);
-            //wellData.push(Math.round(Math.random()*1000) + 500);
+            //wellData.push(null);
+            wellData.push(Math.round(Math.random()*1000) + 500);
             continue;
         }
 
@@ -221,20 +228,32 @@ idv.timeChartManager.generateWellData = function(well) {
     return wellData;
 };
 
-idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart){
-
-    var label = 'well' + well.id;
+/**
+ *
+ * @param well well to be add/removed and will affect to average value
+ * @param refreshChart
+ * @param unloads affect to rendering only
+ */
+idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart, unloads){
 
     if (well.active == true) {
         var newColumn = idv.timeChartManager.generateWellData(well);
         this.addColumn(newColumn);
     }
     else {
-        this.removeColumn(label);
+        unloads = unloads != null ? unloads.push(well.id) : [well.id]
+    }
+
+    if (unloads != null) {
+        unloads.forEach(function (unloadId) {
+            var tmpWell = idv.wellMap[unloadId];
+            tmpWell.setActive(false);
+            idv.timeChartManager.removeColumn(tmpWell.getName());
+        })
     }
 
     if (!!refreshChart) {
-        this.refreshTimeChart(null, well.active === true ? [] : [label]);
+        this.refreshTimeChart(null, unloads);
     }
 
 };
@@ -261,11 +280,19 @@ idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
     var tmpCols =  myColumns.concat([this.xAxis]);
     var myColors = this.getChartColors();
     var myTypes = this.getChartTypes();
+    var myUnloads = [];
+    if (unloads == null) {
+        unloads = [];
+    }
+
+    unloads.forEach(function (id) {
+       myUnloads.push(idv.wellMap[id].getName());
+    });
 
     idv.timeChartManager.timeChart.load({
         columns: tmpCols,
         types: myTypes,
-        unload:  unloads == null ? [] : unloads,
+        unload:  unloads == null ? [] : myUnloads,
         colors: myColors
 
     });
@@ -286,6 +313,10 @@ idv.timeChartManager.getChartColors = function() {
     var colors = {};
     activeWells.forEach(function (well) {
         var tmpWellObj = idv.wellMap[well];
+        if (tmpWellObj.color == null || tmpWellObj.color == undefined) {
+            tmpWellObj.color = idv.colorManager.getUnusedColorKey();
+        }
+
         colors[tmpWellObj.getName()] = tmpWellObj.getMyColor();
     });
 
@@ -366,6 +397,19 @@ idv.timeChartManager.getColumnDataByKey = function(key) {
     }
 
     return null;
+};
+
+idv.timeChartManager.hasColumn = function(key) {
+    var myColumns = this.getColumns();
+    var tmpCol;
+    for(var i=0; i< myColumns.length; i++) {
+        tmpCol = myColumns[i];
+        if (tmpCol[0] == key) {
+            return true;
+        }
+    }
+
+    return false;
 };
 
 idv.timeChartManager.getChartInstance = function(bindId) {

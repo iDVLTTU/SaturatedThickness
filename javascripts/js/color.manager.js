@@ -29,6 +29,20 @@ idv.colorManager.getUnusedColorKey = function() {
     return false;
 };
 
+idv.colorManager.resetUsedColors = function() {
+    var tmpColor;
+    for(var myColor in idv.colorManager.supportedColors) {
+        if (!idv.colorManager.supportedColors.hasOwnProperty(myColor) || idv.colorManager.supportedColors[myColor] == null) {
+            continue;
+        }
+
+        tmpColor = idv.colorManager.supportedColors[myColor];
+        if (tmpColor.used === true) {
+            tmpColor.used = false;
+        }
+    }
+};
+
 idv.colorManager.resetUsedColor = function(colorKey) {
     if (!idv.colorManager.supportedColors.hasOwnProperty(colorKey) || idv.colorManager.supportedColors[colorKey] == null) {
         return;
@@ -43,4 +57,20 @@ idv.colorManager.getColorObject = function(colorKey) {
     }
 
     return idv.colorManager.supportedColors[colorKey];
+};
+
+idv.colorManager.updateContourWellColors = function () {
+    idv.wellManager.selectAllWells().style("fill",
+        function(d) {
+            if (d.tx == null || d.tx == undefined) {
+                return;
+            }
+
+            var relatedWell = idv.wellMap[d.tx];
+            if (relatedWell.id == '717201' || relatedWell.id == '816901') {
+                debugger;
+            }
+            var color = relatedWell.getMyColor();
+            return relatedWell.getMyColor();
+        });
 };

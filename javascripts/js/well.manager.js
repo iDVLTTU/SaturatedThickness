@@ -12,37 +12,6 @@ idv.wellManager.getActiveWells = function() {
     return this.activeWells;
 };
 
-idv.wellManager.updateWellColor = function(well) {
-
-    if (well.active == true) {
-        var unusedColorKey = idv.colorManager.getUnusedColorKey();
-        if (unusedColorKey === false) {
-            alert("Support only " + idv.colorManager.SUPPORTED_COLOR_COUNT + " active wells");
-            return false;
-        }
-
-        well.color = unusedColorKey;
-    }
-    else {
-        // clear used color
-        idv.colorManager.resetUsedColor(well.color);
-    }
-
-    idv.wellManager.selectAllWells().style("fill",
-        function(d) {
-            if (d.tx == null || d.tx == undefined) {
-                return;
-            }
-
-            var relatedWell = idv.wellMap[d.tx];
-
-            return relatedWell.getMyColor();
-        }
-    );
-
-    return true;
-};
-
 idv.wellManager.findWellFromCoords = function(x, y) {
     var foundWell = null, tmpWell;
     for (var key in idv.wellMap) {
@@ -97,50 +66,94 @@ idv.wellManager.handleWellSingleClick = function(well) {
     else {
         this.deactivateWell(well, true);
     }
+
+    idv.colorManager.updateContourWellColors();
+
 };
 
-idv.wellManager.activateWell = function(well, force) {
-    if (!well.hasOwnProperty("id")) {
-        throw new Error("Invalid well");
-    }
-
-    if (!!force) {
-        this.deactivateWells(this.getActiveWells());
-    }
-
-    well = idv.wellMap[well.id];
-    well.active = true;
-    var index = this.activeWells.indexOf(well.id);
-    if (index < 0) {
-        this.activeWells.push(well.id);
-    }
-
-    this.updateWellTimeChart(well, force);
-};
 
 /**
  * Activate wells and plot them onto a chart
  * @param wells with format [{id: 1122}, {id: 123}], or [id1, id2, id3]
  */
 idv.wellManager.activateWells = function(wells) {
+    debugger;
     if (!Array.isArray(wells)) {
         throw new Error('Expect array of wells');
     }
 
     wells.forEach(function (w) {
-       return w.hasOwnProperty('id') ? w : idv.wellMap[w];
+        return w.hasOwnProperty('id') ? w : idv.wellMap[w];
     });
+
+    var deactivateWells = this.updateWellSelection(wells);
+
+    var tmpWell;
+    for(var i=0; i< wells.length; i++) {
+        tmpWell = wells[i];
+        this.activateWell(tmpWell, false);
+    }
+
+    idv.timeChartManager.resetWellChart(deactivateWells);
+};
+
+/**
+ * Active well
+ * @param well
+ * @param force true if we want to recalculate average value and affect to the output
+ */
+idv.wellManager.activateWell = function(well, force) {
+    if (!well.hasOwnProperty("id")) {
+        throw new Error("Invalid well");
+    }
+
+    debugger;
+
+    var deactivateList;
+
+    if (!!force) {
+        deactivateList = this.updateWellSelection([well]);
+    }
+
+    idv.timeChartManager.updateTimeChartForWell(well, force, deactivateList);
+};
+
+idv.wellManager.resetActiveWells = function() {
+    this.activeWells = [];
+    idv.colorManager.resetUsedColors();
+};
+
+idv.wellManager.removeActiveWell = function(well) {
+    if (well.active == false) {
+        return;
+    }
+
+    well = idv.wellMap[well.id];
+    well.setActive(false);
+    var index = this.activeWells.indexOf(well.id);
+    if (index > -1) {
+        this.activeWells.splice(index, 1);
+    }
+};
+/**
+ * this will update active list and return deactivate list
+ * @param selectedWells
+ */
+idv.wellManager.updateWellSelection = function(selectedWells) {
 
     var deactivateWells = [];
     var currentActiveWells = this.getActiveWells();
     var inTobeActivatedList;
+
+    this.resetActiveWells();
+
     for(var j =0; j< currentActiveWells.length; j++) {
         inTobeActivatedList = false;
-        for(var k=0; k < wells.length; k++) {
-             if (currentActiveWells[j] == wells[k].id) {
-                 inTobeActivatedList = true;
-                 break;
-             }
+        for(var k=0; k < selectedWells.length; k++) {
+            if (currentActiveWells[j] == selectedWells[k].id) {
+                inTobeActivatedList = true;
+                break;
+            }
         }
 
         if (inTobeActivatedList == false) {
@@ -148,20 +161,16 @@ idv.wellManager.activateWells = function(wells) {
         }
     }
 
-    var tmpWell;
-    for(var i=0; i< wells.length; i++) {
-        tmpWell = wells[i];
-        if (tmpWell != null && !tmpWell.hasOwnProperty('id')) {
-            tmpWell = {id: tmpWell};
-        }
+    // update color for each well
+    selectedWells.forEach(function (well) {
+        well.setActive(true);
+        well.color = idv.colorManager.getUnusedColorKey();
+        idv.wellManager.activeWells.push(well.id);
+    });
 
-        if (tmpWell.active === false) {
-            this.activateWell(tmpWell, false);
-        }
-    }
-
-    idv.timeChartManager.resetWellChart(deactivateWells);
+    return deactivateWells;
 };
+
 
 /**
  * Deactivate wells and remove them from a chart
@@ -180,9 +189,9 @@ idv.wellManager.deactivateWells = function(wells) {
             tmpWell = {id: tmpWell};
         }
 
-        tmpWell = this.deactivateWell(tmpWell, false);
+        this.deactivateWell(tmpWell, false);
 
-        labels.push(tmpWell.getName());
+        labels.push(tmpWell.id);
     }
 
     idv.timeChartManager.refreshTimeChart(null, labels);
@@ -193,12 +202,7 @@ idv.wellManager.deactivateWell = function(well, force) {
         throw new Error("Invalid well");
     }
 
-    well = idv.wellMap[well.id];
-    well.active = false;
-    var index = this.activeWells.indexOf(well.id);
-    if (index > -1) {
-        this.activeWells.splice(index, 1);
-    }
+    this.removeActiveWell(well);
 
     this.updateWellTimeChart(well, force);
 
@@ -206,11 +210,7 @@ idv.wellManager.deactivateWell = function(well, force) {
 };
 
 idv.wellManager.updateWellTimeChart = function(well, refreshChart) {
-    var updated = idv.wellManager.updateWellColor(well);
-    // update time chart color if the well active
-    if (updated == true) {
-        idv.timeChartManager.updateTimeChartForWell(well, refreshChart);
-    }
+    idv.timeChartManager.updateTimeChartForWell(well, refreshChart);
 };
 
 
