@@ -85,6 +85,7 @@ function redrawMap(wellList) {
                         .attr("cx", padding)
                         .attr("cy", padding)
                         .attr("fill", function(d){ return d.value.getMyColor(); })
+                        .attr("stroke-width",1.5)
                         .on("mouseover",showTip)
                         .on("mouseout",mouseout)
                         .on("click", clickWell);
@@ -129,7 +130,7 @@ function redrawMap(wellList) {
         tip.hide(d);
         d3.select(this).transition()
             .duration(100)
-            .attr("stroke-width",0.5);
+            .attr("stroke-width",1);
       };
 
       function clickWell(d){
