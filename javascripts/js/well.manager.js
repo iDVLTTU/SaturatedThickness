@@ -108,7 +108,11 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.timeChartManager.resetWellChart(deactivateWells);
 
+    //this.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+
     idv.colorManager.updateContourWellColors();
+
+
 };
 
 /**
@@ -261,6 +265,13 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         yCoords.push(tmpWell.pointY);
         ids.push(tmpWell.id);
         sizes.push(tmpWell.hasOwnProperty('radius') ? tmpWell.radius : 7);
+
+        if (newGraph == false) {
+            sizes.push(20);
+        }
+        else {
+            sizes.push(tmpWell.hasOwnProperty('radius') ? tmpWell.radius : 7);
+        }
     }
 
     var wellMarkers = {
@@ -280,51 +291,16 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         Plotly.addTraces(contourDivId, wellMarkers);
     }
     else {
-        Plotly.redraw(contourDivId, wellMarkers);
+
+        var update = {
+            marker: {
+                size : sizes
+            }
+        };
+
+
+        console.log("restyle invoked");
+        Plotly.redraw(contourDivId, update, 0);
     }
 
 };
-
-// idv.wellManager.plotWellMarkerOnContour = function(contourDivId, wellXCoordinates, wellYCoordinates, wellIds) {
-//    var sizes = [];
-//     wellIds.forEach(
-//         function (d) {
-//             sizes.push(7 + Math.random()*5);
-//         }
-//     );
-//     var wellMarkers = {
-//         x: wellXCoordinates,
-//         y: wellYCoordinates,
-//         mode: 'markers',
-//         type: 'scatter',
-//         name: "Well",
-//         text: wellIds,
-//         marker: {
-//             size: sizes,
-//             color: "rgba(0, 0, 0, 0.5)"
-//         }
-//     };
-//
-//
-//     Plotly.addTraces(contourDivId, wellMarkers);
-//
-//
-//     // var myData = [];
-//     // for(var i = 0; i <wellXCoordinates.length; i++) {
-//     //     myData.push([wellXCoordinates[i], wellYCoordinates[i]]);
-//     // }
-//     //
-//     // var color = d3.scale.category10();
-//     //
-//     // d3.select("svg")
-//     //     .selectAll("circle")
-//     //         .data(myData)
-//     //     .enter().append("circle")
-//     //         .attr("transform", function(d) { return "translate(" + d + ")"; })
-//     //         .attr("r", 10)
-//     //         .style("fill", function(d, i) { return color(i); })
-//     //         .on("click", function (d, i) {
-//     //             alert(d);
-//     //         })
-//     // ;
-// };

@@ -35,3 +35,13 @@ idv.util.getWellIdFromChartId = function(chartId) {
     return chartId.substring(2, chartId.length - 10);
 };
 
+idv.util.removeChildren = function(containerId) {
+
+    var chartContainer = document.getElementById(containerId);
+    if (chartContainer != null) {
+        while (chartContainer.firstChild) {
+            chartContainer.removeChild(chartContainer.firstChild);
+        }
+    }
+};
+

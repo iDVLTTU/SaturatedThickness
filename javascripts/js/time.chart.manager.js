@@ -303,12 +303,7 @@ idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
 
 idv.timeChartManager.hideAverage = function() {
 
-    var chartContainer = document.getElementById("charts");
-    if (chartContainer != null) {
-        while (chartContainer.firstChild) {
-            chartContainer.removeChild(chartContainer.firstChild);
-        }
-    }
+    idv.util.removeChildren('charts');
 };
 
 idv.timeChartManager.getChartColors = function() {
