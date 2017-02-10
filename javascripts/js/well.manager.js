@@ -127,9 +127,6 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
-    debugger;
-    console.log(this.getActiveWells());
-
     wells.forEach(function (w) {
        return w.hasOwnProperty('id') ? w : idv.wellMap[w];
     });
@@ -150,10 +147,6 @@ idv.wellManager.activateWells = function(wells) {
             deactivateWells.push(currentActiveWells[j]);
         }
     }
-
-    // debugger;
-    //
-    // this.deactivateWells(deactivateWells);
 
     var tmpWell;
     for(var i=0; i< wells.length; i++) {
@@ -192,7 +185,7 @@ idv.wellManager.deactivateWells = function(wells) {
         labels.push(tmpWell.getName());
     }
 
-    idv.timeChartManager.refreshTimeChart(null, null, null, labels);
+    idv.timeChartManager.refreshTimeChart(null, null, labels);
 };
 
 idv.wellManager.deactivateWell = function(well, force) {

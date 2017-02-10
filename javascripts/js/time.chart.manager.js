@@ -205,8 +205,8 @@ idv.timeChartManager.generateWellData = function(well) {
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         tmpDateInXAxis = idv.timeChartManager.xAxis[i];
         if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-                wellData.push(null);
-           //wellData.push(Math.round(Math.random()*1000) + 500);
+            wellData.push(null);
+            //wellData.push(Math.round(Math.random()*1000) + 500);
             continue;
         }
 
@@ -219,10 +219,8 @@ idv.timeChartManager.generateWellData = function(well) {
 idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart){
 
     var label = 'well' + well.id;
-    var colors = {};
 
     if (well.active == true) {
-        colors[label] = well.getMyColor();
         var newColumn = idv.timeChartManager.generateWellData(well);
         this.addColumn(newColumn);
     }
@@ -231,7 +229,7 @@ idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart){
     }
 
     if (!!refreshChart) {
-        this.refreshTimeChart(colors, null, null, well.active === true ? [] : [label]);
+        this.refreshTimeChart(null, null, well.active === true ? [] : [label]);
     }
 
 };
@@ -250,17 +248,18 @@ idv.timeChartManager.resetWellChart = function(deactivateWells) {
 
     this.updateChartTypes();
 
-    this.refreshTimeChart(null, null, null, deactivateWells);
+    this.refreshTimeChart(null, null, deactivateWells);
 };
 
-idv.timeChartManager.refreshTimeChart = function(colors, types, columns, unloads) {
+idv.timeChartManager.refreshTimeChart = function(types, columns, unloads) {
     var myColumns = columns == null ? this.getColumns() : columns;
     var tmpCols =  myColumns.concat([this.xAxis]);
+    var myColors = this.getMyColors();
     idv.timeChartManager.timeChart.load({
         columns: tmpCols,
         types: types == null ? this.chartTypes : types,
         unload:  unloads == null ? [] : unloads,
-        colors: colors == null ? [] : colors
+        colors: myColors
 
     });
 };
@@ -273,6 +272,17 @@ idv.timeChartManager.hideAverage = function() {
             chartContainer.removeChild(chartContainer.firstChild);
         }
     }
+};
+
+idv.timeChartManager.getMyColors = function() {
+    var activeWells = idv.wellManager.getActiveWells();
+    var colors = {};
+    activeWells.forEach(function (well) {
+        var tmpWellObj = idv.wellMap[well];
+        colors[tmpWellObj.getName()] = tmpWellObj.getMyColor();
+    });
+
+    return colors;
 };
 
 idv.timeChartManager.showAverage = function() {
