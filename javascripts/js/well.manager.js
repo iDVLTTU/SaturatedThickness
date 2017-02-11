@@ -94,11 +94,9 @@ idv.wellManager.activateWells = function(wells) {
 
     debugger;
 
-    wells.forEach(function (w) {
-        return w.hasOwnProperty('id') ? w : idv.wellMap[w];
+    wells = wells.map(function (w) {
+        return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
     });
-
-    console.log(wells);
 
     var deactivateWells = this.updateWellSelection(wells);
 

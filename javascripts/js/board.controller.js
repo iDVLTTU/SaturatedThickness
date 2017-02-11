@@ -11,7 +11,9 @@ idv.controller.addWell = function(checkBox) {
 
 idv.controller.handleAverageClick = function(averageCheckBox) {
   if(averageCheckBox.checked == true) {
-      idv.timeChartManager.showAverage();
+      // idv.timeChartManager.showAverage();
+      idv.comparisonChart.initForTest();
+
   }
   else {
       idv.timeChartManager.hideAverage();
