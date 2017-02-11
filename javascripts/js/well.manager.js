@@ -63,8 +63,6 @@ idv.wellManager.handleWellDoubleClick = function(well) {
 
 
 idv.wellManager.handleWellSingleClick = function(well) {
-
-    debugger;
     if (well.active == true) {
         return;
     }
@@ -91,8 +89,6 @@ idv.wellManager.activateWells = function(wells) {
     if (!Array.isArray(wells)) {
         throw new Error('Expect array of wells');
     }
-
-    debugger;
 
     wells.forEach(function (w) {
         return w.hasOwnProperty('id') ? w : idv.wellMap[w];
@@ -267,7 +263,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         xCoords.push(tmpWell.pointX);
         yCoords.push(tmpWell.pointY);
         ids.push(tmpWell.id);
-        sizes.push((tmpWell.hasOwnProperty('radius') && tmpWell.active == true) ? tmpWell.radius : 7);
+        sizes.push(tmpWell.hasOwnProperty('radius')? tmpWell.radius : 20);
     }
 
     var wellMarkers = {

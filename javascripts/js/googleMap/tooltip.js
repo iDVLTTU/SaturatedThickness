@@ -31,7 +31,7 @@ function showTip(d) {
         for (key in d.value) {
           if (key== "getMyColor" || key== "minX"|| key== "minY"|| key== "maxX"|| key== "maxY"
             || key== "pointId" || key== "pointY"|| key== "color" //|| key== "active"
-             || key=="distanceToSelectedWell" || key=="getName")
+             || key=="distanceToSelectedWell" || key=="getName" || key=="setActive")
             ;
           else if (key== "pointX"){
             var value1 = d.value[key];

@@ -9,14 +9,13 @@
     position: absolute;}
   
   .stations svg {
-    width: 60px;
-    height: 20px;
-    padding-right: 100px;
+    width: 21px;
+    height: 22px;
     font: 12px sans-serif; }
   
   .stations circle {
     stroke: black;
-    stroke-width: 0.5px;
+    stroke-width: 1px;
     -webkit-animation-name: redPulse;
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite; }

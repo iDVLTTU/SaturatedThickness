@@ -33,6 +33,10 @@ var averageOptions = selectAverage
     .append('option')
         .text(function (d) { return d; });        
 
+var minRadius = 3;
+var maxRadius = 10;
+
+
 function changeSelection() {
     choice = d3.select('select').property('value')
     if (idv==undefined || idv.wellMap==undefined) return;
@@ -46,11 +50,12 @@ function changeSelection() {
       }
       var linearScale = d3.scale.linear()
                           .domain([wellDomain.measureMin,wellDomain.measureMax])
-                          .range([5,20]);
+                          .range([minRadius,maxRadius]);
       for (var key in idv.wellMap){
         var w = idv.wellMap[key];
         w.radius = linearScale(w.detail.totalMeasurementDate);   
       }
+
     }
     else if (choice==choices[1]){
       wellDomain.averageMin =  99999;
@@ -74,13 +79,14 @@ function changeSelection() {
       }
       var linearScale = d3.scale.linear()
                           .domain([wellDomain.averageMin,wellDomain.averageMax])
-                          .range([5,20]);
+                          .range([minRadius,maxRadius]);
       // Compute radius of wells
       for (var key in idv.wellMap){
         var w = idv.wellMap[key];
         w.radius = linearScale(w.average);   
       }
     }
+    redrawMap(selectedWells);
 };
 
 function changeAverage() {
@@ -96,7 +102,7 @@ function changeAverage() {
       }
       var linearScale = d3.scale.linear()
                           .domain([wellDomain.measureMin,wellDomain.measureMax])
-                          .range([5,20]);
+                          .range([minRadius,maxRadius]);
       for (var key in idv.wellMap){
         var w = idv.wellMap[key];
         w.radius = linearScale(w.detail.totalMeasurementDate);   
@@ -124,7 +130,7 @@ function changeAverage() {
       }
       var linearScale = d3.scale.linear()
                           .domain([wellDomain.averageMin,wellDomain.averageMax])
-                          .range([5,20]);
+                          .range([minRadius,maxRadius]);
       // Compute radius of wells
       for (var key in idv.wellMap){
         var w = idv.wellMap[key];

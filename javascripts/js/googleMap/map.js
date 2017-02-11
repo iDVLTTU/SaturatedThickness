@@ -63,9 +63,6 @@ function redrawMap(wellList) {
     	w = wellList[i];
     	data[w.id+" at "+ w.detail.county] = w;
     }
-	
-
-    
 
    overlay.draw = function() {
       var projection = this.getProjection(), padding = 10;
@@ -79,11 +76,12 @@ function redrawMap(wellList) {
                    
       // Add a circle.
       marker.append("svg:circle")
-                        .attr("r", function(d,i){ return i==0 ? 6 : 4;})
+                        .attr("r", function(d,i){ 
+                          return d.value.radius;})
                         .attr("cx", padding)
                         .attr("cy", padding)
                         .attr("fill", function(d){ return d.value.getMyColor(); })
-                        .attr("stroke-width",1.5)
+                        .attr("stroke-width",1)
                         .on("mouseover",showTip)
                         .on("mouseout",mouseout)
                         .on("click", clickWell);

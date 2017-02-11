@@ -66,7 +66,6 @@ idv.colorManager.updateContourWellColors = function () {
             if (d.tx == null || d.tx == undefined) {
                 return;
             }
-
             var relatedWell = idv.wellMap[d.tx];
             return relatedWell.getMyColor();
         })
@@ -74,8 +73,6 @@ idv.colorManager.updateContourWellColors = function () {
             if (d.tx == null || d.tx == undefined) {
                 return;
             }
-
-            // debugger;
             var relatedWell = idv.wellMap[d.tx];
             return relatedWell.active == true ? 1 : 0.5;
         })
