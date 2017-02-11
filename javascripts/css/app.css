@@ -27,12 +27,15 @@ html, body {
 .axis path,
 .axis line {
     fill: none;
-    stroke: #000;
+    stroke: grey;
     shape-rendering: crispEdges;
+    stroke-width: 2;
 }
 
 .x.axis path {
-    display: none;
+    fill: none;
+    stroke: grey;
+    stroke-width: 2;
 }
 
 .area.above {
