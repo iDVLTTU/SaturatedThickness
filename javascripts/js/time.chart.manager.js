@@ -65,9 +65,10 @@ idv.timeChartManager.updateAverageData = function () {
     var totalValueAllColumn;
     var myCols = idv.timeChartManager.getColumns();
     // var totalColumns = 0;
-    var columnHasValueCount = 0;
+    var columnHasValueCount;
     for(var d=1; d< idv.timeChartManager.xAxis.length; d++) {
         totalValueAllColumn = 0;
+        columnHasValueCount = 0;
         for(var i=0; i< myCols.length; i++) {
             tmpColumn = myCols[i];
             if (tmpColumn[0] == 'year' || tmpColumn[0] == 'average') {
