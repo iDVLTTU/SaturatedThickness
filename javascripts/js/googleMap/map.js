@@ -40,21 +40,18 @@ function init(){
   }
 
   // When user clicks on the google map                  
-      google.maps.event.addListener(map, 'click', function (event) {
-            var coordsLabel = document.getElementById("tdCursor");
-            var pnt=event.latLng;  
-            var lat = pnt.lat();
-            lat = lat.toFixed(4);
-            var lng = pnt.lng();
-            lng = lng.toFixed(4);
-            console.log("Map clicked at Latitude: " + lat + "  Longitude: " + lng);
-            var clickedPixel = idv.getClosestPointPixelDataForPosition(lng, lat);
-            //console.log("clickedPixel: " + clickedPixel);  
-            drawNearestWells(clickedPixel.x, clickedPixel.y);
-      });
+  google.maps.event.addListener(map, 'click', function (event) {
+        var coordsLabel = document.getElementById("tdCursor");
+        var pnt=event.latLng;  
+        var lat = pnt.lat();
+        lat = lat.toFixed(4);
+        var lng = pnt.lng();
+        lng = lng.toFixed(4);
+        console.log("Map clicked at Latitude: " + lat + "  Longitude: " + lng);
+        var clickedPixel = idv.getClosestPointPixelDataForPosition(lng, lat);
+        drawNearestWells(clickedPixel.x, clickedPixel.y);
+  });
 }
-
-
 
 // Redraw wells on map for every click
 function redrawMap(wellList) {
@@ -99,27 +96,6 @@ function redrawMap(wellList) {
                         .attr("class","marker_text")
                         .text(function(d) {return d.key; });
 
-     
- 
-      function displayCoordinates(pnt) {
-          /*debugger;
-          
-          var wlist = [];
-          for (var key in idv.wellMap){
-            var w = idv.wellMap[key];
-            // 
-            w["distanceToSelectedWell"] = getPixelDistance(d.value.pointX, d.value.pointX, w)
-            wlist.push(w);
-          }
-          wlist.sort(function(a, b) {
-            return a["distanceToSelectedWell"] - b["distanceToSelectedWell"];
-          });
-
-          var wlist2 = [];
-          for (var i=0; i<numberNearestWell+1;i++){
-            wlist2.push(wlist[i]); 
-          }  */
-      } 
       function transform(d) {
         //d = new google.maps.LatLng(d.value[1], d.value[0]);
         d = new google.maps.LatLng(d.value.detail.position.lat, d.value.detail.position.lon);
