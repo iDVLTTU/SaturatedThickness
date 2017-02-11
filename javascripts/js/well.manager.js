@@ -290,9 +290,6 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
                 size : sizes
             }
         };
-
-
-        console.log("restyle invoked");
         Plotly.restyle(contourDivId, update, 1);
     }
 
