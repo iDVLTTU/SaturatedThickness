@@ -33,8 +33,8 @@ var averageOptions = selectAverage
     .append('option')
         .text(function (d) { return d; });        
 
-var minRadius = 3;
-var maxRadius = 10;
+var minRadius = 2;
+var maxRadius = 7;
 
 
 function changeSelection() {
@@ -55,6 +55,8 @@ function changeSelection() {
         var w = idv.wellMap[key];
         w.radius = linearScale(w.detail.totalMeasurementDate);   
       }
+
+
 
     }
     else if (choice==choices[1]){
@@ -86,7 +88,7 @@ function changeSelection() {
         w.radius = linearScale(w.average);   
       }
     }
-    redrawMap(selectedWells);
+   // redrawMap(selectedWells);
 };
 
 function changeAverage() {

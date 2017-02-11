@@ -263,7 +263,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         xCoords.push(tmpWell.pointX);
         yCoords.push(tmpWell.pointY);
         ids.push(tmpWell.id);
-        sizes.push(tmpWell.hasOwnProperty('radius')? tmpWell.radius : 20);
+        sizes.push(tmpWell.hasOwnProperty('radius')? tmpWell.radius*2 : 10);
     }
 
     var wellMarkers = {

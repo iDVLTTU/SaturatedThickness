@@ -258,6 +258,7 @@ idv.load = function() {
                 idv.plotData();
 
                 changeSelection();
+                drawHorizon();
             });    
         });    
     });
