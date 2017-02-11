@@ -114,6 +114,7 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.colorManager.updateContourWellColors();
 
+    idv.timeChartManager.updateAverageData();
 
 };
 
