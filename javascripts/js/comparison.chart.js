@@ -109,11 +109,16 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     // coordinate
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
+        .orient("bottom")
+        // .ticks(21)
+        .tickFormat(d3.time.format("%b '%y"))
+    ;
 
     var yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left");
+        .orient("left")
+        // .ticks(5)
+    ;
 
     svg.append("g")
         .attr("class", "x axis")
