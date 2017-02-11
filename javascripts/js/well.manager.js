@@ -90,11 +90,9 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
-    wells.forEach(function (w) {
-        return w.hasOwnProperty('id') ? w : idv.wellMap[w];
+    wells = wells.map(function (w) {
+        return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
     });
-
-    console.log(wells);
 
     var deactivateWells = this.updateWellSelection(wells);
 
@@ -110,6 +108,7 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.colorManager.updateContourWellColors();
 
+    idv.timeChartManager.updateAverageData();
 
 };
 

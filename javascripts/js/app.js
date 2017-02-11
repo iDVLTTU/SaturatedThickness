@@ -124,7 +124,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         if(!myWells[tmpWell.Well_ID].hasOwnProperty(measuredDate)) {
             myWells[tmpWell.Well_ID]["totalMeasurementDate"] ++;
         }
-        myWells[tmpWell.Well_ID][measuredDate] = tmpWell.WaterElevation;
+        myWells[tmpWell.Well_ID][measuredDate] = +tmpWell.WaterElevation;
         idv.timeChartManager.addMeasurementDate(measuredDate);
 
 
@@ -132,7 +132,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
             // tmpPoint = this.getClosestPointPixelDataForPosition(myWells[tmpWell.Well_ID]["position"]["lon"], myWells[tmpWell.Well_ID]["position"]["lat"]);
             tmpPoint = idv.pointMap[tmpWell.Point_ID];
             idv.wellMap[tmpWell.Well_ID] = {
-                "id": tmpWell.Well_ID,
+                "id": +tmpWell.Well_ID,
                 "pointId": tmpPoint.id,
                 "pointX": tmpPoint.x,
                 "pointY": tmpPoint.y,
