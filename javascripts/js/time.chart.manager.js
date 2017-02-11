@@ -223,8 +223,8 @@ idv.timeChartManager.generateWellData = function(well) {
     for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
         tmpDateInXAxis = idv.timeChartManager.xAxis[i];
         if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-            wellData.push(null);
-            // wellData.push(Math.round(Math.random()*1000) + 500);
+            //wellData.push(null);
+            wellData.push(Math.round(Math.random()*1000) + 500);
             continue;
         }
 
@@ -289,19 +289,22 @@ idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
     var tmpCols =  myColumns.concat([this.xAxis]);
     var myColors = this.getChartColors();
     var myTypes = this.getChartTypes();
-    var myUnloads = [];
+    // var myUnloads = [];
     if (unloads == null) {
         unloads = [];
     }
-
-    unloads.forEach(function (id) {
-       myUnloads.push(idv.wellMap[id].getName());
+    unloads = unloads.map(function (id) {
+        return idv.wellMap[id].getName();
     });
+
+    // unloads.forEach(function (id) {
+    //    myUnloads.push(idv.wellMap[id].getName());
+    // });
 
     idv.timeChartManager.timeChart.load({
         columns: tmpCols,
         types: myTypes,
-        unload:  unloads == null ? [] : myUnloads,
+        unload:  unloads == null ? [] : unloads,
         colors: myColors
 
     });

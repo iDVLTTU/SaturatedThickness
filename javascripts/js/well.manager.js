@@ -92,6 +92,8 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
+    debugger;
+
     wells.forEach(function (w) {
         return w.hasOwnProperty('id') ? w : idv.wellMap[w];
     });
@@ -174,6 +176,7 @@ idv.wellManager.updateWellSelection = function(selectedWells) {
 
         if (inTobeActivatedList == false) {
             deactivateWells.push(currentActiveWells[j]);
+            this.deactivateWell(idv.wellMap[currentActiveWells[j]], false);
         }
     }
 
