@@ -48,8 +48,8 @@ function computeCountyAverage(){
   }  
 }
 
-// Draw Horizon graph
-function drawHorizon(){
+// interpolate month well data based on county average and time
+function interpolate(){
   for (var k in idv.wellMap){
     var w = idv.wellMap[k].detail;
     var obj = {};
@@ -79,7 +79,7 @@ function drawHorizon(){
     } 
     // Extend by interpolate the middle point.
     var obj2 = {};
-    obj2.stock = k;
+    obj2.stock = "well "+k;
     obj2.values = [];
     for (var m=0; m<numMonths; m++){
       obj2.values[m*2] = obj.values[m]; 
@@ -97,7 +97,11 @@ function drawHorizon(){
     interpolate(obj2.values, 10);
     interpolate(obj2.values, 11);
     interpolate(obj2.values, 12);
-   
+
+    // Copy the real and interpolated values to wellMap 
+    idv.wellMap[k].interpolate = obj2.values;
+      
+  
     // Interpolate for step months
     function interpolate(array, step){
       for (var m=0; m<numMonths; m++){
@@ -124,8 +128,12 @@ function drawHorizon(){
 
     if (count>18)
       stocks.push(obj2);
-  }
-  d3.select('body').selectAll('.horizon')
+  } 
+}
+
+// Draw Horizon graph
+function drawHorizon(){
+  d3.select("#horizonChart").selectAll('.horizon')
     .data(stocks)
     .enter()
     .append('div')
@@ -139,6 +147,32 @@ function drawHorizon(){
             .height(30)
             .call(this, d.values);
     });
+
+  // Draw x axis *********************************
+  var mindate = new Date(1900+startYear,1,1),
+      maxdate = new Date(1900+endYear,1,1);
+          
+  // define the y axis
+  var xScale = d3.time.scale()
+          .domain([mindate, maxdate])    // values between for month of january
+          .range([0, 2*numMonths]);   // map these the the chart width = total width minus padding at both sides      
+
+  var xAxis = d3.svg.axis()
+            .orient("bottom")
+            .scale(xScale);
+
+  var svgAxis = d3.select("#horizonChart").append("svg")
+            .attr("width", 700)
+            .attr("height", 20)
+            .append("g")
+              .attr("transform", "translate(" + 75 + "," + 20 +")");
+        
+  svgAxis.append("g")
+      .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
+      .attr("dy", -13)
+      .attr("transform", "translate(" + 0 + "," + -20 +")")
+      .call(xAxis);  
+    
 }
 
 

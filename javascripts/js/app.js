@@ -262,8 +262,8 @@ idv.load = function() {
 
                 // In Horizon.js 
                 computeCountyAverage();
-                drawHorizon();
-                
+                interpolate();
+                drawHorizon();   
             });    
         });    
     });
