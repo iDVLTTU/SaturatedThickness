@@ -1,20 +1,34 @@
 var idv = idv || {};
 idv.comparisonChart = idv.comparisonChart || {};
+var setupSvg = function () {
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("body").select("#charts").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    return svg;
+};
+
+idv.comparisonChart.svg = setupSvg();
 
 idv.comparisonChart.initForTest = function () {
-    idv.wellManager.activateWells(
-        [{id: 450802}, {id: 450502}, {id: 458201}, {id: 450401}],
-        true);
-
-    idv.timeChartManager.updateAverageData();
-
-    this.generateAverageComparisonChart('average', "well450802");
+    // idv.wellManager.activateWells(
+    //     [{id: 450802}, {id: 450502}, {id: 458201}, {id: 450401}],
+    //     true);
+    //
+    // idv.timeChartManager.updateAverageData();
+    //
+    // this.generateAverageComparisonChart('average', "well450802");
 };
 
 
 idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey) {
 
-    debugger;
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -40,36 +54,22 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         })
         .y1(function(d) { return y(d[averageKey]); });
 
-
-    var svg = d3.select("body").select("#charts").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = this.svg;
+    svg.selectAll("*").remove();
 
     var data = this.getData(averageKey, columnKey);
     x.domain(d3.extent(data, function(d) {
         return d.year;
     }));
 
-    // x.domain([
-    //     new Date(1995, 1, 15),
-    //     new Date(2017, 1, 15)
-    // ]);
-
-    // var minMax = [
-    //     500,
-    //     4100
-    // ];
-    // y.domain(minMax);
-    var yMin = d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); });
-    yMin = yMin - 200 > 0? yMin - 200 : 0;
     y.domain([
-        yMin,
+        d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }),
         d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); })
     ]);
 
 
+    var wellId = columnKey.substring(4);
+    var myWell = idv.wellMap[wellId];
     // clipping ----------------------------
     svg.datum(data);
 
@@ -86,24 +86,22 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     //----------- Creating lines with clip path items created-------
     svg.append("path")
-        .attr("class", "area above")
+        // .attr("class", "area above")
+        .style("fill", myWell.getMyColor())     // set the fill colour
         .attr("clip-path", "url(#clip-above)")
         .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
     ;
 
     svg.append("path")
-        .attr("class", "area below")
+        // .attr("class", "area below")
+        .style("fill", 'grey')     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
     svg.append("path")
         .attr("class", "line")
         .attr("d", line)
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
     // coordinate

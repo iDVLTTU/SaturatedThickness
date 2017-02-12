@@ -82,7 +82,6 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
-    debugger;
     wells = wells.map(function (w) {
         return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
     });
@@ -102,6 +101,11 @@ idv.wellManager.activateWells = function(wells) {
     idv.colorManager.updateContourWellColors();
 
     idv.timeChartManager.updateAverageData();
+
+    // draw comparison chart
+    if (wells.length > 0) {
+        idv.comparisonChart.generateAverageComparisonChart('average', wells[0].getName());
+    }
 
 };
 
@@ -256,6 +260,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         yCoords.push(tmpWell.pointY);
         ids.push(tmpWell.id);
         sizes.push(tmpWell.hasOwnProperty('radius')? tmpWell.radius*2 : 10);
+        // sizes.push(10);
     }
 
     var wellMarkers = {
@@ -267,7 +272,11 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         text: ids,
         marker: {
             size: sizes,
-            color: "rgba(0, 0, 0, 0.5)"
+            color: "rgba(0, 0, 0, 0.5)",
+            line: {
+                width: 0.5,
+                color: '#000'
+            }
         }
     };
 
@@ -278,7 +287,11 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
 
         var update = {
             marker: {
-                size : sizes
+                size : sizes,
+                line: {
+                    width: 0.5,
+                    color: '#000'
+                }
             }
         };
         Plotly.restyle(contourDivId, update, 1);
