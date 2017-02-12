@@ -73,7 +73,7 @@ function redrawMap(wellList) {
     }
 
    overlay.draw = function() {
-      var projection = this.getProjection(), padding = 10;
+      var projection = this.getProjection(), padding = 7;
       var marker = layer.selectAll("svg").data(d3.entries(data)).each(transform)
                         .enter().append("svg:svg")
                         .each(transform)
@@ -88,7 +88,7 @@ function redrawMap(wellList) {
                         .attr("cx", padding)
                         .attr("cy", padding)
                         .attr("fill", function(d){ return d.value.getMyColor(); })
-                        .attr("fill-opacity", 0.5)
+                        .attr("fill-opacity", function(d){ return d.value.active ? 1 : 0.5;})
                         .attr("stroke-width",1)
                         .on("mouseover",showTip)
                         .on("mouseout",mouseout)
@@ -148,9 +148,13 @@ function drawNearestWells(pointX, pointY){
   mapLat = map.center.lat();
   mapLng = map.center.lng();
   mapId = map.mapTypeId;
+  
+  // Long sets active wells
+  idv.wellManager.activateWells(wlist2);
+
+
   redrawMap(wlist2);
 
-  idv.wellManager.activateWells(wlist2);
   //var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
 }
 

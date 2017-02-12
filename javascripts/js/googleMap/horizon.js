@@ -139,8 +139,8 @@ function getTop20Wells(){
       return b.value.radius- a.value.radius;
   });
   var topWells = [];
-  for (var i=0;i<20;i++){
-    topWells.push(allWells[i]);
+  for (var i=0;i<numNeighbor+1;i++){ //numNeighbor is defined in select.js 
+    topWells.push(allWells[i].value);
   }
   return topWells;
 }
@@ -154,12 +154,12 @@ function drawHorizon(wellList){
     .attr('class', 'horizon')
     .each(function(d) {
         d3.horizonChart()
-            .title("well "+d.key)
+            .title("well "+d.id)
             .colors([ '#830', '#c96', '#48b', '#237'])
            // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
            // .colors(['rgba(250,200,160,1)', 'rgba(200,150,130,255)', 'rgb(200,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
             .height(30)
-            .call(this, d.value.interpolate);
+            .call(this, d.interpolate);
     });
 
   // Draw x axis *********************************

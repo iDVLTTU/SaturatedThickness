@@ -7,10 +7,10 @@
  */
 
 
-var numNeighbor = 10;  //Numeber of Neighbors to compute average
+var numNeighbor = 19;  //Numeber of Neighbors to compute average
 
-var choices = ["Number of measures", "Average", "Standard Deviation", "Sudden increase", "Sudden decrease"];
-var averageChoices = ["None", numNeighbor +" Neighbor Average", "County Average", "Ogallala Average"];
+var choices = ["Number of measurements", "Average over time", "Standard Deviation", "Sudden increase", "Sudden decrease"];
+var averageChoices = [numNeighbor +" Neighbor Average", "County Average", "Ogallala Average"];
 var wellDomain = {};
 
 var select =d3.select("#selectDiv")
@@ -55,7 +55,7 @@ function changeSelection() {
         wellDomain.measureMax = max;  
         var linearScale = d3.scale.linear()
                           .domain([wellDomain.measureMin,wellDomain.measureMax])
-                          .range([minRadius+1,maxRadius]);
+                          .range([minRadius,maxRadius]);
         // Compute radius of wells
         for (var key in idv.wellMap){
           var w = idv.wellMap[key];
@@ -87,7 +87,7 @@ function changeSelection() {
           wellDomain.averageMax = max;      
           var linearScale = d3.scale.linear()
                             .domain([wellDomain.averageMin,wellDomain.averageMax])
-                            .range([minRadius,maxRadius]);
+                            .range([minRadius,maxRadius-1]);
 
         // Compute radius of wells
         for (var key in idv.wellMap){
@@ -97,15 +97,23 @@ function changeSelection() {
       }
     }
 
+// Horizon graph 
+  var topWells = getTop20Wells();
+  drawHorizon(topWells); 
+
+
+  // Long sets active wells
+
+  
+  idv.wellManager.activateWells(topWells);
+  
   redrawAllWells();
    
   idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
   idv.colorManager.updateContourWellColors();
-  // Horizon graph 
- 
-  var topWells = getTop20Wells();
-  drawHorizon(topWells); 
-
+  
+  
+  
   // Long code ***************  redraw line graphs
 
 

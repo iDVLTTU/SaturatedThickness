@@ -43,6 +43,7 @@ idv.wellManager.handleWellOnClick = function(well) {
         mySelectedWell.push(tmpWell);
     });
 
+    // Tommy ******************************************
     redrawMap(mySelectedWell);
     map.setCenter(wellGPS);
     // Plotly.newPlot('wellTimeSeries', data);
@@ -165,7 +166,6 @@ idv.wellManager.updateWellSelection = function(selectedWells) {
                 break;
             }
         }
-
         if (inTobeActivatedList == false) {
             deactivateWells.push(currentActiveWells[j]);
             this.deactivateWell(idv.wellMap[currentActiveWells[j]], false);
