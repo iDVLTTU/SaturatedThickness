@@ -7,8 +7,10 @@
  */
 
 
+var numNeighbor = 10;  //Numeber of Neighbors to compute average
+
 var choices = ["Number of measures", "Average", "Standard Deviation", "Sudden increase", "Sudden decrease"];
-var averageChoices = ["None", "9 Neighbor Average", "County Average", "Ogallala Average"];
+var averageChoices = ["None", numNeighbor +" Neighbor Average", "County Average", "Ogallala Average"];
 var wellDomain = {};
 
 var select =d3.select("#selectDiv")
@@ -38,7 +40,7 @@ var maxRadius = 7;
 
 
 function changeSelection() {
-    choice = d3.select('select').property('value')
+    choice = select.property('value')
     if (idv==undefined || idv.wellMap==undefined) return;
     if (choice==choices[0]){
       var min =  99999;
@@ -53,13 +55,13 @@ function changeSelection() {
         wellDomain.measureMax = max;  
         var linearScale = d3.scale.linear()
                           .domain([wellDomain.measureMin,wellDomain.measureMax])
-                          .range([minRadius,maxRadius]);
+                          .range([minRadius+1,maxRadius]);
         // Compute radius of wells
         for (var key in idv.wellMap){
           var w = idv.wellMap[key];
           w.radius = linearScale(w.detail.totalMeasurementDate);   
         }
-      }                    
+      }  
     }
     else if (choice==choices[1]){
       var min =  99999;
@@ -96,24 +98,21 @@ function changeSelection() {
     }
 
   redrawAllWells();
-
-  // Horizon graph
-  var topWells = getTop20Wells();
-  drawHorizon(topWells);
-
-  idv.wellManager.activateWells(topWells.map(function(w) {
-    return {id: w.key}
-  }));
-
+   
   idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
   idv.colorManager.updateContourWellColors();
+  // Horizon graph 
+ 
+  var topWells = getTop20Wells();
+  drawHorizon(topWells); 
+
   // Long code ***************  redraw line graphs
 
 
 };
 
 function changeAverage() {
-    choice = d3.select('select').property('value')
+    choice = selectAverage.property('value')
     if (idv==undefined || idv.wellMap==undefined) return;
     if (choice==choices[0]){
       wellDomain.measureMin =  99999;
