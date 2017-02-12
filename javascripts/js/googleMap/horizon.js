@@ -85,6 +85,7 @@ function drawHorizon(){
       obj2.values[m*2] = obj.values[m]; 
     } 
 
+    // Interpolate missing months
     interpolate(obj2.values, 2);
     interpolate(obj2.values, 3);
     interpolate(obj2.values, 4);
@@ -96,66 +97,7 @@ function drawHorizon(){
     interpolate(obj2.values, 10);
     interpolate(obj2.values, 11);
     interpolate(obj2.values, 12);
-
-    
-    /*
-    // Interpolate the middle month if missing
-    for (var m=0; m<numMonths; m++){
-      if (obj2.values[m*2]!=undefined && obj2.values[m*2+4]!=undefined && obj2.values[m*2+2]==undefined)
-        obj2.values[m*2+2] = (obj2.values[m*2]+obj2.values[m*2+4])/2; 
-    }
-    // Interpolate the 2 middle month if missing
-    for (var m=0; m<numMonths; m++){
-      if (obj2.values[m*2]!=undefined && obj2.values[m*2+6]!=undefined && obj2.values[m*2+2]==undefined && obj2.values[m*2+4]==undefined){
-         obj2.values[m*2+2] = obj2.values[m*2]+(obj2.values[m*2+6]-obj2.values[m*2])*0.33; 
-         obj2.values[m*2+4] = obj2.values[m*2]+(obj2.values[m*2+6]-obj2.values[m*2])*0.66; 
-      }
-    }  
-
-    // Interpolate for 4 months
-    for (var m=0; m<numMonths; m++){
-      if (obj2.values[m*2]!=undefined && obj2.values[m*2+8]!=undefined && obj2.values[m*2+2]==undefined && obj2.values[m*2+4]==undefined && obj2.values[m*2+6]==undefined){
-         obj2.values[m*2+2] = obj2.values[m*2]+(obj2.values[m*2+8]-obj2.values[m*2])*0.25; 
-         obj2.values[m*2+4] = obj2.values[m*2]+(obj2.values[m*2+8]-obj2.values[m*2])*0.50; 
-         obj2.values[m*2+6] = obj2.values[m*2]+(obj2.values[m*2+8]-obj2.values[m*2])*0.75; 
-      }
-    }  
-
-    // Interpolate for 5 months
-    for (var m=0; m<numMonths; m++){
-      if (obj2.values[m*2]!=undefined && obj2.values[m*2+10]!=undefined && obj2.values[m*2+2]==undefined && obj2.values[m*2+4]==undefined && obj2.values[m*2+6]==undefined && obj2.values[m*2+8]==undefined){
-         obj2.values[m*2+2] = obj2.values[m*2]+(obj2.values[m*2+10]-obj2.values[m*2])*0.2; 
-         obj2.values[m*2+4] = obj2.values[m*2]+(obj2.values[m*2+10]-obj2.values[m*2])*0.4; 
-         obj2.values[m*2+6] = obj2.values[m*2]+(obj2.values[m*2+10]-obj2.values[m*2])*0.6; 
-         obj2.values[m*2+8] = obj2.values[m*2]+(obj2.values[m*2+10]-obj2.values[m*2])*0.8; 
-      }
-    } 
-
-    // Interpolate for 6 months
-    for (var m=0; m<numMonths; m++){
-      if (obj2.values[m*2]!=undefined && obj2.values[m*2+12]!=undefined && obj2.values[m*2+2]==undefined && obj2.values[m*2+4]==undefined && obj2.values[m*2+6]==undefined && obj2.values[m*2+8]==undefined && obj2.values[m*2+10]==undefined){
-         obj2.values[m*2+2] = obj2.values[m*2]+(obj2.values[m*2+12]-obj2.values[m*2])*0.167; 
-         obj2.values[m*2+4] = obj2.values[m*2]+(obj2.values[m*2+12]-obj2.values[m*2])*0.333; 
-         obj2.values[m*2+6] = obj2.values[m*2]+(obj2.values[m*2+12]-obj2.values[m*2])*0.5; 
-         obj2.values[m*2+8] = obj2.values[m*2]+(obj2.values[m*2+12]-obj2.values[m*2])*0.666; 
-         obj2.values[m*2+10]= obj2.values[m*2]+(obj2.values[m*2+12]-obj2.values[m*2])*0.833; 
-      }
-    }  
-
-    // Interpolate for 7 months
-    for (var m=0; m<numMonths; m++){
-      if (obj2.values[m*2]!=undefined && obj2.values[m*2+14]!=undefined && obj2.values[m*2+2]==undefined && obj2.values[m*2+4]==undefined && obj2.values[m*2+6]==undefined && obj2.values[m*2+8]==undefined && obj2.values[m*2+10]==undefined && obj2.values[m*2+12]==undefined){
-         obj2.values[m*2+2] = obj2.values[m*2]+(obj2.values[m*2+14]-obj2.values[m*2])*1/7; 
-         obj2.values[m*2+4] = obj2.values[m*2]+(obj2.values[m*2+14]-obj2.values[m*2])*2/7; 
-         obj2.values[m*2+6] = obj2.values[m*2]+(obj2.values[m*2+14]-obj2.values[m*2])*3/7; 
-         obj2.values[m*2+8] = obj2.values[m*2]+(obj2.values[m*2+14]-obj2.values[m*2])*4/7; 
-         obj2.values[m*2+10]= obj2.values[m*2]+(obj2.values[m*2+14]-obj2.values[m*2])*5/7; 
-         obj2.values[m*2+12]= obj2.values[m*2]+(obj2.values[m*2+14]-obj2.values[m*2])*6/7; 
-      }
-    } */
-
-   // function interpolate(array, step){ 
-
+   
     // Interpolate for step months
     function interpolate(array, step){
       for (var m=0; m<numMonths; m++){
@@ -174,7 +116,6 @@ function drawHorizon(){
       }  
     }
 
-
     // Interpolate the value beween 2 continuous months
     for (var m=0; m<numMonths; m++){
       if (obj2.values[m*2]!=undefined && obj2.values[m*2+2]!=undefined)
@@ -192,6 +133,8 @@ function drawHorizon(){
     .each(function(d) {
         d3.horizonChart()
             .title(d.stock)
+            .colors([ '#830', '#c96', '#48b', '#237'])
+           // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
            // .colors(['rgba(250,200,160,1)', 'rgba(200,150,130,255)', 'rgb(200,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
             .height(30)
             .call(this, d.values);
