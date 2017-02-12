@@ -1,8 +1,8 @@
 var idv = idv || {};
 idv.colorManager = idv.colorManager || {};
-idv.colorManager.colors = d3.scale.category10();
+idv.colorManager.colors = d3.scale.category20();
 
-idv.colorManager.SUPPORTED_COLOR_COUNT = 10;
+idv.colorManager.SUPPORTED_COLOR_COUNT = 20;
 idv.colorManager.supportedColors = {};
 for (var i=0; i< idv.colorManager.SUPPORTED_COLOR_COUNT; i++) {
     idv.colorManager.supportedColors["color" + (i + 1)] = {

@@ -68,6 +68,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     ]);
 
 
+    var wellId = columnKey.substring(4);
+    var myWell = idv.wellMap[wellId];
     // clipping ----------------------------
     svg.datum(data);
 
@@ -84,13 +86,15 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     //----------- Creating lines with clip path items created-------
     svg.append("path")
-        .attr("class", "area above")
+        // .attr("class", "area above")
+        .style("fill", myWell.getMyColor())     // set the fill colour
         .attr("clip-path", "url(#clip-above)")
         .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
     ;
 
     svg.append("path")
-        .attr("class", "area below")
+        // .attr("class", "area below")
+        .style("fill", 'grey')     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
     ;
