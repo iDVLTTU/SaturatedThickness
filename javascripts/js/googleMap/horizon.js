@@ -155,7 +155,7 @@ function drawHorizon(wellList){
     .each(function(d) {
         d3.horizonChart()
             .title("well "+d.id)
-            .colors(colorsWater)  // colorsWater is defined in color.manager.js
+            .colors(idv.colorManager.getAllWaterColorsAsArray())  // colorsWater is defined in color.manager.js
            // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
            // .colors(['rgba(250,200,160,1)', 'rgba(200,150,130,255)', 'rgb(200,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
             .height(30)

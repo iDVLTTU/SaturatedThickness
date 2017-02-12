@@ -12,6 +12,22 @@ for (var i=0; i< idv.colorManager.SUPPORTED_COLOR_COUNT; i++) {
 }
 
 idv.colorManager.colorsWater = {'darkRed': '#830', 'lightBrow': '#c96', 'lightBlue': '#48b', 'darkBlue': '#237'}; // dark red, brow, light blue, blue
+idv.colorManager.getAllWaterColors = function () {
+    return idv.colorManager.colorsWater;
+};
+
+idv.colorManager.getAllWaterColorsAsArray = function () {
+    var colors = [];
+    for(var k in this.colorsWater) {
+        if (!this.colorsWater.hasOwnProperty(k)) {
+            continue;
+        }
+
+        colors.push(this.colorsWater[k]);
+    }
+    
+    return colors;
+};
 
 idv.colorManager.getWaterColor = function(key) {
   if (!this.colorsWater.hasOwnProperty(key)) {
