@@ -237,6 +237,24 @@ idv.timeChartManager.generateWellData = function(well) {
         wellData.push(well.detail[tmpDateInXAxis]);
     }
 
+    debugger;
+    wellData = [];
+    wellData.push(label);
+
+    var interpolatedValue;
+    var waterElevation;
+    for (var i=0; i< idv.timeChartManager.xAxis.length-1; i++) {
+        interpolatedValue = well.interpolate[2*i];
+        if (interpolatedValue == null || interpolatedValue == undefined) {
+            wellData.push(null)
+        }
+        else {
+            waterElevation = idv.util.getWaterElevationFromInterpolatedValue(interpolatedValue);
+            wellData.push(waterElevation);
+
+        }
+    }
+
     return wellData;
 };
 

@@ -12,6 +12,7 @@
 idv.CONTOUR_DIV_ID = "myDiv";
 idv.TOTAL_WELLS = 10;
 idv.TOTAL_COLS = 588;
+idv.INTERPOLATION_CUT = 3000;
 
 idv.data2D = [];
 idv.pointMap = {}; //

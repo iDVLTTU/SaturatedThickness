@@ -45,3 +45,11 @@ idv.util.removeChildren = function(containerId) {
     }
 };
 
+idv.util.getInterpolatedValue = function(waterElevation) {
+  return (waterElevation-idv.INTERPOLATION_CUT)/idv.INTERPOLATION_CUT;
+};
+
+idv.util.getWaterElevationFromInterpolatedValue = function (interpolatedValue) {
+  return (interpolatedValue * idv.INTERPOLATION_CUT + idv.INTERPOLATION_CUT);
+};
+
