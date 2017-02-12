@@ -103,8 +103,6 @@ function changeSelection() {
 
 
   // Long sets active wells
-
-  
   idv.wellManager.activateWells(topWells);
   
   redrawAllWells();
