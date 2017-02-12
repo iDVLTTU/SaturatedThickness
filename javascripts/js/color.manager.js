@@ -11,6 +11,8 @@ for (var i=0; i< idv.colorManager.SUPPORTED_COLOR_COUNT; i++) {
     }
 }
 
+var colorsWater = [ '#830', '#c96', '#48b', '#237']; // dark red, brow, light blue, blue 
+
 idv.colorManager.getUnusedColorKey = function() {
     var tmpColor;
     for(var myColor in idv.colorManager.supportedColors) {
