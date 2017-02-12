@@ -254,14 +254,11 @@ idv.load = function() {
             d3.csv('data/well_data_full.csv', function(error, allWellData) {
 
                 idv.handleWellDataLoadComplete(allWellData);
-
-                idv.plotData();
-
-
-                // In horizon.js 
+                // In horizon.js
                 computeCountyAverage();
                 interpolate();
 
+                idv.plotData();
                 // In select.js
                 changeSelection();
 
