@@ -1,7 +1,7 @@
 var idv = idv || {};
 idv.comparisonChart = idv.comparisonChart || {};
 var setupSvg = function () {
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {top: 20, right: 30, bottom: 30, left: 70},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -29,7 +29,7 @@ idv.comparisonChart.initForTest = function () {
 
 idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey) {
 
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {top: 20, right: 30, bottom: 30, left: 60},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -64,7 +64,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     y.domain([
         d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }),
-        d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); }) + 1000
+        d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); })
     ]);
 
 
@@ -130,9 +130,13 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .call(yAxis)
         .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
+        .attr("y", 0- margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", ".51em")
+        .style("text-anchor", "middle")
+        // .attr("y", 6)
+        // .attr("dy", ".71em")
+        // .style("text-anchor", "end")
         .text("Water Elevation");
 };
 
