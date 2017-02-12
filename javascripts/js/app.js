@@ -176,6 +176,9 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         //     break;
         // }
     }
+
+    idv.timeChartManager.setupTimeAxis();
+
 };
 
 idv.plotData = function () {

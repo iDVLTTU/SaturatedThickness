@@ -44,6 +44,9 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .x(function(d) { return x(d.year); })
         .y(function(d) {
             // debugger;
+
+            var a= y(d[columnKey]);
+
             return y(d[columnKey]); }
             );
 
@@ -84,6 +87,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .append("path")
         .attr("d", area.y0(0));
 
+    debugger;
     //----------- Creating lines with clip path items created-------
     svg.append("path")
         // .attr("class", "area above")
@@ -142,6 +146,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
 idv.comparisonChart.getData = function(averageKey, columnKey) {
 
+    debugger;
     var parseDate = d3.time.format("%Y-%m-%d").parse;
     var totalDataItem = idv.timeChartManager.xAxis.length - 1;
     var data = [];
@@ -156,7 +161,7 @@ idv.comparisonChart.getData = function(averageKey, columnKey) {
         };
 
         tmp[averageKey] = +myTmpCol1[i+1];
-        tmp[columnKey] = +myTmpCol2[i+1];
+        tmp[columnKey] = myTmpCol2[i+1];
 
         data.push(tmp);
     }

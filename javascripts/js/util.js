@@ -23,6 +23,10 @@ idv.util.getDateInYmd = function(year, month, date) {
     return year + '-' + month + '-15';
 };
 
+idv.util.stringToDate = function(yyyymmdd) {
+
+};
+
 idv.util.getChartId = function(wellName) {
     return "My" + wellName + 'TimeSeries';
 };

@@ -27,10 +27,45 @@ idv.timeChartManager.wellAverage = {
 idv.timeChartManager.measurementDates = {};
 idv.timeChartManager.measurementDateCount = 0;
 
+idv.timeChartManager.setupTimeAxis = function() {
+    debugger;
+    var myDates = [];
+    var tmpDate;
+    var parseDate = d3.time.format("%Y-%m-%d").parse;
+    var format = d3.time.format("%Y-%m-%d");
+
+    for(var key in idv.timeChartManager.measurementDates) {
+        if (!idv.timeChartManager.measurementDates.hasOwnProperty(key)) {
+            continue;
+        }
+
+        tmpDate = parseDate(key);
+        myDates.push(tmpDate);
+    }
+
+    myDates.sort(function(a,b) {
+        return a.getTime() - b.getTime();
+    });
+
+    var stringDates = myDates.map(function (d) {
+        return format(d);
+    });
+
+    stringDates.unshift('year');
+    idv.timeChartManager.xAxis = stringDates;
+};
+
 idv.timeChartManager.addMeasurementDate = function(date) {
+    // var parseDate = d3.time.format("%Y-%m-%d").parse;
+
     if (!idv.timeChartManager.measurementDates.hasOwnProperty(date)) {
         idv.timeChartManager.measurementDates[date] = true;
         idv.timeChartManager.xAxis.push(date);
+        // idv.timeChartManager.xAxis.sort(function(a,b) {
+        //
+        //     debugger;
+        //     return parseDate(a).getTime() - parseDate(b).getTime();
+        // });
         idv.timeChartManager.measurementDateCount ++;
     }
 };
@@ -207,6 +242,12 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     if (bindToId == 'wellTimeSeries') {
                         idv.timeChartManager.activateWellAsAreaChart(name);
                         idv.comparisonChart.generateAverageComparisonChart('average', name);
+
+                        var wellData = idv.timeChartManager.getColumnDataByKey(name);
+                        console.log(wellData);
+                        wellData = idv.timeChartManager.getColumnDataByKey('average');
+                        console.log(wellData);
+
                     }
                 }
             }
