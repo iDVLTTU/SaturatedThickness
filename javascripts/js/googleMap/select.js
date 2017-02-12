@@ -94,11 +94,18 @@ function changeSelection() {
         }
       }
     }
+
   redrawAllWells();
    
+  idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+  idv.colorManager.updateContourWellColors();
   // Horizon graph 
   var topWells = getTop20Wells();
-  drawHorizon(topWells);  
+  drawHorizon(topWells); 
+
+  // Long code ***************  redraw line graphs
+
+
 };
 
 function changeAverage() {

@@ -261,7 +261,7 @@ idv.load = function() {
                 // In horizon.js 
                 computeCountyAverage();
                 interpolate();
-                
+
                 // In select.js
                 changeSelection();
 
@@ -273,6 +273,7 @@ idv.load = function() {
                 // In map.js
 
                 redrawAllWells();
+
             });    
         });    
     });
