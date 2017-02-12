@@ -44,7 +44,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .x(function(d) { return x(d.year); })
         .y(function(d) {
             // debugger;
-            return y(d[averageKey]); }
+            return y(d[columnKey]); }
             );
 
     var area = d3.svg.area()
@@ -86,21 +86,22 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     //----------- Creating lines with clip path items created-------
     svg.append("path")
-        // .attr("class", "area above")
-        .style("fill", myWell.getMyColor())     // set the fill colour
+        .attr("class", "area above")
+        // .style("fill", myWell.getMyColor())     // set the fill colour
         .attr("clip-path", "url(#clip-above)")
         .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
     ;
 
     svg.append("path")
-        // .attr("class", "area below")
-        .style("fill", 'grey')     // set the fill colour
+        .attr("class", "area below")
+        // .style("fill", 'grey')     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
     ;
 
     svg.append("path")
         .attr("class", "line")
+        .style("stroke", myWell.getMyColor())
         .attr("d", line)
     ;
 
