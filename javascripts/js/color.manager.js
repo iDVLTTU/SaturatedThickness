@@ -26,7 +26,7 @@ idv.colorManager.getAllWaterColorsAsArray = function () {
 
         colors.push(this.colorsWater[k]);
     }
-    
+
     return colors;
 };
 

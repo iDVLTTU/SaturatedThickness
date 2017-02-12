@@ -24,6 +24,8 @@
     stroke-width: 2;
 }
 
+.axis { font: 12px sans-serif; }
+
 .x.axis path {
     fill: none;
     stroke: grey;
