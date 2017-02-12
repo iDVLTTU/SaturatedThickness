@@ -257,8 +257,13 @@ idv.load = function() {
 
                 idv.plotData();
 
+                // In select.js
                 changeSelection();
+
+                // In Horizon.js 
+                computeCountyAverage();
                 drawHorizon();
+                
             });    
         });    
     });
