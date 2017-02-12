@@ -64,7 +64,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     y.domain([
         d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }),
-        d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); })
+        d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); }) + 1000
     ]);
 
 
@@ -110,7 +110,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .scale(x)
         .orient("bottom")
         // .ticks(21)
-        .tickFormat(d3.time.format("%b '%y"))
+        .tickFormat(d3.time.format("%y"))
+        // .tickFormat(d3.time.format("%b '%y"))
     ;
 
     var yAxis = d3.svg.axis()
