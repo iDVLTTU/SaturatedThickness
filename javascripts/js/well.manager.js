@@ -82,7 +82,6 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
-    debugger;
     wells = wells.map(function (w) {
         return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
     });

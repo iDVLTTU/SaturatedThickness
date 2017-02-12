@@ -14,7 +14,6 @@ idv.comparisonChart.initForTest = function () {
 
 idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey) {
 
-    debugger;
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -52,20 +51,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         return d.year;
     }));
 
-    // x.domain([
-    //     new Date(1995, 1, 15),
-    //     new Date(2017, 1, 15)
-    // ]);
-
-    // var minMax = [
-    //     500,
-    //     4100
-    // ];
-    // y.domain(minMax);
-    var yMin = d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); });
-    yMin = yMin - 200 > 0? yMin - 200 : 0;
     y.domain([
-        yMin,
+        d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }),
         d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); })
     ]);
 
@@ -89,21 +76,17 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .attr("class", "area above")
         .attr("clip-path", "url(#clip-above)")
         .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
     ;
 
     svg.append("path")
         .attr("class", "area below")
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
     svg.append("path")
         .attr("class", "line")
         .attr("d", line)
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     ;
 
     // coordinate
