@@ -257,13 +257,22 @@ idv.load = function() {
 
                 idv.plotData();
 
+
+                // In horizon.js 
+                computeCountyAverage();
+                interpolate();
+                
                 // In select.js
                 changeSelection();
 
-                // In Horizon.js 
-                computeCountyAverage();
-                interpolate();
-                drawHorizon();   
+                
+
+                //var topWells = getTop20Wells();
+                //drawHorizon(topWells);  
+
+                // In map.js
+
+                redrawAllWells();
             });    
         });    
     });

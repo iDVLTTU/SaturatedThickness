@@ -6,7 +6,6 @@
  * OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
  */
 
-var stocks = [];
 
 var countyAverage ={};
 var startYear = 95;
@@ -53,7 +52,7 @@ function interpolate(){
   for (var k in idv.wellMap){
     var w = idv.wellMap[k].detail;
     var obj = {};
-    obj.stock = k;
+    obj.key = k;
     obj.values = [];
     var count = 0;
     for (var key in w){
@@ -79,7 +78,7 @@ function interpolate(){
     } 
     // Extend by interpolate the middle point.
     var obj2 = {};
-    obj2.stock = "well "+k;
+    obj2.key = "well "+k;
     obj2.values = [];
     for (var m=0; m<numMonths; m++){
       obj2.values[m*2] = obj.values[m]; 
@@ -97,10 +96,7 @@ function interpolate(){
     interpolate(obj2.values, 10);
     interpolate(obj2.values, 11);
     interpolate(obj2.values, 12);
-
-    // Copy the real and interpolated values to wellMap 
-    idv.wellMap[k].interpolate = obj2.values;
-      
+  
   
     // Interpolate for step months
     function interpolate(array, step){
@@ -126,26 +122,44 @@ function interpolate(){
         obj2.values[m*2+1] = (obj2.values[m*2]+obj2.values[m*2+2])/2; 
     }  
 
-    if (count>18)
-      stocks.push(obj2);
+    // Copy the real and interpolated values to wellMap 
+    idv.wellMap[k].interpolate = obj2.values;
   } 
 }
 
+// Select the top 20 wells based on radius
+function getTop20Wells(){
+  // Clean of any previus horizons
+  d3.select("#horizonChart").selectAll('.horizon').remove();
+  d3.select("#horizonChart").selectAll('.horizonSVG').remove();
+
+  var allWells = d3.entries(idv.wellMap);
+  allWells.sort (function(a, b) {
+      return b.value.radius- a.value.radius;
+  });
+  var topWells = [];
+  for (var i=0;i<20;i++){
+    console.log(allWells[i].value.id);
+    topWells.push(allWells[i]);
+  }
+  return topWells;
+}
+
 // Draw Horizon graph
-function drawHorizon(){
+function drawHorizon(wellList){
   d3.select("#horizonChart").selectAll('.horizon')
-    .data(stocks)
+    .data(wellList)
     .enter()
     .append('div')
     .attr('class', 'horizon')
     .each(function(d) {
         d3.horizonChart()
-            .title(d.stock)
+            .title(d.key)
             .colors([ '#830', '#c96', '#48b', '#237'])
            // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
            // .colors(['rgba(250,200,160,1)', 'rgba(200,150,130,255)', 'rgb(200,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
             .height(30)
-            .call(this, d.values);
+            .call(this, d.value.interpolate);
     });
 
   // Draw x axis *********************************
@@ -162,6 +176,7 @@ function drawHorizon(){
             .scale(xScale);
 
   var svgAxis = d3.select("#horizonChart").append("svg")
+            .attr("class", "horizonSVG")
             .attr("width", 700)
             .attr("height", 20)
             .append("g")

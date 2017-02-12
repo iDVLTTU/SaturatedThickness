@@ -45,14 +45,6 @@ idv.wellManager.handleWellOnClick = function(well) {
 
     redrawMap(mySelectedWell);
     map.setCenter(wellGPS);
-    // var data = [
-    //     {
-    //         x: ['2013-10-04', '2013-11-04', '2013-12-04'],
-    //         y: [1, 3, 6],
-    //         type: 'scatter'
-    //     }
-    // ];
-    //
     // Plotly.newPlot('wellTimeSeries', data);
 };
 

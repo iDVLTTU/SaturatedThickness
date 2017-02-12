@@ -41,27 +41,29 @@ function changeSelection() {
     choice = d3.select('select').property('value')
     if (idv==undefined || idv.wellMap==undefined) return;
     if (choice==choices[0]){
-      wellDomain.measureMin =  99999;
-      wellDomain.measureMax = -99999;  
+      var min =  99999;
+      var max = -99999;  
       for (var key in idv.wellMap){
         var w = idv.wellMap[key];
-        wellDomain.measureMin = Math.min(wellDomain.measureMin,w.detail.totalMeasurementDate);
-        wellDomain.measureMax = Math.max(wellDomain.measureMax,w.detail.totalMeasurementDate);     
+        min = Math.min(min,w.detail.totalMeasurementDate);
+        max = Math.max(max,w.detail.totalMeasurementDate);     
       }
-      var linearScale = d3.scale.linear()
+      if (min<max){
+        wellDomain.measureMin = min;
+        wellDomain.measureMax = max;  
+        var linearScale = d3.scale.linear()
                           .domain([wellDomain.measureMin,wellDomain.measureMax])
                           .range([minRadius,maxRadius]);
-      for (var key in idv.wellMap){
-        var w = idv.wellMap[key];
-        w.radius = linearScale(w.detail.totalMeasurementDate);   
-      }
-
-
-
+        // Compute radius of wells
+        for (var key in idv.wellMap){
+          var w = idv.wellMap[key];
+          w.radius = linearScale(w.detail.totalMeasurementDate);   
+        }
+      }                    
     }
     else if (choice==choices[1]){
-      wellDomain.averageMin =  99999;
-      wellDomain.averageMax = -99999;  
+      var min =  99999;
+      var max = -99999;  
       for (var key in idv.wellMap){
         var w = idv.wellMap[key];
         if (w.average==undefined){ 
@@ -74,21 +76,29 @@ function changeSelection() {
             }  
           } 
           w.average = sum/count;
-          wellDomain.averageMin = Math.min(wellDomain.averageMin,w.average);
-          wellDomain.averageMax = Math.max(wellDomain.averageMax,w.average);
-          //console.log("numWell="+count+ " average="+w.average);         
+        }  
+        min = Math.min(min,w.average);
+        max = Math.max(max,w.average);
+      }
+      if (min<max){
+          wellDomain.averageMin = min;
+          wellDomain.averageMax = max;      
+          var linearScale = d3.scale.linear()
+                            .domain([wellDomain.averageMin,wellDomain.averageMax])
+                            .range([minRadius,maxRadius]);
+
+        // Compute radius of wells
+        for (var key in idv.wellMap){
+          var w = idv.wellMap[key];
+          w.radius = linearScale(w.average);   
         }
       }
-      var linearScale = d3.scale.linear()
-                          .domain([wellDomain.averageMin,wellDomain.averageMax])
-                          .range([minRadius,maxRadius]);
-      // Compute radius of wells
-      for (var key in idv.wellMap){
-        var w = idv.wellMap[key];
-        w.radius = linearScale(w.average);   
-      }
     }
-   // redrawMap(selectedWells);
+  redrawAllWells();
+   
+  // Horizon graph 
+  var topWells = getTop20Wells();
+  drawHorizon(topWells);  
 };
 
 function changeAverage() {

@@ -53,6 +53,15 @@ function init(){
   });
 }
 
+// Redraw google map with all wells{}
+function redrawAllWells() {
+  var mySelectedWell = [];
+  for (var key in idv.wellMap){
+      mySelectedWell.push(idv.wellMap[key]);
+  }
+  redrawMap(mySelectedWell);
+}
+
 // Redraw wells on map for every click
 function redrawMap(wellList) {
     selectedWells = wellList;
@@ -81,6 +90,7 @@ function redrawMap(wellList) {
                         .attr("cx", padding)
                         .attr("cy", padding)
                         .attr("fill", function(d){ return d.value.getMyColor(); })
+                        .attr("fill-opacity", 0.5)
                         .attr("stroke-width",1)
                         .on("mouseover",showTip)
                         .on("mouseout",mouseout)
@@ -142,7 +152,7 @@ function drawNearestWells(pointX, pointY){
   mapId = map.mapTypeId;
   redrawMap(wlist2);
 
-    idv.wellManager.activateWells(wlist2);
+  idv.wellManager.activateWells(wlist2);
   //var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
 }
 
