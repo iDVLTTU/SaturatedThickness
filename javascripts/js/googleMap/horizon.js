@@ -140,7 +140,6 @@ function getTop20Wells(){
   });
   var topWells = [];
   for (var i=0;i<20;i++){
-    console.log(allWells[i].value.id);
     topWells.push(allWells[i]);
   }
   return topWells;

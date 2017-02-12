@@ -20,7 +20,6 @@ var overlay;
 var layer;
 var bounds;
 var selectedWells=[];
-var numberNearestWell=9;
 // Add a default well
 //selectedWells.push(idv.wellMap["233701"]);
 redrawMap();
@@ -80,8 +79,7 @@ function redrawMap(wellList) {
                         .each(transform)
                         .attr("class", "marker");
       
-    //if (selectedWells.length>0)                    
-      layer.selectAll("svg").call(tip);
+     layer.selectAll("svg").call(tip);
                    
       // Add a circle.
       marker.append("svg:circle")
@@ -141,7 +139,7 @@ function drawNearestWells(pointX, pointY){
   });
 
   var wlist2 = [];
-  for (var i=0; i<numberNearestWell+1;i++){
+  for (var i=0; i<numNeighbor+1;i++){  // numNeighbor is defined in select.js
     wlist2.push(wlist[i]); 
   }
 

@@ -27,7 +27,7 @@ function showTip(d) {
     .html(function(d) {
       var str ="";
       str+="<b> Well data: </b>"
-        str+="<table border='0.5px'  style='width:100%'>"
+        str+="<table class='tableTip' style='width:100%; font-family: sans-serif; font-size: 12px;'>"
         for (key in d.value) {
           if (key== "getMyColor" || key== "minX"|| key== "minY"|| key== "maxX"|| key== "maxY"
             || key== "pointId" || key== "pointY"|| key== "color" //|| key== "active"
@@ -52,7 +52,7 @@ function showTip(d) {
               } 
               else{ 
                 var value2 = d.value.detail[key2];    
-                str+=  "<tr><td>"+key2+"</td> <td>  <span style='color:"+ d.value.getMyColor()+"; text-shadow: 0px 1px 1px #000000;'> &nbsp; &nbsp; " + Math.round(value2) + "</span> </td></tr>";
+                str+=  "<tr style='border: 2px;'><td border='1'> &nbsp;  &nbsp;"+key2.substring(0, 7)+"</td> <td>  <span style='color:"+ d.value.getMyColor()+"; text-shadow: 0px 1px 1px #000000;'> &nbsp; &nbsp;  &nbsp;" + Math.round(value2) + "</span> </td></tr>";
               }
             }  
           }

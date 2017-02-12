@@ -6,7 +6,7 @@
   font-family: "sans-serif";
   background: rgba(204, 204, 204, 0.96);
   color: #000;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 /* Creates a small triangle extender for the tooltip */
 /*.d3-tip:after {
@@ -26,9 +26,47 @@
   top: 100%;
   left: 0;
 }
-table, th, td {
-    border: 1px solid #ccc;
+
+/*
+.d3-tip table, th, td {
+    border: 2px solid #ccc;
     border-collapse: collapse;
     padding: 2px;
     background-color: #fff;
 }
+
+.table2 table, th, td {
+    border: 4px solid #fcc;
+    border-collapse: collapse;
+    padding: 2px;
+    background-color: #fff;
+}*/
+
+table {
+  border: 0px solid #ccc;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.tableSub td {
+    border:none !important;
+    border-collapse: collapse;
+    padding: 1px;
+    background-color: #fff;
+}
+
+.tableLayout td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    padding: 1px;
+    background-color: #fff;
+}
+
+.tableTip td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    padding: 1px;
+    background-color: #fff;
+}
+
+
