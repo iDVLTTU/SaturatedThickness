@@ -237,7 +237,6 @@ idv.timeChartManager.generateWellData = function(well) {
         wellData.push(well.detail[tmpDateInXAxis]);
     }
 
-    debugger;
     wellData = [];
     wellData.push(label);
 

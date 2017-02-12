@@ -130,10 +130,6 @@ function interpolate(){
 
 // Select the top 20 wells based on radius
 function getTop20Wells(){
-  // Clean of any previus horizons
-  d3.select("#horizonChart").selectAll('.horizon').remove();
-  d3.select("#horizonChart").selectAll('.horizonSVG').remove();
-
   var allWells = d3.entries(idv.wellMap);
   allWells.sort (function(a, b) {
       return b.value.radius- a.value.radius;
@@ -147,6 +143,10 @@ function getTop20Wells(){
 
 // Draw Horizon graph
 function drawHorizon(wellList){
+  // Clean of any previus horizons
+  d3.select("#horizonChart").selectAll('.horizon').remove();
+  d3.select("#horizonChart").selectAll('.horizonSVG').remove();
+
   d3.select("#horizonChart").selectAll('.horizon')
     .data(wellList)
     .enter()
