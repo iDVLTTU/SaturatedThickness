@@ -48,7 +48,15 @@ function init(){
         lng = lng.toFixed(4);
         console.log("Map clicked at Latitude: " + lat + "  Longitude: " + lng);
         var clickedPixel = idv.getClosestPointPixelDataForPosition(lng, lat);
-        drawNearestWells(clickedPixel.x, clickedPixel.y);
+        
+        var wList=[];
+        var averageChoice = selectAverage.property('value')
+        if (averageChoice ==averageChoices[0])
+          wList = getNearestWells(clickedPixel.x, clickedPixel.y);
+        else if (averageChoice ==averageChoices[1])
+          wList = getCountyWells(clickedPixel.x, clickedPixel.y);
+
+        refeshMapsAndGraphs(wList);
   });
 }
 
@@ -119,15 +127,21 @@ function redrawMap(wellList) {
       function clickWell(d){
         tip.hide(d);
         console.log("Well clicked: "+d.value.id);
-        drawNearestWells(d.value.pointX, d.value.pointY);
+        var wList=[];
+        var averageChoice = selectAverage.property('value')
+        if (averageChoice ==averageChoices[0])
+          wList = getNearestWells(d.value.pointX, d.value.pointY);
+        else if (averageChoice ==averageChoices[1])
+          wList = getCountyWells(d.value.pointX, d.value.pointY);
+        refeshMapsAndGraphs(wList);
       };
     };
     overlay.setMap(map);
   }
 
-// Get and draw the neareat well from a GPS location
+// Get the neareat well from a GPS location
 // This function can be used for both Well and Map clicked
-function drawNearestWells(pointX, pointY){
+function getNearestWells(pointX, pointY){
   var wlist = [];
   for (var key in idv.wellMap){
     var w = idv.wellMap[key];
@@ -148,25 +162,44 @@ function drawNearestWells(pointX, pointY){
   mapLat = map.center.lat();
   mapLng = map.center.lng();
   mapId = map.mapTypeId;
-  
-  // Long sets active wells
-  idv.wellManager.activateWells(wlist2);
+    //var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
+  return wlist2; 
+}
 
+// Get all wells in the selected county
+// This function can be used for both Well and Map clicked
+function getCountyWells(pointX, pointY){
+  var wlist = getNearestWells(pointX, pointY);
+  var countyName = wlist[0].detail.county; 
+  console.log("Clicked on County: "+countyName);
+
+  var wlist2 = [];
+  for (var key in idv.wellMap){
+    var w = idv.wellMap[key];
+    if (w.detail.county == countyName)
+      wlist2.push(w);
+  }
+  return wlist2; 
+}
+
+
+function refeshMapsAndGraphs(wList){ 
   // Sort well by radius
-  wlist2.sort (function(a, b) {
+  wList.sort (function(a, b) {
       return b.radius- a.radius;
   });
   var wlist3 = [];
-  for (var i=0;i<wlist2.length;i++){ //numNeighbor is defined in select.js 
-    wlist3.push(wlist2[i]);
+  for (var i=0;i<wList.length;i++){ //numNeighbor is defined in select.js 
+    wlist3.push(wList[i]);
   }
 
-  
+  // Long sets active wells
+  idv.wellManager.activateWells(wlist3);
+
   redrawMap(wlist3);
   
   drawHorizon(wlist3); 
 
-  //var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
 }
 
 // Get the distance of well d2 to the (pointX, pointY)

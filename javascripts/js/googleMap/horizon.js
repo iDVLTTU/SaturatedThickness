@@ -96,7 +96,7 @@ function interpolate(){
     interpolate(obj2.values, 9);
     interpolate(obj2.values, 10);
     interpolate(obj2.values, 11);
-    interpolate(obj2.values, 12);
+    //interpolate(obj2.values, 12);
   
   
     // Interpolate for step months
@@ -161,6 +161,13 @@ function drawHorizon(wellList){
             .height(30)
             .call(this, d.interpolate);
     });
+
+
+  d3.select("#horizonChart").selectAll('.title').on("mouseover", function(d){
+    d3.select("#horizonChart").selectAll('.title').style("color", function(d){
+      return d.getMyColor();
+    }); 
+  });  
 
   // Draw x axis *********************************
   var mindate = new Date(1900+startYear,1,1),

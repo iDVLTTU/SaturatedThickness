@@ -10,7 +10,7 @@
 var numNeighbor = 19;  //Numeber of Neighbors to compute average
 
 var choices = ["Number of measurements", "Average over time", "Standard Deviation", "Sudden increase", "Sudden decrease"];
-var averageChoices = [numNeighbor +" Neighbor Average", "County Average", "Ogallala Average"];
+var averageChoices = [numNeighbor +" Neighbor", "County", "Ogallala"];
 var wellDomain = {};
 
 var select =d3.select("#selectDiv")
@@ -120,7 +120,8 @@ function changeSelection() {
 };
 
 function changeAverage() {
-    choice = selectAverage.property('value')
+  /*
+    averageChoices = selectAverage.property('value')
     if (idv==undefined || idv.wellMap==undefined) return;
     if (choice==choices[0]){
       wellDomain.measureMin =  99999;
@@ -166,7 +167,7 @@ function changeAverage() {
         var w = idv.wellMap[key];
         w.radius = linearScale(w.average);   
       }
-    }
+    }*/
 };
 
 
