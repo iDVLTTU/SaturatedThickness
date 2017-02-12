@@ -205,10 +205,8 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 },
                 onmouseover: function (name) {
                     if (bindToId == 'wellTimeSeries') {
-                        debugger;
                         idv.timeChartManager.activateWellAsAreaChart(name);
-
-                        // idv.comparisonChart.generateAverageComparisonChart('average', name);
+                        idv.comparisonChart.generateAverageComparisonChart('average', name);
                     }
                 }
             }

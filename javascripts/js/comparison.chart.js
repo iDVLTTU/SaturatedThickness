@@ -1,14 +1,29 @@
 var idv = idv || {};
 idv.comparisonChart = idv.comparisonChart || {};
+var setupSvg = function () {
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("body").select("#charts").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    return svg;
+};
+
+idv.comparisonChart.svg = setupSvg();
 
 idv.comparisonChart.initForTest = function () {
-    idv.wellManager.activateWells(
-        [{id: 450802}, {id: 450502}, {id: 458201}, {id: 450401}],
-        true);
-
-    idv.timeChartManager.updateAverageData();
-
-    this.generateAverageComparisonChart('average', "well450802");
+    // idv.wellManager.activateWells(
+    //     [{id: 450802}, {id: 450502}, {id: 458201}, {id: 450401}],
+    //     true);
+    //
+    // idv.timeChartManager.updateAverageData();
+    //
+    // this.generateAverageComparisonChart('average', "well450802");
 };
 
 
@@ -39,12 +54,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         })
         .y1(function(d) { return y(d[averageKey]); });
 
-
-    var svg = d3.select("body").select("#charts").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = this.svg;
+    svg.selectAll("*").remove();
 
     var data = this.getData(averageKey, columnKey);
     x.domain(d3.extent(data, function(d) {
