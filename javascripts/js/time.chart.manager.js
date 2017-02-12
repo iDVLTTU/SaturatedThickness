@@ -225,20 +225,21 @@ idv.timeChartManager.generateWellData = function(well) {
     var wellData = [];
     var label = 'well' + well.id;
     wellData.push(label);
-    var tmpDateInXAxis;
-    for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
-        tmpDateInXAxis = idv.timeChartManager.xAxis[i];
-        if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
-            //wellData.push(null);
-            wellData.push(Math.round(Math.random()*1000) + 500);
-            continue;
-        }
-
-        wellData.push(well.detail[tmpDateInXAxis]);
-    }
-
-    wellData = [];
-    wellData.push(label);
+    // var tmpDateInXAxis;
+    // for (var i=1; i< idv.timeChartManager.xAxis.length; i++) {
+    //     tmpDateInXAxis = idv.timeChartManager.xAxis[i];
+    //     if (well.detail == null || well.undefined || !well.detail.hasOwnProperty(tmpDateInXAxis)) {
+    //         //wellData.push(null);
+    //         wellData.push(Math.round(Math.random()*1000) + 500);
+    //         continue;
+    //     }
+    //
+    //     wellData.push(well.detail[tmpDateInXAxis]);
+    // }
+    //
+    // debugger;
+    // wellData = [];
+    // wellData.push(label);
 
     var interpolatedValue;
     var waterElevation;
