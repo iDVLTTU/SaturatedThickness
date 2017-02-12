@@ -96,13 +96,17 @@ function changeSelection() {
     }
 
   redrawAllWells();
-   
+
+  // Horizon graph
+  var topWells = getTop20Wells();
+  drawHorizon(topWells);
+
+  idv.wellManager.activateWells(topWells.map(function(w) {
+    return {id: w.key}
+  }));
+
   idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
   idv.colorManager.updateContourWellColors();
-  // Horizon graph 
-  var topWells = getTop20Wells();
-  drawHorizon(topWells); 
-
   // Long code ***************  redraw line graphs
 
 
