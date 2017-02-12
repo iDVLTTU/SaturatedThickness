@@ -110,7 +110,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .scale(x)
         .orient("bottom")
         // .ticks(21)
-        .tickFormat(d3.time.format("%y"))
+        .tickFormat(d3.time.format("%Y"))
         // .tickFormat(d3.time.format("%b '%y"))
     ;
 
