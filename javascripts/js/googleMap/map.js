@@ -152,8 +152,19 @@ function drawNearestWells(pointX, pointY){
   // Long sets active wells
   idv.wellManager.activateWells(wlist2);
 
+  // Sort well by radius
+  wlist2.sort (function(a, b) {
+      return b.radius- a.radius;
+  });
+  var wlist3 = [];
+  for (var i=0;i<wlist2.length;i++){ //numNeighbor is defined in select.js 
+    wlist3.push(wlist2[i]);
+  }
 
-  redrawMap(wlist2);
+  
+  redrawMap(wlist3);
+  
+  drawHorizon(wlist3); 
 
   //var wellGPS = {lat: +d.value.detail.position.lat, lng: +d.value.detail.position.lon};
 }
