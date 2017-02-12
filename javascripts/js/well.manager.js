@@ -79,8 +79,13 @@ idv.wellManager.handleWellSingleClick = function(well) {
  * @param wells with format [{id: 1122}, {id: 123}], or [id1, id2, id3]
  */
 idv.wellManager.activateWells = function(wells) {
+    debugger;
     if (!Array.isArray(wells)) {
         throw new Error('Expect array of wells');
+    }
+
+    if (wells.length > 20) {
+        wells.splice(20);
     }
 
     wells = wells.map(function (w) {
