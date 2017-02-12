@@ -154,7 +154,7 @@ function drawHorizon(wellList){
     .attr('class', 'horizon')
     .each(function(d) {
         d3.horizonChart()
-            .title(d.key)
+            .title("well "+d.key)
             .colors([ '#830', '#c96', '#48b', '#237'])
            // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
            // .colors(['rgba(250,200,160,1)', 'rgba(200,150,130,255)', 'rgb(200,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
