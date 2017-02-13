@@ -94,7 +94,7 @@ idv.timeChartManager.getChartTypes = function() {
     return chartTypes;
 };
 
-idv.timeChartManager.updateAverageData = function () {
+idv.timeChartManager.updateAverageData = function (wells) {
 
     if (idv.timeChartManager.dataColumnCount < 2) {
         return;
@@ -103,7 +103,15 @@ idv.timeChartManager.updateAverageData = function () {
     var average = ['average'];
 
     var totalValueAllColumn;
-    var myCols = idv.timeChartManager.getColumns();
+    var myCols;
+    if (!!wells) {
+        myCols = wells.map(function (w) {
+           return idv.timeChartManager.generateWellData(w);
+        });
+    }
+    else {
+        myCols = idv.timeChartManager.getColumns();
+    }
     // var totalColumns = 0;
     var columnHasValueCount;
     for(var d=1; d< idv.timeChartManager.xAxis.length; d++) {

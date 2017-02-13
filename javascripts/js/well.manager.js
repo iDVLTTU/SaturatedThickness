@@ -84,8 +84,9 @@ idv.wellManager.activateWells = function(wells) {
         throw new Error('Expect array of wells');
     }
 
+    var removedWells;
     if (wells.length > 20) {
-        wells.splice(20);
+        removedWells = wells.splice(20);
     }
 
     wells = wells.map(function (w) {
@@ -106,7 +107,18 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.colorManager.updateContourWellColors();
 
-    idv.timeChartManager.updateAverageData();
+    if (!!removedWells) {
+        removedWells = removedWells.map(function (w) {
+            return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
+        });
+
+        wells = wells.concat(removedWells);
+        idv.timeChartManager.updateAverageData(wells);
+
+    }
+    else {
+        idv.timeChartManager.updateAverageData();
+    }
 
     // draw comparison chart
     if (wells.length > 0) {
