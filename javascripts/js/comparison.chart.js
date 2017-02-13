@@ -3,7 +3,7 @@ idv.comparisonChart = idv.comparisonChart || {};
 var setupSvg = function () {
     var margin = {top: 20, right: 30, bottom: 30, left: 70},
         width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 300 - margin.top - margin.bottom;
 
     var svg = d3.select("body").select("#charts").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -31,7 +31,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     var margin = {top: 20, right: 30, bottom: 30, left: 60},
         width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 300 - margin.top - margin.bottom;
 
     var x = d3.time.scale()
         .range([0, width]);
