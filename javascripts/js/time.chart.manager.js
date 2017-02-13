@@ -28,7 +28,6 @@ idv.timeChartManager.measurementDates = {};
 idv.timeChartManager.measurementDateCount = 0;
 
 idv.timeChartManager.setupTimeAxis = function() {
-    debugger;
     var myDates = [];
     var tmpDate;
     var parseDate = d3.time.format("%Y-%m-%d").parse;
