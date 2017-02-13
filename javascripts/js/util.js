@@ -23,8 +23,8 @@ idv.util.getDateInYmd = function(year, month, date) {
     return year + '-' + month + '-15';
 };
 
-idv.util.stringToDate = function(yyyymmdd) {
-
+idv.util.getWellIdFromItsName = function(wellName) {
+    return wellName.substring(4);
 };
 
 idv.util.getChartId = function(wellName) {

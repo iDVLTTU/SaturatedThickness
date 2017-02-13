@@ -72,7 +72,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     ]);
 
 
-    var wellId = columnKey.substring(4);
+    var wellId = idv.util.getWellIdFromItsName(columnKey);
     var myWell = idv.wellMap[wellId];
     // clipping ----------------------------
     svg.datum(data);
@@ -107,6 +107,22 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .attr("class", "line")
         .style("stroke", '#000')
         .attr("d", line)
+    ;
+
+    // dot over existed data
+    debugger;
+    svg.selectAll("dot")
+        .data(data.filter(function (d) {
+            return d['populated'] === false;
+        }))
+        .enter().append("circle")
+            .attr("r", 3.5)
+            .attr("cx", function(d) {
+                return x(d.year); })
+            .attr("cy", function(d) {
+                return y(d[columnKey]);
+            })
+            .style("fill", myWell.getMyColor())
     ;
 
     // coordinate
@@ -152,11 +168,16 @@ idv.comparisonChart.getData = function(averageKey, columnKey) {
     var tmp = {};
     var myTmpCol1;
     var myTmpCol2;
+    var currentWell;
     for(var i = 0; i< totalDataItem; i++) {
+        debugger;
         myTmpCol1 = idv.timeChartManager.getColumnDataByKey(averageKey);
         myTmpCol2 = idv.timeChartManager.getColumnDataByKey(columnKey);
+        currentWell = idv.wellMap[idv.util.getWellIdFromItsName(columnKey)];
+
         tmp = {
-            'year': parseDate(idv.timeChartManager.xAxis[i+1])
+            'year': parseDate(idv.timeChartManager.xAxis[i+1]),
+            'populated': !currentWell.detail[idv.timeChartManager.xAxis[i+1]]
         };
 
         tmp[averageKey] = +myTmpCol1[i+1];
