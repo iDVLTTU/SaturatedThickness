@@ -123,6 +123,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .attr("cy", function(d) {
                 return y(d[columnKey]);
             })
+            .style("stroke-width", 1)
+            .style("stroke", '#000')
             .style("fill", myWell.getMyColor())
     ;
 
