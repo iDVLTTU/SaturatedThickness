@@ -98,7 +98,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     svg.append("path")
         // .attr("class", "area below")
-        .style("fill", idv.colorManager.getWaterColor('lightBrow'))     // set the fill colour
+        .style("fill", idv.colorManager.getWaterColor('lightBrown'))     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
     ;
