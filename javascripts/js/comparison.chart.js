@@ -59,10 +59,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
         .x(function(d) { return x(d.year); })
         .y(function(d) {
-            // debugger;
-
-            var a= y(d[columnKey]);
-
             return y(d[columnKey]); }
             );
 
@@ -77,12 +73,14 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     var svg = this.svg;
     svg.selectAll("*").remove();
 
+    var parseDate = d3.time.format("%Y-%m-%d").parse;
     var data = this.getData(averageKey, columnKey);
-    x.domain(d3.extent(data, function(d) {
-        return d.year;
-    }));
+    var timeDomain = d3.extent(idv.timeChartManager.xAxis.slice(1), function(d) {
+        return parseDate(d);
+    });
 
-    debugger;
+    x.domain(timeDomain);
+
 
     var mmin = d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); });
     // this.setYDomainMin(d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }));
@@ -127,7 +125,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     ;
 
     // dot over existed data
-    debugger;
     svg.selectAll("dot")
         .data(data.filter(function (d) {
             return d['populated'] === false;

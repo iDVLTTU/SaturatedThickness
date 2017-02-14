@@ -251,7 +251,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     position: 'outer'
                 },
                 tick: {
-                    values: ['1996-01-15', '1998-01-15', '2000-01-15', '2002-01-15', '2004-01-15', '2006-01-15',
+                    values: ['1995-01-15', '1996-01-15', '1998-01-15', '2000-01-15', '2002-01-15', '2004-01-15', '2006-01-15',
                         '2008-01-15', '2010-01-15', '2012-01-15', '2014-01-15', '2016-01-15'],
                     // format: '%Y-%m-%d'
                     format: function (x) { return x.getFullYear(); }
@@ -273,10 +273,8 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                         idv.timeChartManager.activateWellAsAreaChart(name);
                         idv.comparisonChart.generateAverageComparisonChart('average', name);
 
-                        var wellData = idv.timeChartManager.getColumnDataByKey(name);
-                        console.log(wellData);
-                        wellData = idv.timeChartManager.getColumnDataByKey('average');
-                        console.log(wellData);
+                        idv.timeChartManager.getColumnDataByKey(name);
+                        idv.timeChartManager.getColumnDataByKey('average');
 
                     }
                 }
