@@ -218,6 +218,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         },
         axis: {
             y: {
+                tick: {
+                    format: d3.format(",")
+                },
+
                 label: { // ADD
                     text: 'Water Elevation',
                     position: 'outer-middle'
@@ -230,8 +234,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     position: 'outer'
                 },
                 tick: {
+                    values: ['1996-01-15', '1998-01-15', '2000-01-15', '2002-01-15', '2004-01-15', '2006-01-15',
+                        '2008-01-15', '2010-01-15', '2012-01-15', '2014-01-15', '2016-01-15'],
                     // format: '%Y-%m-%d'
-                    format: '%Y-%m'
+                    format: function (x) { return x.getFullYear(); }
                 }
             }
         },

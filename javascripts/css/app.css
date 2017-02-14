@@ -45,3 +45,7 @@
     stroke: #000;
     stroke-width: 1.5px;
 }
+/** Change font size of c3 chart label **/
+.c3 svg g g.c3-axis {
+    font: 12px sans-serif;
+}
