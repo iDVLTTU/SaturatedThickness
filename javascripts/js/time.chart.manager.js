@@ -212,6 +212,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
 
     var timeChart = c3.generate({
         bindto: ("#" + bindToId),
+        size: {
+            height: 360,
+            width: 960
+        },
         data: myData,
         line: {
             connectNull: true
