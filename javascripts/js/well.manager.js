@@ -84,19 +84,20 @@ idv.wellManager.activateWells = function(wells) {
     }
 
     var removedWells;
-    if (wells.length > 20) {
-        removedWells = wells.splice(20);
+    var myWells = wells.slice();
+    if (myWells.length > 20) {
+        removedWells = myWells.splice(20);
     }
 
-    wells = wells.map(function (w) {
+    myWells = myWells.map(function (w) {
         return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
     });
 
-    var deactivateWells = this.updateWellSelection(wells);
+    var deactivateWells = this.updateWellSelection(myWells);
 
     var tmpWell;
-    for(var i=0; i< wells.length; i++) {
-        tmpWell = wells[i];
+    for(var i=0; i< myWells.length; i++) {
+        tmpWell = myWells[i];
         this.activateWell(tmpWell, false);
     }
 
@@ -106,7 +107,7 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.colorManager.updateContourWellColors();
 
-    var maxInterpolatedValue = d3.max(wells, function(w) {
+    var maxInterpolatedValue = d3.max(myWells, function(w) {
         return d3.max(w.interpolate);
     });
 
@@ -114,13 +115,7 @@ idv.wellManager.activateWells = function(wells) {
     idv.comparisonChart.setYDomainMax(idv.util.getWaterElevationFromInterpolatedValue(maxInterpolatedValue));
 
     if (!!removedWells) {
-        removedWells = removedWells.map(function (w) {
-            return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
-        });
-
-        wells = wells.concat(removedWells);
         idv.timeChartManager.updateAverageData(wells);
-
     }
     else {
         idv.timeChartManager.updateAverageData();
