@@ -14,6 +14,21 @@ var setupSvg = function () {
     return svg;
 };
 
+idv.comparisonChart.yDomainMax = 0;
+idv.comparisonChart.yDomainMin = 0;
+
+idv.comparisonChart.setYDomainMax = function(max) {
+    this.yDomainMax = Math.ceil(max);
+};
+
+idv.comparisonChart.setYDomainMin = function(min) {
+    this.yDomainMin = Math.floor(min);
+};
+
+idv.comparisonChart.getYDomain = function() {
+    return [this.yDomainMin, this.yDomainMax];
+};
+
 idv.comparisonChart.svg = setupSvg();
 
 idv.comparisonChart.initForTest = function () {
@@ -67,11 +82,12 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         return d.year;
     }));
 
-    y.domain([
-        d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }),
-        d3.max(data, function(d) { return Math.max(d[averageKey], d[columnKey]); })
-    ]);
+    debugger;
 
+    var mmin = d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); });
+    // this.setYDomainMin(d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }));
+    this.setYDomainMin(mmin);
+    y.domain(this.getYDomain());
 
     var wellId = idv.util.getWellIdFromItsName(columnKey);
     var myWell = idv.wellMap[wellId];
@@ -173,7 +189,6 @@ idv.comparisonChart.getData = function(averageKey, columnKey) {
     var myTmpCol2;
     var currentWell;
     for(var i = 0; i< totalDataItem; i++) {
-        debugger;
         myTmpCol1 = idv.timeChartManager.getColumnDataByKey(averageKey);
         myTmpCol2 = idv.timeChartManager.getColumnDataByKey(columnKey);
         currentWell = idv.wellMap[idv.util.getWellIdFromItsName(columnKey)];

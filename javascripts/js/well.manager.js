@@ -106,6 +106,13 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.colorManager.updateContourWellColors();
 
+    var maxInterpolatedValue = d3.max(wells, function(w) {
+        return d3.max(w.interpolate);
+    });
+
+    debugger;
+    idv.comparisonChart.setYDomainMax(idv.util.getWaterElevationFromInterpolatedValue(maxInterpolatedValue));
+
     if (!!removedWells) {
         removedWells = removedWells.map(function (w) {
             return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
