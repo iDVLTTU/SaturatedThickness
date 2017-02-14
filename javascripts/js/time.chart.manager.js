@@ -208,7 +208,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         }
 
         mW = idv.wellMap[wId];
-        names[mW.getName()] = 'Well ' + mW.id;
+        names[mW.getName()] = 'well ' + mW.id;
     }
 
     var myData = {

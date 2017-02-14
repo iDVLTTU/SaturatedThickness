@@ -111,7 +111,6 @@ idv.wellManager.activateWells = function(wells) {
         return d3.max(w.interpolate);
     });
 
-    debugger;
     idv.comparisonChart.setYDomainMax(idv.util.getWaterElevationFromInterpolatedValue(maxInterpolatedValue));
 
     if (!!removedWells) {
