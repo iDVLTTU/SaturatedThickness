@@ -281,6 +281,14 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     }
                 }
             }
+        },
+        tooltip: {
+            format: {
+                value: function (value, ratio, id) {
+                    var format = d3.format(',.2f')
+                    return format(value);
+                }
+            }
         }
     });
 
