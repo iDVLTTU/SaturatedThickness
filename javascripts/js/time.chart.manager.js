@@ -200,8 +200,21 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
     var tmpCols = myCols.concat([idv.timeChartManager.xAxis]);
     var myColors = (colors == null || colors == undefined) ? {} : colors;
     var myTypes = (types == null || types == undefined) ? {} : types;
+    var names = {};
+    var mW;
+    for(var wId in idv.wellMap) {
+        if (!idv.wellMap.hasOwnProperty(wId)) {
+            continue;
+        }
+
+        mW = idv.wellMap[wId];
+        names[mW.getName()] = 'Well ' + mW.id;
+    }
+
     var myData = {
         x: 'year',
+        // labels: true,
+        names: names,
         columns: tmpCols,
         colors: myColors,
         types: myTypes,
@@ -378,6 +391,7 @@ idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
     unloads = unloads.map(function (id) {
         return idv.wellMap[id].getName();
     });
+
 
     // unloads.forEach(function (id) {
     //    myUnloads.push(idv.wellMap[id].getName());
