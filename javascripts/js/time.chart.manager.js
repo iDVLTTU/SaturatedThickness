@@ -271,7 +271,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 onmouseover: function (name) {
                     if (bindToId == 'wellTimeSeries') {
                         idv.timeChartManager.activateWellAsAreaChart(name);
-                        idv.comparisonChart.generateAverageComparisonChart('average', name);
+                        idv.comparisonChart.generateAverageComparisonChart('average', name, false);
 
                         console.log(idv.wellMap[idv.util.getWellIdFromItsName(name)]);
                         // idv.timeChartManager.getColumnDataByKey(name);

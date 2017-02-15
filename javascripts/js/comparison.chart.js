@@ -55,12 +55,18 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .range([height, 0]);
 
     var line = d3.svg.area()
-        // .interpolate("basis")
         .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
         .x(function(d) { return x(d.year); })
         .y(function(d) {
             return y(d[columnKey]); }
             );
+
+    var lineBase = d3.svg.area()
+        .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
+        .x(function(d) { return x(d.year); })
+        .y(function(d) {
+            return height + y(d[columnKey]); }
+        );
 
     var area = d3.svg.area()
         // .interpolate("basis")
@@ -70,8 +76,17 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         })
         .y1(function(d) { return y(d[averageKey]); });
 
+    var areaBase = d3.svg.area()
+    // .interpolate("basis")
+        .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
+        .x(function(d) {
+            return x(d.year);
+        })
+        .y1(function(d) { return height + y(d[averageKey]); });
+
     var svg = this.svg;
-    svg.selectAll("*").remove();
+    svg.selectAll("*:not(.line)").remove();
+    // svg.selectAll("*").remove();
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
     var data = this.getData(averageKey, columnKey);
@@ -106,23 +121,54 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     //----------- Creating lines with clip path items created-------
     svg.append("path")
-        // .attr("class", "area above")
+        .attr("class", "areaAbove")
+        .style("fill", idv.colorManager.getWaterColor('lightBlue'))     // set the fill colour
+        .attr("clip-path", "url(#clip-above)")
+        .attr('opacity', 0)
+        .attr("d", areaBase.y0(function(d) { return y(d[columnKey]); }))
+    ;
+
+    svg.append("path")
+        .attr("class", "areaBelow")
+        .style("fill", idv.colorManager.getWaterColor('lightBrown'))     // set the fill colour
+        .attr("clip-path", "url(#clip-below)")
+        .attr('opacity', 0)
+        .attr("d", areaBase)
+    ;
+
+    svg.selectAll('.areaAbove')
+        .transition()
+        .duration(2000)
+        .attr('opacity', 1)
         .style("fill", idv.colorManager.getWaterColor('lightBlue'))     // set the fill colour
         .attr("clip-path", "url(#clip-above)")
         .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
     ;
-
-    svg.append("path")
-        // .attr("class", "area below")
+    svg.selectAll('.areaBelow')
+        .transition()
+        .duration(2000)
+        .attr('opacity', 1)
         .style("fill", idv.colorManager.getWaterColor('lightBrown'))     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
     ;
+    // update
+    // svg.append('path').
 
-    svg.append("path")
-        .attr("class", "line")
+    // svg.selectAll('.wline').remove();
+    svg.append('path')
+        .attr("class", "wline")
         .style("stroke", '#000')
+        .attr('opacity', 0)
+        .attr("d", lineBase);
+
+    svg.selectAll('.wline')
+        .transition()
+        .duration(2000)
         .attr("d", line)
+        .attr('opacity', 1)
+
+    // .style("stroke", "#f00")
     ;
 
     // dot over existed data
@@ -131,15 +177,21 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             return d['populated'] === false;
         }))
         .enter().append("circle")
-            .attr("r", 3.5)
             .attr("cx", function(d) {
                 return x(d.year); })
             .attr("cy", function(d) {
                 return y(d[columnKey]);
             })
+            .attr('opacity', 0)
+            .attr("r", 0)
+
+            .transition()
+            .duration(2500)
+            .attr('opacity', 1)
             .style("stroke-width", 1)
             .style("stroke", '#000')
             .style("fill", myWell.getMyColor())
+            .attr("r", 3.5)
     ;
 
     // coordinate
