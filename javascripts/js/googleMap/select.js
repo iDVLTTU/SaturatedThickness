@@ -98,7 +98,7 @@ function changeSelection() {
     }
   }
   else if (choice==choices[3]){     
-    if (wellDomain.inscreaseMax==undefined){ 
+    if (wellDomain.increaseMax==undefined){ 
       var min =  99999;
       var max = -99999;  
       for (var key in idv.wellMap){
@@ -126,30 +126,83 @@ function changeSelection() {
           }  
         }
         if (increase>0){
-          w.suddenInscrease = increase;
-          if (wellDomain.inscreaseMax==undefined)
-            wellDomain.inscreaseMax = w.suddenInscrease;
+          w.suddenIncrease = increase;
+          if (wellDomain.increaseMax==undefined)
+            wellDomain.increaseMax = w.suddenIncrease;
           else
-            wellDomain.inscreaseMax = Math.max(wellDomain.inscreaseMax,w.suddenInscrease);
+            wellDomain.increaseMax = Math.max(wellDomain.increaseMax,w.suddenIncrease);
         }
       }
 
-      if (wellDomain.inscreaseMax>0){
+      if (wellDomain.increaseMax>0){
         var linearScale = d3.scale.linear()
-                        .domain([0,wellDomain.inscreaseMax])
+                        .domain([0,wellDomain.increaseMax])
                         .range([minRadius+1,maxRadius]);
 
         // Compute radius of wells
         for (var key in idv.wellMap){
           var w = idv.wellMap[key];
-          if (w.suddenInscrease==undefined)
+          if (w.suddenIncrease==undefined)
             w.radius = minRadius;
           else
-            w.radius = linearScale(w.suddenInscrease);   
+            w.radius = linearScale(w.suddenIncrease);   
         }    
       }      
     }  
   }  
+  else if (choice=="Sudden decrease"){     
+    if (wellDomain.decreaseMax==undefined){ 
+      var min =  99999;
+      var max = -99999;  
+      for (var key in idv.wellMap){
+        var w = idv.wellMap[key];
+        var previousDate =undefined;
+        var previousValue=undefined;
+        var currentDate  =undefined;
+        var currentValue =undefined;
+        var decrease = -99999;
+        for (var key2 in w.detail){
+          if (key2.match(/[-]\d\d[-]/)){  // key2 contain a date format
+            previousDate = currentDate;
+            previousValue = currentValue;
+            currentDate = key2;
+            currentValue = +w.detail[key2];
+            if (previousDate!=undefined){
+              var d1 = new Date(previousDate);
+              var m1 = (d1.getYear()-startYear)*12 + d1.getMonth();
+              var d2 = new Date(currentDate);
+              var m2 = (d2.getYear()-startYear)*12 + d2.getMonth();
+              if (m2==m1+1 || m2==m1){   // Maybe in the same month
+                  decrease = Math.max(decrease,previousValue-currentValue);
+              }
+            }
+          }  
+        }
+        if (decrease>0){
+          w.suddenDecrease = decrease;
+          if (wellDomain.decreaseMax==undefined)
+            wellDomain.decreaseMax = w.suddenDecrease;
+          else
+            wellDomain.decreaseMax = Math.max(wellDomain.decreaseMax,w.suddenDecrease);
+        }
+      }
+
+      if (wellDomain.decreaseMax>0){
+        var linearScale = d3.scale.linear()
+                        .domain([0,wellDomain.decreaseMax])
+                        .range([minRadius+1,maxRadius]);
+
+        // Compute radius of wells
+        for (var key in idv.wellMap){
+          var w = idv.wellMap[key];
+          if (w.suddenDecrease==undefined)
+            w.radius = minRadius;
+          else
+            w.radius = linearScale(w.suddenDecrease);   
+        }    
+      }      
+    } 
+  }   
 
 // Horizon graph 
   var topWells = getTop20Wells();
