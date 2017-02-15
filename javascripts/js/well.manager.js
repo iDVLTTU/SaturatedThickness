@@ -122,7 +122,7 @@ idv.wellManager.activateWells = function(wells) {
 
     // draw comparison chart
     if (myWells.length > 0) {
-        idv.comparisonChart.generateAverageComparisonChart('average', myWells[0].getName());
+        idv.comparisonChart.generateAverageComparisonChart('average', myWells[0].getName(), true);
     }
 
 };
