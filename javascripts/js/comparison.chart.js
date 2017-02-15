@@ -186,14 +186,15 @@ idv.comparisonChart.getData = function(averageKey, columnKey) {
     var myTmpCol1;
     var myTmpCol2;
     var currentWell;
+    var myTime;
     for(var i = 0; i< totalDataItem; i++) {
         myTmpCol1 = idv.timeChartManager.getColumnDataByKey(averageKey);
         myTmpCol2 = idv.timeChartManager.getColumnDataByKey(columnKey);
         currentWell = idv.wellMap[idv.util.getWellIdFromItsName(columnKey)];
-
+        myTime = idv.timeChartManager.xAxis[i+1];
         tmp = {
-            'year': parseDate(idv.timeChartManager.xAxis[i+1]),
-            'populated': !currentWell.detail[idv.timeChartManager.xAxis[i+1]]
+            'year': parseDate(myTime),
+            'populated': !currentWell.detail[myTime]
         };
 
         tmp[averageKey] = +myTmpCol1[i+1];
