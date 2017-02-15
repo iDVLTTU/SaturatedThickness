@@ -265,7 +265,6 @@ idv.load = function() {
 
                 // In select.js
                 changeSelection();
-
                 
 
                 //var topWells = getTop20Wells();
