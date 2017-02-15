@@ -273,8 +273,9 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                         idv.timeChartManager.activateWellAsAreaChart(name);
                         idv.comparisonChart.generateAverageComparisonChart('average', name);
 
-                        idv.timeChartManager.getColumnDataByKey(name);
-                        idv.timeChartManager.getColumnDataByKey('average');
+                        console.log(idv.wellMap[idv.util.getWellIdFromItsName(name)]);
+                        // idv.timeChartManager.getColumnDataByKey(name);
+                        // idv.timeChartManager.getColumnDataByKey('average');
 
                     }
                 }
@@ -320,7 +321,15 @@ idv.timeChartManager.generateWellData = function(well) {
 
     var interpolatedValue;
     var waterElevation;
+    var dateData;
+
     for (var i=0; i< idv.timeChartManager.xAxis.length-1; i++) {
+        dateData = idv.timeChartManager.xAxis[i+1];
+        if (!!well.detail[dateData]) {
+            wellData.push(well.detail[dateData]);
+            continue;
+        }
+
         interpolatedValue = well.interpolate[2*i];
         if (interpolatedValue == null || interpolatedValue == undefined) {
             wellData.push(null)
@@ -328,7 +337,6 @@ idv.timeChartManager.generateWellData = function(well) {
         else {
             waterElevation = idv.util.getWaterElevationFromInterpolatedValue(interpolatedValue);
             wellData.push(waterElevation);
-
         }
     }
 

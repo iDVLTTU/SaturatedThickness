@@ -75,6 +75,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
     var data = this.getData(averageKey, columnKey);
+
     var timeDomain = d3.extent(idv.timeChartManager.xAxis.slice(1), function(d) {
         return parseDate(d);
     });
