@@ -63,7 +63,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             );
 
     var area = d3.svg.area()
-        .interpolate("basis")
+        // .interpolate("basis")
         .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
         .x(function(d) {
             return x(d.year);
