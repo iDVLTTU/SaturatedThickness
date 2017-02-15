@@ -7,8 +7,6 @@ https://tommy-dang.github.io/WaterLevel/Contour/
 
 This work is in collaboration with a group in the Civil Engineering department at TTU.
 
-![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/Karim/ST_2013.jpg)
-
 ## References
 
 [Texas Water Department Board](http://www.twdb.texas.gov/index.asp) 
