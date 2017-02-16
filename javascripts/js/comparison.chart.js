@@ -96,22 +96,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     });
 
     x.domain(timeDomain);
-
-
-    // var mmin = d3.min(data, function(d) {
-    //     var t = Math.min(d[averageKey], d[columnKey]);
-    //     if (!d[columnKey])  {
-    //         return 999999;
-    //     }
-    //
-    //     return Math.min(d[averageKey], d[columnKey]);
-    // });
-
-    // if (mmin > 1000) {
-    //     mmin = mmin - 1000;
-    // }
-    // this.setYDomainMin(d3.min(data, function(d) { return Math.min(d[averageKey], d[columnKey]); }));
-    // this.setYDomainMin(mmin);
     y.domain(this.getYDomain());
 
     var wellId = idv.util.getWellIdFromItsName(columnKey);
@@ -217,7 +201,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-        // .ticks(5)
     ;
 
     svg.append("g")

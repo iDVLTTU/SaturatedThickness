@@ -9,6 +9,12 @@
     shape-rendering: initial;
 }
 
+.c3 line,
+.c3 path {
+    stroke: grey;
+    stroke-width: 2px;
+}
+
 /**
  circle tool tip
 */
@@ -21,7 +27,7 @@
     fill: none;
     stroke: grey;
     shape-rendering: crispEdges;
-    stroke-width: 2;
+    stroke-width: 2px;
 }
 
 .axis { font: 12px sans-serif; }
@@ -29,7 +35,7 @@
 .x.axis path {
     fill: none;
     stroke: grey;
-    stroke-width: 2;
+    /*stroke-width: -0.5;*/
 }
 
 .area.above {
