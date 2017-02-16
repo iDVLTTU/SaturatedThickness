@@ -111,7 +111,12 @@ idv.wellManager.activateWells = function(wells) {
         return d3.max(w.interpolate);
     });
 
+    var minInterpolatedValue = d3.min(myWells, function (w) {
+        return d3.min(w.interpolate);
+    });
+
     idv.comparisonChart.setYDomainMax(idv.util.getWaterElevationFromInterpolatedValue(maxInterpolatedValue));
+    idv.comparisonChart.setYDomainMin(idv.util.getWaterElevationFromInterpolatedValue(minInterpolatedValue))
 
     if (!!removedWells) {
         idv.timeChartManager.updateAverageData(wells);
