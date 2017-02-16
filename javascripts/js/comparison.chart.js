@@ -179,7 +179,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             })
             .attr('opacity', 0)
             .attr("r", 0)
-
             .transition()
             .duration(2500)
             .attr('opacity', 1)
@@ -187,7 +186,11 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .style("stroke", '#000')
             .style("fill", myWell.getMyColor())
             .attr("r", 3.5)
+            .each(flickering)
     ;
+
+    // svg.selectAll("circle")
+    //     .each(flickering);
 
     // coordinate
     var xAxis = d3.svg.axis()
@@ -221,6 +224,24 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         // .attr("dy", ".71em")
         // .style("text-anchor", "end")
         .text("Water Elevation");
+
+
+    function flickering(d, i) {
+        if (d["flickering"] == false) {
+            return;
+        }
+
+        var circle = d3.select(this);
+        (function repeat() {
+            circle = circle.transition()
+                .duration(500)
+                .attr('opacity', 1)
+                .transition()
+                .duration(500)
+                .attr('opacity', 0.1)
+                .each("end", repeat);
+        })();
+    }
 };
 
 idv.comparisonChart.getData = function(averageKey, columnKey) {
@@ -233,6 +254,22 @@ idv.comparisonChart.getData = function(averageKey, columnKey) {
     var myTmpCol2;
     var currentWell;
     var myTime;
+
+    var flickeringOption = idv.controller.getFlickeringOption();
+    var dateOfWellThatHasSuddenProperty = function(well, property, suddenDate) {
+        var myProperty;
+        for(var i=1; i<=20; i++) {
+            myProperty = (property + "" + i);
+            if (well.hasOwnProperty(myProperty)) {
+                if (well[myProperty] == suddenDate) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    };
+
     for(var i = 0; i< totalDataItem; i++) {
         myTmpCol1 = idv.timeChartManager.getColumnDataByKey(averageKey);
         myTmpCol2 = idv.timeChartManager.getColumnDataByKey(columnKey);
@@ -240,7 +277,8 @@ idv.comparisonChart.getData = function(averageKey, columnKey) {
         myTime = idv.timeChartManager.xAxis[i+1];
         tmp = {
             'year': parseDate(myTime),
-            'populated': !currentWell.detail[myTime]
+            'populated': !currentWell.detail[myTime],
+            'flickering': !!flickeringOption && currentWell.hasOwnProperty(flickeringOption.valKey) && dateOfWellThatHasSuddenProperty(currentWell, flickeringOption.datePattern, myTime)
         };
 
         tmp[averageKey] = +myTmpCol1[i+1];

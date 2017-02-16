@@ -44,3 +44,16 @@ idv.controller.testBox = function(testBox) {
 
     Plotly.restyle(idv.CONTOUR_DIV_ID, update, 0);
 };
+
+idv.controller.getFlickeringOption = function() {
+    var choice = select.property('value');
+    if (choice=="Sudden increase") {
+        return {valKey: "suddenIncrease", datePattern: "dateIncrease"};
+    }
+
+    if (choice=="Sudden decrease") {
+        return  {valKey: "suddenDecrease", datePattern: "dateDecrease"};
+    }
+
+    return null;
+};
