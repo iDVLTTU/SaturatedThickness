@@ -77,6 +77,9 @@ idv.timeChartManager.getAverageColumn = function () {
     return this.wellAverage.data;
 };
 
+idv.timeChartManager.setChartTypeForWell = function(wellName, type) {
+    idv.timeChartManager.chartTypes[wellName] = type;
+};
 
 idv.timeChartManager.updateChartTypes = function() {
     idv.timeChartManager.chartTypes = this.getChartTypes();
@@ -270,7 +273,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 },
                 onmouseover: function (name) {
                     if (bindToId == 'wellTimeSeries') {
-                        idv.timeChartManager.activateWellAsAreaChart(name);
+                        //idv.timeChartManager.activateWellAsAreaChart(name);
                         idv.comparisonChart.generateAverageComparisonChart('average', name, false);
 
                         // idv.timeChartManager.getColumnDataByKey(name);
@@ -376,9 +379,8 @@ idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart, unloa
 };
 
 idv.timeChartManager.activateWellAsAreaChart = function(wellName) {
-    this.chartTypes[wellName] = "area";
-
-    this.refreshTimeChart();
+    this.setChartTypeForWell(wellName, 'area');
+    this.fastRefreshTimeChart();
 };
 
 /**
@@ -390,6 +392,24 @@ idv.timeChartManager.resetWellChart = function(deactivateWells) {
     this.updateChartTypes();
 
     this.refreshTimeChart(null, deactivateWells);
+};
+
+idv.timeChartManager.fastRefreshTimeChart = function(unloads) {
+    if (unloads == null) {
+        unloads = [];
+    }
+    unloads = unloads.map(function (id) {
+        return idv.wellMap[id].getName();
+    });
+
+    var myColumns = this.getColumns();
+    var tmpCols =  myColumns.concat([this.xAxis]);
+
+    idv.timeChartManager.timeChart.load({
+        columns: tmpCols,
+        types: idv.timeChartManager.chartTypes,
+        unload:  unloads == null ? [] : unloads
+    });
 };
 
 idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
