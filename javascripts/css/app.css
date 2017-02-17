@@ -11,8 +11,8 @@
 
 .c3 line,
 .c3 path {
-    stroke: grey;
-    stroke-width: 2px;
+    stroke: black;
+    stroke-width: 1px;
 }
 
 /**
@@ -25,16 +25,16 @@
 .axis path,
 .axis line {
     fill: none;
-    stroke: grey;
+    stroke: black;
     shape-rendering: crispEdges;
-    stroke-width: 2px;
+    stroke-width: 1px;
 }
 
 .axis { font: 12px sans-serif; }
 
 .x.axis path {
     fill: none;
-    stroke: grey;
+    stroke: black;
     /*stroke-width: -0.5;*/
 }
 
@@ -49,7 +49,7 @@
 .line {
     fill: none;
     stroke: #000;
-    stroke-width: 1.5px;
+    stroke-width: 1px;
 }
 /** Change font size of c3 chart label **/
 .c3 svg g g.c3-axis {
