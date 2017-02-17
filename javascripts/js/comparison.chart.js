@@ -1,5 +1,19 @@
 var idv = idv || {};
 idv.comparisonChart = idv.comparisonChart || {};
+
+idv.timeChartManager.setting = {
+    margin: {top: 20, right: 30, bottom: 30, left: 70},
+    svgWidth: 960,
+    svgHeight: 300
+};
+
+idv.timeChartManager.setting["width"] = this.setting.svgWidth - this.setting.margin.left - this.setting.margin.right;
+idv.timeChartManager.setting["height"] = this.setting.svgHeight - this.setting.margin.top - this.setting.margin.bottom;
+
+idv.timeChartManager.setting["xScale"] = d3.time.scale().range([0, this.setting.width]);
+idv.timeChartManager.setting["yScale"] = d3.scale().linear().range([this.setting.height, 0]);
+
+
 var setupSvg = function () {
     var margin = {top: 20, right: 30, bottom: 30, left: 70},
         width = 960 - margin.left - margin.right,

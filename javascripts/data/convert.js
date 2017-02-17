@@ -38,7 +38,7 @@ var findClosestPoint = function (longtitude, latitude) {
 var wellToPoint = {};
 var readAndProcessWellData = function() {
     var skipHeader = true;
-    fs.createReadStream('well_data_full.csv')
+    fs.createReadStream('Dr.Dang_data.csv')
         .pipe(parse({delimiter: ','}))
         .on('data', function(csvrow) {
             if (!skipHeader) {
@@ -52,6 +52,8 @@ var readAndProcessWellData = function() {
                     myPoint = wellToPoint[csvrow[0]];
                 }
 
+                debugger;
+
                 var line = {
                     Well_ID: csvrow[0],
                     Point_ID: myPoint.id,
@@ -61,7 +63,8 @@ var readAndProcessWellData = function() {
                     MeasurementMonth: csvrow[4],
                     MeasurementDay: csvrow[5],
                     MeasurementYear: csvrow[6],
-                    WaterElevation: csvrow[8]
+                    WaterElevation: +csvrow[8],
+                    SaturatedThickness: (+csvrow[8] - (+csvrow[9]))
                 };
 
                 writer.write(line);
