@@ -13,15 +13,17 @@ idv.comparisonChart.setting["height"] = idv.comparisonChart.setting.svgHeight - 
 idv.comparisonChart.setting["xScale"] = d3.time.scale().range([0, idv.comparisonChart.setting.width]);
 idv.comparisonChart.setting["yScale"] = d3.scale.linear().range([idv.comparisonChart.setting.height, 0]);
 
+idv.comparisonChart.setting["xAxis"] = d3.svg.axis().scale(idv.comparisonChart.setting["xScale"]).orient("bottom").tickFormat(d3.time.format("%Y"));
+idv.comparisonChart.setting["yAxis"] = d3.svg.axis().scale(idv.comparisonChart.setting["yScale"]).orient("left");
 
 var setupSvg = function () {
-    var margin = {top: 20, right: 30, bottom: 30, left: 70},
-        width = 960 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+    var margin = idv.comparisonChart.setting.margin;
+    var svgWidth = idv.comparisonChart.setting.svgWidth;
+    var svgHeight = idv.comparisonChart.setting.svgHeight;
 
     var svg = d3.select("body").select("#charts").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", svgWidth)
+        .attr("height", svgHeight)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -57,16 +59,11 @@ idv.comparisonChart.initForTest = function () {
 
 
 idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey) {
-
-    var margin = {top: 20, right: 30, bottom: 30, left: 60},
-        width = 960 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
-
-    var x = d3.time.scale()
-        .range([0, width]);
-
-    var y = d3.scale.linear()
-        .range([height, 0]);
+    var x = this.setting.xScale;
+    var y = this.setting.yScale;
+    var width = this.setting.width;
+    var height = this.setting.height;
+    var margin = this.setting.margin;
 
     var line = d3.svg.area()
         .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
@@ -207,18 +204,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     //     .each(flickering);
 
     // coordinate
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom")
-        // .ticks(21)
-        .tickFormat(d3.time.format("%Y"))
-        // .tickFormat(d3.time.format("%b '%y"))
-    ;
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-    ;
+    var xAxis = this.setting.xAxis;
+    var yAxis = this.setting.yAxis;
 
     svg.append("g")
         .attr("class", "x axis")
@@ -230,7 +217,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .call(yAxis)
         .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0- margin.left)
+        .attr("y", 0 - idv.comparisonChart.setting.margin.left)
         .attr("x", 0 - (height / 2))
         .attr("dy", ".51em")
         .style("text-anchor", "middle")
