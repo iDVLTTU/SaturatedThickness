@@ -124,7 +124,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         measuredDate = idv.util.getDateInYmd(tmpWell.MeasurementYear, tmpWell.MeasurementMonth, tmpWell.MeasurementDay);
         if(!myWells[tmpWell.Well_ID].hasOwnProperty(measuredDate)) {
             myWells[tmpWell.Well_ID]["totalMeasurementDate"] ++;
-            myWells[tmpWell.Well_ID][measuredDate] = +tmpWell.WaterElevation;
+            myWells[tmpWell.Well_ID][measuredDate] = +tmpWell.SaturatedThickness;
             idv.timeChartManager.addMeasurementDate(measuredDate);
         }
 
