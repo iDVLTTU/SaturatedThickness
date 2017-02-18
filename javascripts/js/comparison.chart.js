@@ -217,14 +217,14 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .call(yAxis)
         .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 20 - idv.comparisonChart.setting.margin.left)
-        .attr("x", 0 - (height / 2))
+        .attr("y", 5 - idv.comparisonChart.setting.margin.left)
+        .attr("x", 0 - (height / 2) - 10)
         .attr("dy", ".51em")
         .style("text-anchor", "middle")
         // .attr("y", 6)
         // .attr("dy", ".71em")
         // .style("text-anchor", "end")
-        .text("Water Elevation");
+        .text("Saturated Thickness");
 
 
     function flickering(d, i) {

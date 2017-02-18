@@ -239,7 +239,8 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         axis: {
             y: {
                 tick: {
-                    format: d3.format(",")
+                    format: d3.format(",0f")
+                     // count: 8
                 },
 
                 label: { // ADD
