@@ -11,7 +11,7 @@ var countyAverage ={};
 var startYear = 95;
 var endYear = 117;
 var numMonths = (endYear-startYear)*12;
-var cut = 3000;
+var cut = 103;
 
 function computeCountyAverage(){
   for (var k in idv.wellMap){
@@ -62,7 +62,7 @@ function interpolate(){
         var d = new Date(key);
         var m = (d.getYear()-startYear)*12 + d.getMonth();
         //obj.values.push((v-3000)/3000);
-        obj.values[m] = (v-cut)/cut;
+        obj.values[m] = v;//(v-cut)/cut;
         count++;
       }  
     }
@@ -73,7 +73,7 @@ function interpolate(){
         var counttyName = w.county;
         if (countyAverage[counttyName][i]!=undefined && countyAverage[counttyName][i].average!=undefined){
           var v = countyAverage[counttyName][i].average;
-           obj.values[i] = (v-cut)/cut;
+           obj.values[i] = v;//(v-cut)/cut;
         }    
       }
     } 
