@@ -54,6 +54,7 @@ idv.util.getInterpolatedValue = function(waterElevation) {
 };
 
 idv.util.getWaterElevationFromInterpolatedValue = function (interpolatedValue) {
-  return (interpolatedValue * idv.INTERPOLATION_CUT + idv.INTERPOLATION_CUT);
+  // return (interpolatedValue * idv.INTERPOLATION_CUT + idv.INTERPOLATION_CUT);
+    return interpolatedValue;
 };
 

@@ -256,7 +256,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 type: 'timeseries',
                 label: {
                     text: 'Year',
-                    position: 'outer'
+                    position: 'outer-right'
                 },
                 tick: {
                     values: ['1996-01-15', '1998-01-15', '2000-01-15', '2002-01-15', '2004-01-15', '2006-01-15',
@@ -364,7 +364,7 @@ idv.timeChartManager.generateWellData = function(well) {
     // wellData.push(label);
 
     var interpolatedValue;
-    var waterElevation;
+    var saturatedThickness;
     var dateData;
 
     for (var i=0; i< idv.timeChartManager.xAxis.length-1; i++) {
@@ -379,8 +379,8 @@ idv.timeChartManager.generateWellData = function(well) {
             wellData.push(null)
         }
         else {
-            waterElevation = idv.util.getWaterElevationFromInterpolatedValue(interpolatedValue);
-            wellData.push(waterElevation);
+            saturatedThickness = idv.util.getWaterElevationFromInterpolatedValue(interpolatedValue);
+            wellData.push(saturatedThickness);
         }
     }
 
