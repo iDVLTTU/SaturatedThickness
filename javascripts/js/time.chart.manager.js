@@ -285,6 +285,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         },
         tooltip: {
             format: {
+                title: function(d) {
+                    var formatTime = d3.timeFormat('%Y-%m-%d');
+                    return "Date " + formatTime(d);
+                },
                 value: function (value, ratio, id) {
                     var format = d3.format(',.2f')
                     return format(value);
