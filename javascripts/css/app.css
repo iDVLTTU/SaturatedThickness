@@ -15,6 +15,9 @@
     stroke-width: 1px;
 }
 
+table.c3-tool-tip-background {
+    opacity: 1;
+}
 /**
  circle tool tip
 */
