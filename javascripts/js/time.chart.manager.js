@@ -244,7 +244,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 },
 
                 label: { // ADD
-                    text: 'Water Elevation',
+                    text: 'Saturated Thickness',
                     position: 'outer-middle'
                 }
             },
