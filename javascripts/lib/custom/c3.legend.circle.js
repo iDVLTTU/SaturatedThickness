@@ -10,7 +10,7 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
 
     var xForLegend, xForLegendText, xForLegendRect, yForLegend, yForLegendText, yForLegendRect;
     var paddingTop = 4,
-        paddingRight = 36,
+        paddingRight = 16, //litpuvn
         maxWidth = 0,
         maxHeight = 0,
         posMin = 10;
@@ -96,6 +96,7 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
 
     if ($$.isLegendRight) {
         xForLegend = function (id) {
+            debugger;
             return maxWidth * steps[id];
         };
         yForLegend = function (id) {
@@ -103,6 +104,7 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
         };
     } else if ($$.isLegendInset) {
         xForLegend = function (id) {
+            debugger;
             return maxWidth * steps[id] + 10;
         };
         yForLegend = function (id) {
@@ -117,16 +119,19 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
         };
     }
     xForLegendText = function (id, i) {
-        return xForLegend(id, i) + 14;
+        // return xForLegend(id, i) + 14;
+        return xForLegend(id, i) + 9; //litpuvn
     };
     yForLegendText = function (id, i) {
         return yForLegend(id, i) + 9 - config.legend_radius;
     };
     xForLegendRect = function (id, i) {
-        return xForLegend(id, i) - 4;
+        // return xForLegend(id, i) - 4;
+        return xForLegend(id, i) - 14;
     };
     yForLegendRect = function (id, i) {
-        return yForLegend(id, i) - 7 + config.legend_radius;
+        // return yForLegend(id, i) - 7 + config.legend_radius;
+        return yForLegend(id, i) - 14 + config.legend_radius;
     };
 
     // Define g for legend area
@@ -221,7 +226,8 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
         .data(targetIds);
     (withTransition ? rects.transition() : rects)
         .attr('width', function (id) {
-            return widths[id];
+            // return widths[id] - 20;
+            return widths[id] - 20; //litpuvn
         })
         .attr('height', function (id) {
             return heights[id];
