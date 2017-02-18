@@ -307,7 +307,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
 
                     if (! text) {
                         title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-                        text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
+                        text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='3'>" + title + "</th></tr>" : "");
                         text += "<tr class='c3tooltipCustomHeader'>";
                         text += "<th>Well</th>";
                         text += "<th>S. Thickness</th>";
