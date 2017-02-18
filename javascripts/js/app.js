@@ -255,9 +255,9 @@ idv.load = function() {
             idv.updateRasterPointPositionData(rasterPoint);
 
             d3.csv('data/well_data_full.csv', function(error, allWellData) {
-
                 idv.handleWellDataLoadComplete(allWellData);
                 // In horizon.js
+                cleanNegativeData();
                 computeCountyAverage();
                 interpolate();
                 

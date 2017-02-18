@@ -13,6 +13,23 @@ var endYear = 117;
 var numMonths = (endYear-startYear)*12;
 var cut = 103;
 
+
+function cleanNegativeData(){
+  for (var k in idv.wellMap){
+    var w = idv.wellMap[k];
+    for (var key in w.detail){
+      if (key.match(/[-]\d\d[-]/)){  // key2 contain a date format
+        var d = new Date(key);
+        var m = (d.getYear()-startYear)*12 + d.getMonth();
+        var v =+w.detail[key];
+        if (v<=0)
+          delete w.detail[key];
+         
+      }  
+    }  
+  }  
+}
+
 function computeCountyAverage(){
   for (var k in idv.wellMap){
     var w = idv.wellMap[k];
