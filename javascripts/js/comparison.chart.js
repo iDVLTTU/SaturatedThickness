@@ -210,7 +210,14 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+        .append("text")
+        .attr("y", 25)
+        .attr("x", width + 20)
+        .style("text-anchor", "end")
+        .text("Year")
+
+    ;
 
     svg.append("g")
         .attr("class", "y axis")
