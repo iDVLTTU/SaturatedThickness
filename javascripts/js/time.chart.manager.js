@@ -238,6 +238,9 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         },
         axis: {
             y: {
+                min: 0,
+                padding: {top: 0, bottom: 0},
+
                 tick: {
                     format: d3.format(",0f")
                      // count: 8
@@ -249,6 +252,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 }
             },
             x: {
+                min: '1995-01-15',
                 type: 'timeseries',
                 label: {
                     text: 'Year',
