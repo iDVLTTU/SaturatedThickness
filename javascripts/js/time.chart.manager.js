@@ -312,7 +312,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
 
                     if (! text) {
                         title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-                        text = "<table class='" + $$.CLASS.tooltip + " c3-tool-tip-background'>" + (title || title === 0 ? "<tr><th colspan='3'>" + title + "</th></tr>" : "");
+                        text = "<table class='" + $$.CLASS.tooltip + " c3-tool-tip-background'>" + (title || title === 0 ? "<tr style='background-color: black'><th colspan='3' style='background-color: black;'>" + title + "</th></tr>" : "");
                         text += "<tr class='c3tooltipCustomHeader'>";
                         text += "<th>Well</th>";
                         text += "<th>S. Thickness</th>";
@@ -325,9 +325,9 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
                     well = idv.wellMap[ idv.util.getWellIdFromItsName(d[i].id)];
                     text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-                    text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
-                    text += "<td class='value'>" + value + "</td>";
-                    text += "<td class='value'>" + well.detail.county + "</td>";
+                    text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "&nbsp;</td>";
+                    text += "<td class='value'>" + value + "&nbsp; </td>";
+                    text += "<td class='value'>" + well.detail.county + "&nbsp;</td>";
                     text += "</tr>";
                 }
                 return text + "</table>";

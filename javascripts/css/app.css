@@ -17,12 +17,18 @@
 
 table.c3-tool-tip-background {
     opacity: 1;
+    border-spacing: 0 2px;
 }
 /**
  circle tool tip
 */
 .c3-tooltip span {
     border-radius: 50%;
+}
+
+
+tr.c3-tooltip-header1 {
+    background-color: #000;
 }
 
 .axis path,
