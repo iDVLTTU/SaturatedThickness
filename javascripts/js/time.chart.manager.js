@@ -327,9 +327,9 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
                     well = idv.wellMap[ idv.util.getWellIdFromItsName(d[i].id)];
                     text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-                    text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "&nbsp;</td>";
+                    text += "<td class='name'>&nbsp;<span style='background-color:" + bgcolor + "'></span>" + name + "&nbsp;</td>";
                     text += "<td class='value'>" + value + "&nbsp; </td>";
-                    text += "<td class='value'>" + well.detail.county + "&nbsp;</td>";
+                    text += "<td class='value'>&nbsp;" + well.detail.county + "&nbsp;</td>";
                     text += "</tr>";
                 }
                 return text + "</table>";

@@ -29,8 +29,12 @@ var setupSvg = function () {
     // define the zoom behavior
     var zm = d3.behavior.zoom()
         .x(idv.comparisonChart.setting["xScale"])
-        .scaleExtent([.1, 1024])
-        .on('zoom', idv.comparisonChart.handleZoomXEvent);
+        .scaleExtent([1, 10])
+        // .on('zoom', idv.comparisonChart.handleZoomXEvent);
+        .on('zoom', function(d, index) {
+            debugger;
+            idv.comparisonChart.handleZoomXEvent();
+        });
 
     idv.comparisonChart.zoomX = zm;
 
@@ -79,16 +83,16 @@ idv.comparisonChart.doZoomX = function () {
     var scale =  this.zoomX.scale();
     console.log(scale);
 
-    this.svg.select(".x.axis").call(xAxis);
+    this.svg.select(".x.axis").call(this.setting.xAxis);
 
 };
 
 idv.comparisonChart.handleZoomXEvent = function () {
-    console.log("received zoom event")
-
-    this.svg.select(".x.axis").call(xAxis);
-    this.svg.select(".y.axis").call(yAxis);
-    debugger;
+    console.log("received zoom event");
+    var scale =  this.zoomX.scale();
+    console.log(scale);
+    this.svg.select(".x.axis").call(this.setting.xAxis);
+    // this.svg.select(".y.axis").call(yAxis);
 
 };
 
