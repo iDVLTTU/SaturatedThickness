@@ -25,7 +25,7 @@ var setupSvg = function () {
         .attr("width", svgWidth)
         .attr("height", svgHeight)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + (margin.left-10) + "," + margin.top + ")");
 
     return svg;
 };
@@ -228,8 +228,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .attr("x", 0 - (height / 2) - 10)
         .attr("dy", ".51em")
         .style("text-anchor", "middle")
-        // .attr("y", 6)
-        // .attr("dy", ".71em")
         // .style("text-anchor", "end")
         .text("Saturated Thickness");
 
