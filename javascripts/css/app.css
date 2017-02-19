@@ -24,6 +24,8 @@ table.c3-tool-tip-background {
 */
 .c3-tooltip span {
     border-radius: 50%;
+    border: 1px solid #000;
+
 }
 
 

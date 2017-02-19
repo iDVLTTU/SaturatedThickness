@@ -200,7 +200,10 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
         .attr('cy', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegend)
         .attr('r', config.legend_radius)
         .attr('width', 10)
-        .attr('height', 10);
+        .attr('height', 10)
+        .attr("stroke-width", 1)
+        .attr("stroke", '#000')
+    ;
     // Set background for inset legend
     if ($$.isLegendInset && maxWidth !== 0) {
         $$.legend.insert('g', '.' + CLASS.legendItem)
