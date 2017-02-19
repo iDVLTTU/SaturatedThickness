@@ -341,6 +341,11 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
     else {
         idv.timeChartManager.charts[bindToId] = timeChart;
     }
+
+
+    d3.selectAll('.c3-axis-x-label')
+        .attr("transform", "translate(" + 8 + "," + -5 + ")");
+
 };
 
 idv.timeChartManager.generateWellData = function(well) {
