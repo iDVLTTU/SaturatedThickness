@@ -103,16 +103,16 @@ function interpolate(){
     } 
 
     // Interpolate missing months
-    interpolate(obj2.values, 2);
-    interpolate(obj2.values, 3);
-    interpolate(obj2.values, 4);
-    interpolate(obj2.values, 5);
-    interpolate(obj2.values, 6);  
-    interpolate(obj2.values, 7);
-    interpolate(obj2.values, 8);
-    interpolate(obj2.values, 9);
-    interpolate(obj2.values, 10);
-    interpolate(obj2.values, 11);
+    //interpolate(obj2.values, 2);
+    //interpolate(obj2.values, 3);
+    //interpolate(obj2.values, 4);
+    //interpolate(obj2.values, 5);
+    //interpolate(obj2.values, 6);  
+    //interpolate(obj2.values, 7);
+    //interpolate(obj2.values, 8);
+    //interpolate(obj2.values, 9);
+    //interpolate(obj2.values, 10);
+    //interpolate(obj2.values, 11);
     //interpolate(obj2.values, 12);
   
   
