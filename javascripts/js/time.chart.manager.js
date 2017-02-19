@@ -90,7 +90,8 @@ idv.timeChartManager.getChartTypes = function() {
     var chartTypes = {};
     activeWells.forEach(function (well) {
         var tmpWellObj = idv.wellMap[well];
-        chartTypes[tmpWellObj.getName()] = activeWells.length > 1 ? 'line' : 'area';
+        // chartTypes[tmpWellObj.getName()] = activeWells.length > 1 ? 'line' : 'area';
+        chartTypes[tmpWellObj.getName()] = 'line';
     });
 
     return chartTypes;
@@ -279,7 +280,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 },
                 onmouseover: function (name) {
                     if (bindToId == 'wellTimeSeries') {
-                        //idv.timeChartManager.activateWellAsAreaChart(name);
+                        idv.timeChartManager.activateWellAsAreaChart(name);
                         idv.comparisonChart.generateAverageComparisonChart('average', name, false);
 
                         // idv.timeChartManager.getColumnDataByKey(name);
@@ -427,6 +428,7 @@ idv.timeChartManager.updateTimeChartForWell = function(well, refreshChart, unloa
 };
 
 idv.timeChartManager.activateWellAsAreaChart = function(wellName) {
+    this.updateChartTypes();
     this.setChartTypeForWell(wellName, 'area');
     this.fastRefreshTimeChart();
 };
