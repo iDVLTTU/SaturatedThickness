@@ -58,3 +58,16 @@ idv.util.getWaterElevationFromInterpolatedValue = function (interpolatedValue) {
     return interpolatedValue;
 };
 
+idv.util.formatDate = function(d) {
+    var format = d3.time.format("%Y-%m-%d");
+    return format(d);
+};
+
+idv.util.formatSaturatedThickness = function(d) {
+    var format = d3.format(",.1f");
+
+    var a =format(d);
+    debugger;
+    return format(d);
+};
+

@@ -177,6 +177,12 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     // .style("stroke", "#f00")
     ;
 
+    // preparing tooltip for each dot
+    // Define the div for the tooltip
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
     // dot over existed data
     svg.selectAll("dot")
         .data(data.filter(function (d) {
@@ -190,6 +196,19 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             })
             .attr('opacity', 0)
             .attr("r", 0)
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div	.html("Date: " + idv.util.formatDate(d.year) + "<br/>S. Thickness: " + idv.util.formatSaturatedThickness(d[columnKey]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
             .transition()
             .duration(2500)
             .attr('opacity', 1)
