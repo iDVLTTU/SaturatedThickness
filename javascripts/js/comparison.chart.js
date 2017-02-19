@@ -213,7 +213,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .call(xAxis)
         .append("text")
         .attr("y", 30)
-        .attr("x", width + 10)
+        .attr("x", width + 3)
         .style("text-anchor", "end")
         .text("Year")
 
