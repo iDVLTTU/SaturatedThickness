@@ -253,6 +253,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
             },
             x: {
                 min: '1995-01-15',
+                padding: {left: 0, right: 0},
                 type: 'timeseries',
                 label: {
                     text: 'Year',
