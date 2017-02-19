@@ -2,7 +2,7 @@ var idv = idv || {};
 idv.comparisonChart = idv.comparisonChart || {};
 
 idv.comparisonChart.setting = {
-    margin: {top: 20, right: 30, bottom: 30, left: 70},
+    margin: {top: 20, right: 0, bottom: 30, left: 70},
     svgWidth: 960,
     svgHeight: 300
 };
@@ -224,7 +224,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .call(yAxis)
         .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 20 - idv.comparisonChart.setting.margin.left)
+        .attr("y", 25 - idv.comparisonChart.setting.margin.left)
         .attr("x", 0 - (height / 2) - 10)
         .attr("dy", ".51em")
         .style("text-anchor", "middle")
