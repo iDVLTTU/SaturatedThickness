@@ -16,16 +16,31 @@ idv.comparisonChart.setting["yScale"] = d3.scale.linear().range([idv.comparisonC
 idv.comparisonChart.setting["xAxis"] = d3.svg.axis().scale(idv.comparisonChart.setting["xScale"]).orient("bottom").tickFormat(d3.time.format("%Y"));
 idv.comparisonChart.setting["yAxis"] = d3.svg.axis().scale(idv.comparisonChart.setting["yScale"]).orient("left");
 
+idv.comparisonChart.zoomX = null;
+idv.comparisonChart.zoomXScale = 1;
+
 var setupSvg = function () {
     var margin = idv.comparisonChart.setting.margin;
     var svgWidth = idv.comparisonChart.setting.svgWidth;
     var svgHeight = idv.comparisonChart.setting.svgHeight;
 
+
+    // zoom
+    // define the zoom behavior
+    var zm = d3.behavior.zoom()
+        .x(idv.comparisonChart.setting["xScale"])
+        .scaleExtent([.1, 1024])
+        .on('zoom', idv.comparisonChart.handleZoomXEvent);
+
+    idv.comparisonChart.zoomX = zm;
+
     var svg = d3.select("body").select("#charts").append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeight)
         .append("g")
-        .attr("transform", "translate(" + (margin.left-10) + "," + margin.top + ")");
+        .attr("transform", "translate(" + (margin.left-10) + "," + margin.top + ")")
+        .call(zm)
+        ;
 
     return svg;
 };
@@ -57,6 +72,25 @@ idv.comparisonChart.initForTest = function () {
     // this.generateAverageComparisonChart('average', "well450802");
 };
 
+idv.comparisonChart.doZoomX = function () {
+    this.zoomXScale ++;
+    this.zoomX.scale(this.zoomXScale);
+
+    var scale =  this.zoomX.scale();
+    console.log(scale);
+
+    this.svg.select(".x.axis").call(xAxis);
+
+};
+
+idv.comparisonChart.handleZoomXEvent = function () {
+    console.log("received zoom event")
+
+    this.svg.select(".x.axis").call(xAxis);
+    this.svg.select(".y.axis").call(yAxis);
+    debugger;
+
+};
 
 idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey) {
     var x = this.setting.xScale;
@@ -248,7 +282,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .attr("dy", ".51em")
         .style("text-anchor", "middle")
         // .style("text-anchor", "end")
-        .text("Saturated Thickness");
+        .text("Saturated Thickness (ft)");
 
 
     function flickering(d, i) {

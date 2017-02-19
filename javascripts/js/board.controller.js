@@ -57,3 +57,7 @@ idv.controller.getFlickeringOption = function() {
 
     return null;
 };
+
+idv.controller.zoomInX = function () {
+    idv.comparisonChart.doZoomX();
+};

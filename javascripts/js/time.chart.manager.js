@@ -248,7 +248,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                 },
 
                 label: { // ADD
-                    text: 'Saturated Thickness',
+                    text: 'Saturated Thickness (ft)',
                     position: 'outer-middle'
                 }
             },
