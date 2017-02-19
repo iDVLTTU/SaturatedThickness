@@ -122,6 +122,11 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         }
 
         measuredDate = idv.util.getDateInYmd(tmpWell.MeasurementYear, tmpWell.MeasurementMonth, tmpWell.MeasurementDay);
+        // ignore negative data
+        if (+tmpWell.SaturatedThickness <=0) {
+            continue;
+        }
+
         if(!myWells[tmpWell.Well_ID].hasOwnProperty(measuredDate)) {
             myWells[tmpWell.Well_ID]["totalMeasurementDate"] ++;
             myWells[tmpWell.Well_ID][measuredDate] = +tmpWell.SaturatedThickness;
@@ -258,7 +263,7 @@ idv.load = function() {
             d3.csv('data/well_data_full.csv', function(error, allWellData) {
                 idv.handleWellDataLoadComplete(allWellData);
                 // In horizon.js
-                cleanNegativeData();
+                // cleanNegativeData();
                 computeCountyAverage();
                 interpolate();
                 
