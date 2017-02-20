@@ -27,23 +27,22 @@ var setupSvg = function () {
 
     // zoom
     // define the zoom behavior
-    var zm = d3.behavior.zoom()
-        .x(idv.comparisonChart.setting["xScale"])
-        .scaleExtent([1, 10])
-        // .on('zoom', idv.comparisonChart.handleZoomXEvent);
-        .on('zoom', function(d, index) {
-            debugger;
-            idv.comparisonChart.handleZoomXEvent();
-        });
-
-    idv.comparisonChart.zoomX = zm;
+    // var zm = d3.behavior.zoom()
+    //     .x(idv.comparisonChart.setting["xScale"])
+    //     .scaleExtent([1, 10])
+    //     // .on('zoom', idv.comparisonChart.handleZoomXEvent);
+    //     .on('zoom', function(d, index) {
+    //         idv.comparisonChart.handleZoomXEvent();
+    //     });
+    //
+    // idv.comparisonChart.zoomX = zm;
 
     var svg = d3.select("body").select("#charts").append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeight)
         .append("g")
         .attr("transform", "translate(" + (margin.left-10) + "," + margin.top + ")")
-        .call(zm)
+        // .call(zm)
         ;
 
     return svg;
@@ -88,9 +87,9 @@ idv.comparisonChart.doZoomX = function () {
 };
 
 idv.comparisonChart.handleZoomXEvent = function () {
-    console.log("received zoom event");
+    // console.log("received zoom event");
     var scale =  this.zoomX.scale();
-    console.log(scale);
+    // console.log(scale);
     this.svg.select(".x.axis").call(this.setting.xAxis);
     // this.svg.select(".y.axis").call(yAxis);
 
