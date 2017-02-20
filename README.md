@@ -17,3 +17,10 @@ Tuan Dang and Leland Wilkinson. *TimeExplorer: Similarity Search Time Series by 
 [PDF](http://www.myweb.ttu.edu/tnhondan/file/TimeExplorer.pdf) 
 
 
+Terrain: https://threejs.org/examples/#webgl_terrain_dynamic
+Particles: https://threejs.org/examples/#webgl_buffergeometry_instancing_billboards
+Points: https://threejs.org/examples/#webgl_buffergeometry_points_interleaved
+Points: https://threejs.org/examples/#webgl_custom_attributes_points
+Multiple Pyramics: https://threejs.org/examples/#misc_controls_orbit
+Particles on floor: https://threejs.org/examples/#canvas_particles_floor
+Waves: https://threejs.org/examples/#canvas_particles_waves
