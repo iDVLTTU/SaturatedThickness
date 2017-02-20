@@ -158,12 +158,16 @@ function getTop20Wells(){
   return topWells;
 }
 
+
+//[[0, 'rgba(255, 255, 255,0)'],[0.1, 'rgba(250,200,160,1)'], [0.2, 'rgba(200,150,130,255)'], [0.3, 'rgb(160,160,80)'], [0.4, 'rgb(0,120,160)'], [0.7, 'rgb(0,60,120)'] , [1, 'rgb(0,0,60)']]
+//        };
+
+var colorList = ['rgba(250,200,160,1)', 'rgba(200,150,130,255)'] 
 // Draw Horizon graph
 function drawHorizon(wellList){
   // Clean of any previus horizons
   d3.select("#horizonChart").selectAll('.horizon').remove();
   d3.select("#horizonChart").selectAll('.horizonSVG').remove();
-
   d3.select("#horizonChart").selectAll('.horizon')
     .data(wellList)
     .enter()
@@ -172,9 +176,11 @@ function drawHorizon(wellList){
     .each(function(d) {
         d3.horizonChart()
             .title("well "+d.id)
-            .colors(idv.colorManager.getAllWaterColorsAsArray())  // colorsWater is defined in color.manager.js
+            //.colors(idv.colorManager.getAllWaterColorsAsArray())  // colorsWater is defined in color.manager.js
            // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
-           // .colors(['rgba(250,200,160,1)', 'rgba(200,150,130,255)', 'rgb(200,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
+           // .colors(['rgb(255,0,255)','rgb(255,0,0)','rgba(250,200,160)', 'rgba(200,150,130)', 'rgb(160,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
+            .colors(['#313695', '#313695', '#313695', '#4575b4', '#74add1', '#abd9e9',
+                     'rgb(250,200,160)', 'rgba(200,150,130,255)','rgb(160,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
             .height(30)
             .call(this, d.interpolate);
     });

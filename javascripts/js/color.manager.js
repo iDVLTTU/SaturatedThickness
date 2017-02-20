@@ -11,7 +11,7 @@ for (var i=0; i< idv.colorManager.SUPPORTED_COLOR_COUNT; i++) {
     }
 }
 
-idv.colorManager.colorsWater = {'darkRed': '#830', 'lightBrown': '#c96', 'lightBlue': '#48b', 'darkBlue': '#237'}; // dark red, brow, light blue, blue
+idv.colorManager.colorsWater = {'Above the average': '#6f6', 'Below the average': '#d82'}; // dark red, brow, light blue, blue
 
 idv.colorManager.getAllWaterColors = function () {
     return idv.colorManager.colorsWater;
