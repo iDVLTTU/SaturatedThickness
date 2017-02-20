@@ -192,12 +192,40 @@ function drawHorizon(wellList){
             .call(this, d.interpolate);
     });
 
+  //
+  // d3.selectAll('.horizon')
+  //     .insert('span', ':nth-child(2)')
+  //     .attr('class', 'mytest')
+  //     .attr('width', 10)
+  //     .attr('height', 10)
+  //     .style('fill', '#000')
+  //     .text('1')
+  // ;
 
-  d3.select("#horizonChart").selectAll('.title').on("mouseover", function(d){
-    d3.select("#horizonChart").selectAll('.title').style("color", function(d){
-      return d.getMyColor();
-    }); 
-  });  
+
+    d3.selectAll('.horizon')
+        .insert('svg', ':nth-child(2)')
+          .attr('width', 11)
+          .attr('height', 11)
+          .attr("class", "horizon-chart-well ")
+
+        .append('circle')
+          .attr('cx', 6)
+          .attr('cy', 6)
+          .attr('stroke-width', 0.5)
+          .attr('stroke', '#000')
+          .attr('r', 5)
+          .style('fill', function (d) {
+              return d.getMyColor();
+          })
+        // .text('1')
+    ;
+
+  // d3.select("#horizonChart").selectAll('.title').on("mouseover", function(d){
+  //   d3.select("#horizonChart").selectAll('.title').style("color", function(d){
+  //     return d.getMyColor();
+  //   });
+  // });
 
   // Draw x axis *********************************
   var mindate = new Date(1900+startYear,1,1),

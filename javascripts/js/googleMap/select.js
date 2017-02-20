@@ -253,13 +253,13 @@ function changeSelection() {
 
 // Horizon graph 
   var topWells = getTop20Wells();
-  drawHorizon(topWells); 
-
-
   // Long sets active wells
   idv.wellManager.activateWells(topWells);
-  
-  redrawAllWells();
+
+
+
+    drawHorizon(topWells);
+    redrawAllWells();
    
   // Long code ***************  redraw line graphs
   idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);

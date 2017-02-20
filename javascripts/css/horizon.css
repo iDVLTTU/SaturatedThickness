@@ -30,7 +30,8 @@
   }
 
   .horizon .title {
-      left: 0;
+      left: 7px;
+      top: 0px;
   }
 
   .horizon .value {

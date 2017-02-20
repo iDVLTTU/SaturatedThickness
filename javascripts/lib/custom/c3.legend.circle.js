@@ -201,7 +201,7 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
         .attr('r', config.legend_radius)
         .attr('width', 10)
         .attr('height', 10)
-        .attr("stroke-width", 1)
+        .attr("stroke-width", 0.5)
         .attr("stroke", '#000')
     ;
     // Set background for inset legend
