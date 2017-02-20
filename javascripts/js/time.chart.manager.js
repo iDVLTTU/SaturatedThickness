@@ -330,7 +330,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                     text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
                     text += "<td class='name'>&nbsp;<span style='background-color:" + bgcolor + "'></span>" + name + "&nbsp;</td>";
                     text += "<td class='value'>" + value + "&nbsp; </td>";
-                    text += "<td class='value'>&nbsp;" + well.detail.county + "&nbsp;</td>";
+                    text += "<td class='c3-align-left-text'>&nbsp;" + well.detail.county + "&nbsp;</td>";
                     text += "</tr>";
                 }
                 return text + "</table>";

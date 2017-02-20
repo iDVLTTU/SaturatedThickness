@@ -20,6 +20,9 @@ table.c3-tool-tip {
     font-size: 10px;!important;
 }
 
+.c3-align-left-text {
+    text-align: left; !important;
+}
 /** circle legend */
 .c3-legend-item-tile {
     shape-rendering: initial;
