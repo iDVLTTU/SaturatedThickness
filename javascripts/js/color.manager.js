@@ -38,6 +38,14 @@ idv.colorManager.getWaterColor = function(key) {
   return this.colorsWater[key];
 };
 
+idv.colorManager.getAboveAverageColor = function() {
+    return idv.colorManager.getWaterColor('Above the average')
+};
+
+idv.colorManager.getBelowAverageColor = function() {
+    return idv.colorManager.getWaterColor('Below the average')
+};
+
 idv.colorManager.getUnusedColorKey = function() {
     var tmpColor;
     for(var myColor in idv.colorManager.supportedColors) {

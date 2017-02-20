@@ -166,7 +166,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     //----------- Creating lines with clip path items created-------
     svg.append("path")
         .attr("class", "areaAbove")
-        .style("fill", idv.colorManager.getWaterColor('lightBlue'))     // set the fill colour
+        .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
         .attr("clip-path", "url(#clip-above)")
         .attr('opacity', 0)
         .attr("d", areaBase.y0(function(d) { return y(d[columnKey]); }))
@@ -174,7 +174,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     svg.append("path")
         .attr("class", "areaBelow")
-        .style("fill", idv.colorManager.getWaterColor('lightBrown'))     // set the fill colour
+        .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr('opacity', 0)
         .attr("d", areaBase)
@@ -184,7 +184,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .transition()
         .duration(2000)
         .attr('opacity', 1)
-        .style("fill", idv.colorManager.getWaterColor('lightBlue'))     // set the fill colour
+        .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
         .attr("clip-path", "url(#clip-above)")
         .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
     ;
@@ -192,7 +192,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .transition()
         .duration(2000)
         .attr('opacity', 1)
-        .style("fill", idv.colorManager.getWaterColor('lightBrown'))     // set the fill colour
+        .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
         .attr("clip-path", "url(#clip-below)")
         .attr("d", area)
     ;
