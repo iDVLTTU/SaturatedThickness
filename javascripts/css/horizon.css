@@ -1,5 +1,5 @@
 #horizonChart {
- padding-left: 10px;
+ padding-left: 5px;
 }
 
 .horizon {
@@ -18,7 +18,7 @@
     .horizon canvas {
         display: block;
         image-rendering: pixelated;
-        margin-left: 85px;
+        margin-left: 90px;
     }
 
   .horizon .title,

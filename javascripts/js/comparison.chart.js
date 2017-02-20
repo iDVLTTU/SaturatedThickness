@@ -249,7 +249,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .transition()
             .duration(2500)
             .attr('opacity', 1)
-            .style("stroke-width", 1)
+            .style("stroke-width", 0.5)
             .style("stroke", '#000')
             .style("fill", myWell.getMyColor())
             .attr("r", 3.5)
