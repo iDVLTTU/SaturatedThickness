@@ -208,7 +208,7 @@ idv.plotData = function () {
         var layout = {
             title: 'Saturated Thickness of Ogallala Aquifier in 2013',
             // width: 800,
-            // height: 900,
+            // height: 800,
             width: 700,
             height: 450,
 
@@ -232,6 +232,9 @@ idv.plotData = function () {
 
     };
 
+    // d3.select('#' +idv.CONTOUR_DIV_ID).selectAll('svg')
+    //     .attr('height', 750)
+    // ;
     // plot contour map
     plotContourMap(idv.CONTOUR_DIV_ID, idv.data2D);
 

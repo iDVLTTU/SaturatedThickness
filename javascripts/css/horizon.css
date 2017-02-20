@@ -18,7 +18,7 @@
     .horizon canvas {
         display: block;
         image-rendering: pixelated;
-        margin-left: 75px;
+        margin-left: 85px;
     }
 
   .horizon .title,
@@ -34,7 +34,7 @@
   }
 
   .horizon .title {
-      left: 7px;
+      left: 9px;
       top: -2px;
   }
 
