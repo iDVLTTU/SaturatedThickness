@@ -44,8 +44,19 @@ table.c3-tool-tip-background {
 .c3-tooltip span {
     border-radius: 50%;
     border: 1px solid rgba(0,0,0, 0.25);
+}
+
+.c3-tooltip td > span {
     width: 8px; !important;
-    height: 8px;!important;
+    height: 8px; !important;
+}
+.c3-tooltip td, th {
+    font-size: 12px; !important;
+}
+
+.c3-tooltip th {
+    font-family: sans-serif; !important;
+    font-size: 12px; !important;
 }
 
 .horizon-chart-well {
