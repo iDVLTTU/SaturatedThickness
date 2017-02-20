@@ -320,6 +320,8 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                         text += "<th>S. Thickness</th>";
                         text += "<th>County</th>";
                         text += "</tr>";
+
+                        debugger;
                     }
 
                     name = nameFormat(d[i].name);
