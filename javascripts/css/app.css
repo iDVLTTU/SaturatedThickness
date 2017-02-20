@@ -7,9 +7,9 @@ html, body {
     font-size: 10px;
 }
 
-#myDiv {
-    height: 810px;
-}
+/*#myDiv {*/
+    /*height: 850px;*/
+/*}*/
 
 table.tableLayout {
     overflow: visible;
