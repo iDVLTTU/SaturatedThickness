@@ -11,7 +11,7 @@ for (var i=0; i< idv.colorManager.SUPPORTED_COLOR_COUNT; i++) {
     }
 }
 
-idv.colorManager.colorsWater = {'Above the average': '#6f6', 'Below the average': '#d82'}; // dark red, brow, light blue, blue
+idv.colorManager.colorsWater = {'Above the average': '#66aa33', 'Below the average': '#cc6633'}; // dark red, brow, light blue, blue
 
 idv.colorManager.getAllWaterColors = function () {
     return idv.colorManager.colorsWater;

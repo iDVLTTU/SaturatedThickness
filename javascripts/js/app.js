@@ -272,6 +272,8 @@ idv.load = function() {
                 // In select.js
                 changeSelection();
                 
+                // print out the max Saturated Thickness
+                console.log("Max Saturated Thickness: " +computeMaxST());
 
                 //var topWells = getTop20Wells();
                 //drawHorizon(topWells);  

@@ -41,6 +41,7 @@ var maxRadius = 7;
 
 function changeSelection() {    
     choice = select.property('value')
+
     if (idv==undefined || idv.wellMap==undefined) return;
 
     if (choice==choices[0]){
@@ -317,6 +318,21 @@ function computeAverage() {
   }  
 };
 
+function computeMaxST() {
+  var maxST =0;
+  for (var key in idv.wellMap){
+    var w = idv.wellMap[key];
+    for (var key2 in w.detail){
+      if (key2.match(/[-]\d\d[-]/)){  // key2 contain a date format
+        var v = +w.detail[key2];
+        if (v>maxST)
+          maxST = v;
+      }        
+    }  
+  }
+  
+  return maxST;
+};
 
 function changeAverage() {
 };

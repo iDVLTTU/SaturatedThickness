@@ -67,6 +67,13 @@ function computeCountyAverage(){
 
 // interpolate month well data based on county average and time
 function interpolate(){
+  //var maxST = computeMaxST();
+  ////  for (var key in idv.wellMap){
+   ///   var w = idv.wellMap[key];
+   //   w.detail["2015-01-15"] = maxST;
+   // }
+    
+
   for (var k in idv.wellMap){
     var w = idv.wellMap[k].detail;
     var obj = {};
@@ -179,9 +186,9 @@ function drawHorizon(wellList){
             //.colors(idv.colorManager.getAllWaterColorsAsArray())  // colorsWater is defined in color.manager.js
            // .colors([ '#4575b4', '#abd9e9', '#fee090', '#f46d43'])
            // .colors(['rgb(255,0,255)','rgb(255,0,0)','rgba(250,200,160)', 'rgba(200,150,130)', 'rgb(160,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
-            .colors(['#313695', '#313695', '#313695', '#4575b4', '#74add1', '#abd9e9',
-                     'rgb(250,200,160)', 'rgba(200,150,130,255)','rgb(160,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)', 'rgb(0,0,60)'])
-            .height(30)
+            .colors(['#313695', '#313695', '#4575b4', '#74add1', '#abd9e9',
+                     'rgb(250,200,160)', 'rgba(200,150,130,255)','rgb(160,160,80)', 'rgb(0,120,160)', 'rgb(0,60,120)']) // can not add 'rgb(0,0,60)' because the max saturated thickness is 548.9
+            .height(27)
             .call(this, d.interpolate);
     });
 
