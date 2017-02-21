@@ -260,11 +260,6 @@ function changeSelection() {
 
     drawHorizon(topWells);
     redrawAllWells();
-   
-  // Long code ***************  redraw line graphs
-  idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
-  idv.colorManager.updateContourWellColors();
-
 };
 
 

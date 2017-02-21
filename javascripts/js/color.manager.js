@@ -104,10 +104,11 @@ idv.colorManager.updateContourWellColors = function () {
             var relatedWell = idv.wellMap[d.tx];
             return relatedWell.getMyColor();
         })
-        .style("fill-opacity", function (d) {
+        .style("opacity", function (d) {
             if (d.tx == null || d.tx == undefined) {
                 return;
             }
+
             var relatedWell = idv.wellMap[d.tx];
             return relatedWell.active == true ? 1 : 0.5;
         })

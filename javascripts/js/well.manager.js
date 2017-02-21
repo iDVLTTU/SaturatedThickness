@@ -102,10 +102,7 @@ idv.wellManager.activateWells = function(wells) {
     }
 
     idv.timeChartManager.resetWellChart(deactivateWells);
-
     this.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
-
-    idv.colorManager.updateContourWellColors();
 
     var maxInterpolatedValue = d3.max(myWells, function(w) {
         return d3.max(w.interpolate);
@@ -116,7 +113,8 @@ idv.wellManager.activateWells = function(wells) {
     });
 
     idv.comparisonChart.setYDomainMax(idv.util.getWaterElevationFromInterpolatedValue(maxInterpolatedValue));
-    idv.comparisonChart.setYDomainMin(idv.util.getWaterElevationFromInterpolatedValue(minInterpolatedValue))
+
+    idv.comparisonChart.setYDomainMin(idv.util.getWaterElevationFromInterpolatedValue(minInterpolatedValue));
 
     if (!!removedWells) {
         idv.timeChartManager.updateAverageData(wells);
@@ -124,12 +122,13 @@ idv.wellManager.activateWells = function(wells) {
     else {
         idv.timeChartManager.updateAverageData();
     }
-
     // // draw comparison chart
+
     if (myWells.length > 0) {
         idv.comparisonChart.generateAverageComparisonChart('average', myWells[0].getName(), true);
     }
 
+    idv.colorManager.updateContourWellColors();
 };
 
 /**
@@ -273,6 +272,9 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
     var sizes = [];
     var ids = [];
 
+    // var colors = [];
+    // var myColor;
+
     for(var wellId in allWells) {
         if (!allWells.hasOwnProperty(wellId)) {
             continue;
@@ -282,27 +284,33 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         yCoords.push(tmpWell.pointY);
         ids.push(tmpWell.id);
         sizes.push(tmpWell.hasOwnProperty('radius')? tmpWell.radius*2 : 10);
+        // myColor = tmpWell.active ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0.5)";
+        // if (tmpWell.active == true) {
+        //     // debugger;
+        // }
+        // colors.push(myColor);
+
         // sizes.push(10);
     }
 
-    var wellMarkers = {
-        x: xCoords,
-        y: yCoords,
-        mode: 'markers',
-        type: 'scatter',
-        name: "Well",
-        text: ids,
-        marker: {
-            size: sizes,
-            color: "rgba(0, 0, 0, 0.5)",
-            line: {
-                width: 0.5,
-                color: '#000'
-            }
-        }
-    };
 
     if (!!newGraph) {
+        var wellMarkers = {
+            x: xCoords,
+            y: yCoords,
+            mode: 'markers',
+            type: 'scatter',
+            name: "Well",
+            text: ids,
+            marker: {
+                size: sizes,
+                // color: "rgba(0, 0, 0, 0.5)",
+                line: {
+                    width: 0.5,
+                    color: '#000'
+                }
+            }
+        };
         Plotly.addTraces(contourDivId, wellMarkers);
     }
     else {
