@@ -122,8 +122,8 @@ idv.handleWellDataLoadComplete = function(allWellData) {
         }
 
         measuredDate = idv.util.getDateInYmd(tmpWell.MeasurementYear, tmpWell.MeasurementMonth, tmpWell.MeasurementDay);
-        // ignore negative data
-        if (+tmpWell.SaturatedThickness <=0) {
+        // ignore negative data or data with zero NS base
+        if (+tmpWell.SaturatedThickness <=0 || (tmpWell.SaturatedThickness == tmpWell.WaterElevation)) {
             continue;
         }
 
