@@ -237,20 +237,21 @@ idv.plotData = function () {
     // plot contour map
     plotContourMap(idv.CONTOUR_DIV_ID, idv.data2D);
 
-    // plot well on top of contour
-    // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
-    idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true);
-
-    // plot my position
-    //idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
-    //
     idv.wellManager.enableWellClick();
-
     // plot time chart
     idv.timeChartManager.generateTimeChart("wellTimeSeries");
 
      // idv.timeChartManager.generateTimeChart("wellTimeSeries1");
     // console.log(idv.timeChart);
+
+    // plot my position
+    //idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
+    //
+
+    // plot well on top of contour
+    // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
+    // plot well markers on contour
+    idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true);
 };
 
 idv.handleContourZoom = function () {
@@ -284,7 +285,11 @@ idv.load = function() {
 
                 // In select.js
                 changeSelection();
-                
+
+                // plot well markers on contour
+                // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+                idv.colorManager.updateContourWellColors();
+
                 // print out the max Saturated Thickness
                 console.log("Max Saturated Thickness: " +computeMaxST());
 

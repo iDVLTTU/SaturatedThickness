@@ -33,6 +33,8 @@ idv.wellManager.findWellFromCoords = function(x, y) {
 // Event Click on a well in contour map
 idv.wellManager.handleWellOnClick = function(well) {
 
+    console.log(well);
+
     idv.wellManager.handleWellSingleClick(well);
     var wellGPS = {lat: +well.detail.position.lat, lng: +well.detail.position.lon};
 
@@ -271,10 +273,6 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
     var yCoords = [];
     var sizes = [];
     var ids = [];
-
-    // var colors = [];
-    // var myColor;
-
     var insertAtEnd;
     var radius;
 
@@ -282,15 +280,17 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         if (!allWells.hasOwnProperty(wellId)) {
             continue;
         }
+
         tmpWell = allWells[wellId];
-
-        if (!tmpWell.hasOwnProperty('radius')) {
-
-            tmpWell.radius = 10;
-        }
-
         insertAtEnd = tmpWell.active;
-        radius = tmpWell.hasOwnProperty('radius') ? 2*tmpWell.radius : 10;
+        radius = tmpWell.hasOwnProperty('radius') ? 2*tmpWell.radius : 2;
+
+        // if (tmpWell.id != 712401) {
+        //     radius = 2;
+        // }else {
+        //     debugger;
+        //     radius = 20;
+        // }
 
         if (insertAtEnd == true) {
             xCoords.push(tmpWell.pointX);
@@ -305,16 +305,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             sizes.splice(0, 0, radius);
 
         }
-
-        // myColor = tmpWell.active ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0.5)";
-        // if (tmpWell.active == true) {
-        //     // debugger;
-        // }
-        // colors.push(myColor);
-
-        // sizes.push(10);
     }
-
 
     if (!!newGraph) {
         var wellMarkers = {
@@ -326,7 +317,6 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             text: ids,
             marker: {
                 size: sizes,
-                // color: "rgba(0, 0, 0, 0.5)",
                 line: {
                     width: 0.5,
                     color: '#000'
@@ -338,6 +328,12 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
     else {
 
         var update = {
+            x: xCoords,
+            y: yCoords,
+            mode: 'markers',
+            type: 'scatter',
+            name: "Well",
+            text: ids,
             marker: {
                 size : sizes,
                 line: {
@@ -346,7 +342,11 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
                 }
             }
         };
-        Plotly.restyle(contourDivId, update, 1);
+
+        Plotly.deleteTraces(contourDivId, 1);
+        Plotly.addTraces(contourDivId, update);
+
+        // Plotly.restyle(contourDivId, update, 1);
     }
 
 };
