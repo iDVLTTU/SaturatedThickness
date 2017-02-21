@@ -202,8 +202,25 @@ function drawHorizon(wellList){
   //     .text('1')
   // ;
 
+  var div = d3.select("body").append("div")
+      .attr("class", "tooltip horizon-tooltip")
+      .style("opacity", 0);
 
     d3.selectAll('.horizon')
+        .on("mouseover", function(d) {
+            debugger;
+            div.transition()
+                .duration(200)
+                .style("opacity", .9);
+            div.html("County: " + d.detail.county)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            div.transition()
+                .duration(500)
+                .style("opacity", 0);
+        })
         .insert('svg', ':nth-child(2)')
           .attr('width', 11)
           .attr('height', 11)
