@@ -275,15 +275,38 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
     // var colors = [];
     // var myColor;
 
+    var insertAtEnd;
+
     for(var wellId in allWells) {
         if (!allWells.hasOwnProperty(wellId)) {
             continue;
         }
         tmpWell = allWells[wellId];
-        xCoords.push(tmpWell.pointX);
-        yCoords.push(tmpWell.pointY);
-        ids.push(tmpWell.id);
-        sizes.push(tmpWell.hasOwnProperty('radius')? tmpWell.radius*2 : 10);
+
+        if (!tmpWell.hasOwnProperty('radius')) {
+
+            tmpWell.radius = 10;
+        }
+
+        insertAtEnd = tmpWell.active;
+        // if (tmpWell.radius != 10) {
+        //     insertAtEnd = true;
+        // }
+
+        if (insertAtEnd == true) {
+            xCoords.push(tmpWell.pointX);
+            yCoords.push(tmpWell.pointY);
+            ids.push(tmpWell.id);
+            sizes.push(tmpWell.radius*2);
+        }
+        else {
+            xCoords.splice(0, 0, tmpWell.pointX);
+            yCoords.splice(0, 0, tmpWell.pointY);
+            ids.splice(0, 0, tmpWell.id);
+            sizes.splice(0, 0, tmpWell.hasOwnProperty('radius') ? 2*tmpWell.radius : 10);
+
+        }
+
         // myColor = tmpWell.active ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0.5)";
         // if (tmpWell.active == true) {
         //     // debugger;
