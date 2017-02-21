@@ -95,7 +95,7 @@ idv.comparisonChart.handleZoomXEvent = function () {
 
 };
 
-idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey) {
+idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey, newChart) {
     var x = this.setting.xScale;
     var y = this.setting.yScale;
     var width = this.setting.width;
@@ -148,84 +148,87 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     var wellId = idv.util.getWellIdFromItsName(columnKey);
     var myWell = idv.wellMap[wellId];
-    // clipping ----------------------------
-    svg.datum(data);
 
-    // creating clip path items ---------------------
-    svg.append("clipPath")
-        .attr("id", "clip-below")
-        .append("path")
-        .attr("d", area.y0(height));
+    if (!newChart) {
 
-    svg.append("clipPath")
-        .attr("id", "clip-above")
-        .append("path")
-        .attr("d", area.y0(0));
+        // clipping ----------------------------
+        svg.datum(data);
 
-    //----------- Creating lines with clip path items created-------
-    svg.append("path")
-        .attr("class", "areaAbove")
-        .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
-        .attr("clip-path", "url(#clip-above)")
-        .attr('opacity', 0)
-        .attr("d", areaBase.y0(function(d) { return y(d[columnKey]); }))
-    ;
+        // creating clip path items ---------------------
+        svg.append("clipPath")
+            .attr("id", "clip-below")
+            .append("path")
+            .attr("d", area.y0(height));
 
-    svg.append("path")
-        .attr("class", "areaBelow")
-        .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
-        .attr("clip-path", "url(#clip-below)")
-        .attr('opacity', 0)
-        .attr("d", areaBase)
-    ;
+        svg.append("clipPath")
+            .attr("id", "clip-above")
+            .append("path")
+            .attr("d", area.y0(0));
 
-    svg.selectAll('.areaAbove')
-        .transition()
-        .duration(2000)
-        .attr('opacity', 1)
-        .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
-        .attr("clip-path", "url(#clip-above)")
-        .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
-    ;
-    svg.selectAll('.areaBelow')
-        .transition()
-        .duration(2000)
-        .attr('opacity', 1)
-        .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
-        .attr("clip-path", "url(#clip-below)")
-        .attr("d", area)
-    ;
-    // update
-    // svg.append('path').
+        //----------- Creating lines with clip path items created-------
+        svg.append("path")
+            .attr("class", "areaAbove")
+            .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
+            .attr("clip-path", "url(#clip-above)")
+            .attr('opacity', 0)
+            .attr("d", areaBase.y0(function(d) { return y(d[columnKey]); }))
+        ;
 
-    // svg.selectAll('.wline').remove();
-    svg.append('path')
-        .attr("class", "wline")
-        .style("stroke", '#000')
-        .attr('opacity', 0)
-        .attr("d", lineBase);
+        svg.append("path")
+            .attr("class", "areaBelow")
+            .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
+            .attr("clip-path", "url(#clip-below)")
+            .attr('opacity', 0)
+            .attr("d", areaBase)
+        ;
 
-    svg.selectAll('.wline')
-        .transition()
-        .duration(2000)
-        .attr("d", line)
-        .attr('opacity', 1)
+        svg.selectAll('.areaAbove')
+            .transition()
+            .duration(2000)
+            .attr('opacity', 1)
+            .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
+            .attr("clip-path", "url(#clip-above)")
+            .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
+        ;
+        svg.selectAll('.areaBelow')
+            .transition()
+            .duration(2000)
+            .attr('opacity', 1)
+            .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
+            .attr("clip-path", "url(#clip-below)")
+            .attr("d", area)
+        ;
+        // update
+        // svg.append('path').
 
-    // .style("stroke", "#f00")
-    ;
+        // svg.selectAll('.wline').remove();
+        svg.append('path')
+            .attr("class", "wline")
+            .style("stroke", '#000')
+            .attr('opacity', 0)
+            .attr("d", lineBase);
 
-    // preparing tooltip for each dot
-    // Define the div for the tooltip
-    var div = d3.select("body").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+        svg.selectAll('.wline')
+            .transition()
+            .duration(2000)
+            .attr("d", line)
+            .attr('opacity', 1)
 
-    // dot over existed data
-    svg.selectAll("dot")
-        .data(data.filter(function (d) {
-            return d['populated'] === false;
-        }))
-        .enter().append("circle")
+        // .style("stroke", "#f00")
+        ;
+
+        // preparing tooltip for each dot
+        // Define the div for the tooltip
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        // dot over existed data
+        svg.selectAll("dot")
+            .data(data.filter(function (d) {
+                return d['populated'] === false;
+            }))
+            .enter().append("circle")
             .attr("cx", function(d) {
                 return x(d.year); })
             .attr("cy", function(d) {
@@ -254,7 +257,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .style("fill", myWell.getMyColor())
             .attr("r", 3.5)
             .each(flickering)
-    ;
+        ;
+    }
 
     // svg.selectAll("circle")
     //     .each(flickering);
