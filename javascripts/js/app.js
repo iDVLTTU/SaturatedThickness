@@ -230,6 +230,8 @@ idv.plotData = function () {
 
         Plotly.newPlot(divId, data, layout);
 
+        idv.handleContourZoom();
+
     };
 
     // plot contour map
@@ -250,6 +252,17 @@ idv.plotData = function () {
      // idv.timeChartManager.generateTimeChart("wellTimeSeries1");
     // console.log(idv.timeChart);
 };
+
+idv.handleContourZoom = function () {
+    var myContour = document.getElementById('myDiv');
+    myContour.on('plotly_relayout',
+        function(eventdata){
+            idv.colorManager.updateContourWellColors();
+        });
+
+
+};
+
 
 idv.load = function() {
 
