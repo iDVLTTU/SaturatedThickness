@@ -360,6 +360,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
     });
 
     if (bindToId == 'wellTimeSeries') {
+
+        // timeChart.resize();
+        // timeChart.flush();
+
         idv.timeChartManager.timeChart = timeChart;
     }
     else {
@@ -509,6 +513,11 @@ idv.timeChartManager.refreshTimeChart = function(columns, unloads) {
         colors: myColors
 
     });
+
+    setTimeout(function () { idv.timeChartManager.timeChart.flush(); }, 500);
+
+    // idv.timeChartManager.timeChart.resize({height: 360, width: 960});
+    // idv.timeChartManager.timeChart.flush();
 };
 
 idv.timeChartManager.hideAverage = function() {
