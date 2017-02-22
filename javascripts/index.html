@@ -38,6 +38,11 @@
               <td>
                  <div id="averageDiv" style="font-family: sans-serif; font-size: 12px;"> Average by </div>
                </td>
+
+                  <td>
+                      <div id="showHorizon" style="font-family: sans-serif; font-size: 12px;"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>View Horizon Chart</div>
+                  </td>
+
               </tr>
               </table>   
 
@@ -48,12 +53,12 @@
               <!--<input id="test" type="checkbox" value="average" name="average" onclick="idv.controller.testBox(this);"/> Check Test Box-->
               <!--<br/>-->
               <div id="wellTimeSeries"></div>
+              <div id="horizonChart"></div>
               <br/>
               <!--<input type="button" value="+ Zoom in" onclick="idv.controller.zoomInX()"/>-->
                 <!--<br/>-->
               <div id="charts"></div>
-              <br/>
-              <div id="horizonChart"></div>
+
               <!--<div id="boardController">-->
                  <!---->
               <!--</div>-->

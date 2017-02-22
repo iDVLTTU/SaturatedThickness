@@ -43,6 +43,60 @@ idv.controller.showContourMap = function(contourCheckbox) {
     }
 };
 
+idv.controller.hideTimeChart = function () {
+
+    // var timeChart = document.getElementById("wellTimeSeries");
+    // timeChart.style.visibility = "hidden";
+    idv.util.removeChildren("wellTimeSeries");
+};
+
+idv.controller.showTimeChart = function () {
+
+    // var timeChart = document.getElementById("wellTimeSeries");
+    // timeChart.style.visibility = "visible";
+
+    // debugger;
+    idv.timeChartManager.generateTimeChart("wellTimeSeries");
+
+    idv.wellManager.activateWells(idv.wellManager.getActiveWells());
+
+
+};
+
+idv.controller.hideHorizonChart = function () {
+
+    // var horizon = document.getElementById("horizonChart");
+    // horizon.style.visibility = "hidden";
+
+    idv.util.removeChildren("horizonChart");
+
+
+};
+
+idv.controller.showHorizonChart = function () {
+
+    // var horizon = document.getElementById("horizonChart");
+    // horizon.style.visibility = "visible";
+
+    var activeWells = idv.wellManager.getActiveWellsAsObjects();
+    drawHorizon(activeWells);
+
+};
+
+
+idv.controller.handleHorizonCheckboxClick = function (horizonCheckbox) {
+
+    debugger;
+    if (horizonCheckbox.checked == true) {
+        this.hideTimeChart();
+        this.showHorizonChart();
+    }
+    else {
+        this.hideHorizonChart();
+        this.showTimeChart();
+    }
+};
+
 idv.controller.testActivateWells = function(activateWellCheckbox) {
     var wells = ['702801', '235803', '235404'];
     if (activateWellCheckbox.checked === true) {

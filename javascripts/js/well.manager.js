@@ -12,6 +12,19 @@ idv.wellManager.getActiveWells = function() {
     return this.activeWells == null ? [] : this.activeWells;
 };
 
+idv.wellManager.getActiveWellsAsObjects = function() {
+
+    var aWells = this.getActiveWells();
+    if (aWells.length < 1) {
+        return [];
+    }
+
+
+    return aWells.map(function (wId) {
+        return idv.wellMap[wId];
+    })
+};
+
 idv.wellManager.findWellFromCoords = function(x, y) {
     var foundWell = null, tmpWell;
     for (var key in idv.wellMap) {

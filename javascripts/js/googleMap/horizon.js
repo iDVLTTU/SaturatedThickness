@@ -208,7 +208,6 @@ function drawHorizon(wellList){
 
     d3.selectAll('.horizon')
         .on("mouseover", function(d) {
-            debugger;
             div.transition()
                 .duration(200)
                 .style("opacity", .9);

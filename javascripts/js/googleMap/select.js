@@ -258,7 +258,7 @@ function changeSelection() {
 
 
 
-    drawHorizon(topWells);
+    //drawHorizon(topWells);
     redrawAllWells();
 };
 

@@ -198,7 +198,7 @@ function refeshMapsAndGraphs(wList){
 
   redrawMap(wlist3);
   
-  drawHorizon(wlist3); 
+  //drawHorizon(wlist3);
 
 }
 

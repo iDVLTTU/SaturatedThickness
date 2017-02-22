@@ -239,7 +239,6 @@ idv.plotContourMap = function () {
 
     idv.wellManager.enableWellClick();
     // plot time chart
-    idv.timeChartManager.generateTimeChart("wellTimeSeries");
 
      // idv.timeChartManager.generateTimeChart("wellTimeSeries1");
     // console.log(idv.timeChart);
@@ -285,6 +284,9 @@ idv.load = function() {
                 interpolate();
                 
                 idv.plotContourMap();
+
+                idv.timeChartManager.generateTimeChart("wellTimeSeries");
+
 
                 // In select.js
                 changeSelection();
