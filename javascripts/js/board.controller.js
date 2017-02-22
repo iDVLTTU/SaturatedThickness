@@ -86,7 +86,6 @@ idv.controller.showHorizonChart = function () {
 
 idv.controller.handleHorizonCheckboxClick = function (horizonCheckbox) {
 
-    debugger;
     if (horizonCheckbox.checked == true) {
         this.hideTimeChart();
         this.showHorizonChart();

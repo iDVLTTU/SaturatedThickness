@@ -235,7 +235,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         bindto: ("#" + bindToId),
         size: {
             height: 360,
-            width: 960
+            width: 800
         },
         data: myData,
         line: {

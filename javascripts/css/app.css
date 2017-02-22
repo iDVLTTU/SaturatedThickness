@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     height: 1500px;
-    width: 1900px;
+    width: 1530px;
     overflow: visible;
     font-family: sans-serif;
     font-size: 12px;
@@ -48,7 +48,7 @@ html, body {
 }
 
 .spacing {
-    width: 100px;
+    width: 80px;
 }
 /*#myDiv {*/
     /*height: 850px;*/

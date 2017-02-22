@@ -3,7 +3,7 @@ idv.comparisonChart = idv.comparisonChart || {};
 
 idv.comparisonChart.setting = {
     margin: {top: 20, right: 0, bottom: 30, left: 70},
-    svgWidth: 960,
+    svgWidth: 800,
     svgHeight: 300
 };
 

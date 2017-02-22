@@ -226,8 +226,8 @@ function drawHorizon(wellList){
                 .style("opacity", 0);
         })
         .insert('svg', ':nth-child(2)')
-          .attr('width', 11)
-          .attr('height', 11)
+          .attr('width', 14)
+          .attr('height', 14)
           .attr("class", "horizon-chart-well ")
 
         .append('circle')
