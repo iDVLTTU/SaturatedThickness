@@ -7,6 +7,16 @@ https://tommy-dang.github.io/WaterLevel/Contour/
 
 This work is in collaboration with a group in the Civil Engineering department at TTU.
 
+## GLEAMM POSTER SHOWCASE
+https://techannounce.ttu.edu/Client/ViewMessage.aspx?MsgId=206458
+
+Prizes and recognition:
+
+1st Place $2000 2nd Place $1000 3rd & 4th Place $500 each
+All winners will be publicized in the daily TechAnnounce, and automatically entered into the 2017 Spark Fund competition with awards reaching as much as $50,000!
+
+Posters are due no later than April 1st, 2017.
+
 ## References
 
 [Texas Water Department Board](http://www.twdb.texas.gov/index.asp) 
