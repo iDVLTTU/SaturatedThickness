@@ -25,28 +25,43 @@
   <table class="tableLayout" width="100%" height="100%">
       <tr>
           <td align="left" valign="top" style="width: 750px; ">
-              <div style="width: 100%; height: 30px;">
-                    <div style="float: right">
-                        Show contour map<input type="checkbox" onclick="idv.controller.showContourMap(this);" checked />
-                    </div>
-              </div>
-            <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
 
-            <table class="tableSub" width="80%" style="padding: 12px;">
-              <tr>
-              <td>
-                 <div id="selectDiv"  style="font-family: sans-serif; font-size: 12px;"> Well radius by </div>
-              </td>
-              <td>
-                 <div id="averageDiv" style="font-family: sans-serif; font-size: 12px;"> Average by </div>
-               </td>
+              <table class="tableSub" width="600px">
+                      <tr>
+                          <td class="spacing">&nbsp;</td>
+                          <td class="firstColumn">
+                              <div id="selectDiv"> Well radius by </div>
+                          </td>
+                          <td>
+                              <div id="selectDiveOption"></div>
+                          </td>
+                          <td align="right">
+                              <div id="showHorizon"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>View Horizon Chart</div>
+                          </td>
 
-                  <td>
-                      <div id="showHorizon" style="font-family: sans-serif; font-size: 12px;"> View Horizon Chart<input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/></div>
-                  </td>
 
-              </tr>
-              </table>   
+                      </tr>
+                      <tr>
+                          <td class="spacing">&nbsp;</td>
+
+                          <td class="firstColumn">
+
+                              <div id="averageDiv" style="font-family: sans-serif; font-size: 12px;"> Average by </div>
+                          </td>
+                          <td>
+                              <div id="averageDivOption" style="font-family: sans-serif; font-size: 12px;"></div>
+
+                          </td>
+
+                          <td align="right" valign="middle">
+                              <input type="checkbox" onclick="idv.controller.showContourMap(this);" checked />Show Contour Map
+                          </td>
+
+                      </tr>
+                  </table>
+              <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+
 
           
             <div id="map"></div>   

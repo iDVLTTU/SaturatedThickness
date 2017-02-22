@@ -86,7 +86,6 @@ function redrawMap(wellList) {
                         .each(transform)
                         .attr("class", "marker");
 
-      debugger;
      layer.selectAll("svg").call(tip);
                    
       // Add a circle.

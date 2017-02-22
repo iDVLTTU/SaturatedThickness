@@ -7,6 +7,26 @@ html, body {
     font-size: 10px;
 }
 
+.tableSub {
+    font-family: sans-serif;
+    font-size: 12px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 10px;
+
+}
+
+.floatRight {
+    float: right;
+}
+
+.firstColumn {
+    width: 80px;
+}
+
+.spacing {
+    width: 200px;
+}
 /*#myDiv {*/
     /*height: 850px;*/
 /*}*/

@@ -13,12 +13,12 @@ var choices = ["Number of measurements", "Average over time", "Standard deviatio
 var averageChoices = [numNeighbor +" Neighbor", "County", "Ogallala"];
 var wellDomain = {};
 
-var select =d3.select("#selectDiv")
+var select =d3.select("#selectDiveOption")
   .append('select')
     .attr('class','select')
-    .on('change',changeSelection)
+    .on('change',changeSelection);
 
-var selectAverage =d3.select("#averageDiv")
+var selectAverage =d3.select("#averageDivOption")
   .append('select')
     .attr('class','select')
     .on('change',changeAverage);    
