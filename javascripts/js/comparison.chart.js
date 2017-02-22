@@ -18,6 +18,7 @@ idv.comparisonChart.setting["yAxis"] = d3.svg.axis().scale(idv.comparisonChart.s
 
 idv.comparisonChart.zoomX = null;
 idv.comparisonChart.zoomXScale = 1;
+idv.comparisonChart.currentComparisonWell = '';
 
 var setupSvg = function () {
     var margin = idv.comparisonChart.setting.margin;
@@ -50,6 +51,10 @@ var setupSvg = function () {
 
 idv.comparisonChart.yDomainMax = 0;
 idv.comparisonChart.yDomainMin = 0;
+
+idv.comparisonChart.getCurrentComparisonWell = function() {
+    return this.currentComparisonWell;
+};
 
 idv.comparisonChart.setYDomainMax = function(max) {
     this.yDomainMax = Math.ceil(max);
@@ -102,6 +107,11 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     var height = this.setting.height;
     var margin = this.setting.margin;
 
+    if (this.currentComparisonWell == columnKey) {
+        return;
+    }
+
+    this.currentComparisonWell = columnKey;
     var line = d3.svg.area()
         .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
         .x(function(d) { return x(d.year); })

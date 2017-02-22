@@ -277,6 +277,8 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         },
         legend: {
             item: {
+                onclick: function (id) {  },
+
                 onmouseout: function(name) {
                     if (bindToId == 'wellTimeSeries') {
                         // idv.timeChartManager.resetWellChart();
