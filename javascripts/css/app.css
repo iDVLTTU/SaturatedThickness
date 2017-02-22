@@ -37,6 +37,9 @@ html, body {
 .controlBoard {
     background: #DDDDDD;
     font-weight: bold;
+    padding: 0;
+    margin-right: 0px;
+    margin-top: 0px;
 }
 
 .floatRight {
