@@ -34,7 +34,13 @@ idv.controller.isContourMapEnabled = function () {
 idv.controller.showContourMap = function(contourCheckbox) {
 
     this.showContour = contourCheckbox.checked;
-    idv.plotContourMap(this.showContour);
+    if (this.showContour == true) {
+        idv.plotContourMap();
+    }
+    else {
+        idv.util.removeChildren(idv.CONTOUR_DIV_ID);
+
+    }
 };
 
 idv.controller.testActivateWells = function(activateWellCheckbox) {

@@ -252,6 +252,9 @@ idv.plotContourMap = function () {
     // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
     // plot well markers on contour
     idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true);
+
+    idv.colorManager.updateContourWellColors();
+
 };
 
 idv.handleContourZoom = function () {
