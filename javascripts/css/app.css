@@ -40,6 +40,9 @@ html, body {
     padding: 0;
     margin-right: 0px;
     margin-top: 0px;
+    /*-moz-border-radius:5px;*/
+    /*border-radius: 5px;*/
+    /*-webkit-border-radius: 5px; */
 }
 
 .floatRight {
