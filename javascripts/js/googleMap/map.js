@@ -62,41 +62,41 @@ function init(){
 
 // Redraw google map with all wells{}
 function redrawAllWells() {
-  var mySelectedWell = [];
-  for (var key in idv.wellMap){
-      mySelectedWell.push(idv.wellMap[key]);
-  }
+  var mySelectedWell = idv.getWellMapAsArray();
   redrawMap(mySelectedWell);
 }
 
 // Redraw wells on map for every click
 function redrawMap(wellList) {
-    selectedWells = wellList;
-  	init();  // Reload a new map ***************
-
-    var data = {};
-    for (var i=0; i<wellList.length;i++){
-    	w = wellList[i];
-    	data[w.id+" at "+ w.detail.county] = w;
+    if (!Array.isArray(wellList)) {
+        wellList = [];
     }
+    selectedWells = wellList;
+    init();  // Reload a new map ***************
 
+    // var data = {};
+    // for (var i=0; i<wellList.length;i++){
+    // 	w = wellList[i];
+    // 	//data[w.id+" at "+ w.detail.county] = w;
+    // }
    overlay.draw = function() {
       var projection = this.getProjection(), padding = 7;
-      var marker = layer.selectAll("svg").data(d3.entries(data)).each(transform)
+      var marker = layer.selectAll("svg").data(wellList).each(transform)
                         .enter().append("svg:svg")
                         .each(transform)
                         .attr("class", "marker");
-      
+
+      debugger;
      layer.selectAll("svg").call(tip);
                    
       // Add a circle.
       marker.append("svg:circle")
                         .attr("r", function(d,i){ 
-                          return d.value.radius;})
+                          return d.radius;})
                         .attr("cx", padding)
                         .attr("cy", padding)
-                        .attr("fill", function(d){ return d.value.getMyColor(); })
-                        .attr("fill-opacity", function(d){ return d.value.active ? 1 : 0.5;})
+                        .attr("fill", function(d){ return d.getMyColor(); })
+                        .attr("fill-opacity", function(d){ return d.active ? 1 : 0.5;})
                         .attr("stroke-width",1)
                         .on("mouseover",showTip)
                         .on("mouseout",mouseout)
@@ -112,7 +112,7 @@ function redrawMap(wellList) {
 
       function transform(d) {
         //d = new google.maps.LatLng(d.value[1], d.value[0]);
-        d = new google.maps.LatLng(d.value.detail.position.lat, d.value.detail.position.lon);
+        d = new google.maps.LatLng(d.detail.position.lat, d.detail.position.lon);
         d = projection.fromLatLngToDivPixel(d);
         return d3.select(this).style("left", (d.x - padding) + "px").style("top", (d.y - padding) + "px");
       }
@@ -126,13 +126,13 @@ function redrawMap(wellList) {
 
       function clickWell(d){
         tip.hide(d);
-        console.log("Well clicked: "+d.value.id);
+        console.log("Well clicked: "+d.id);
         var wList=[];
-        var averageChoice = selectAverage.property('value')
+        var averageChoice = selectAverage.property('value');
         if (averageChoice ==averageChoices[0])
-          wList = getNearestWells(d.value.pointX, d.value.pointY);
+          wList = getNearestWells(d.pointX, d.pointY);
         else if (averageChoice ==averageChoices[1])
-          wList = getCountyWells(d.value.pointX, d.value.pointY);
+          wList = getCountyWells(d.pointX, d.pointY);
         refeshMapsAndGraphs(wList);
       };
     };

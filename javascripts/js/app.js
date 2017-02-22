@@ -22,6 +22,20 @@ idv.wellXs = [];
 idv.wellYs = [];
 idv.wellIds = [];
 
+idv.getWellMapAsArray = function () {
+    var mySelectedWell = [];
+    var tmpWell;
+    for (var key in idv.wellMap){
+        tmpWell = idv.wellMap[key];
+        if (tmpWell.active) {
+            mySelectedWell.push(tmpWell);
+        }else {
+            mySelectedWell.splice(0, 0, tmpWell);
+        }
+    }
+
+    return mySelectedWell;
+};
 
 idv.handlePixelDataLoadComplete = function(pixelData) {
     var pointId = 0;
