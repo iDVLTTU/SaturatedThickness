@@ -227,6 +227,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         }
     };
 
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip horizon-tooltip")
+        .style("opacity", 0);
+
     var timeChart = c3.generate({
         bindto: ("#" + bindToId),
         size: {
@@ -273,15 +277,30 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         },
         legend: {
             item: {
-                onmouseout: function(id) {
+                onmouseout: function(name) {
                     if (bindToId == 'wellTimeSeries') {
                         // idv.timeChartManager.resetWellChart();
                     }
+
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
                 },
                 onmouseover: function (name) {
                     if (bindToId == 'wellTimeSeries') {
+                        console.log('mouse over');
+                        console.log(name);
                         idv.timeChartManager.activateWellAsAreaChart(name);
                         idv.comparisonChart.generateAverageComparisonChart('average', name, false);
+
+                        var wellId = idv.util.getWellIdFromItsName(name);
+                        var d = idv.wellMap[wellId];
+                        div.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        div.html("County: " + d.detail.county)
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px");
 
                         // idv.timeChartManager.getColumnDataByKey(name);
                         // idv.timeChartManager.getColumnDataByKey('average');

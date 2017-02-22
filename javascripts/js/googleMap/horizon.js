@@ -214,6 +214,11 @@ function drawHorizon(wellList){
             div.html("County: " + d.detail.county)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
+
+          var wellName = d.getName();
+          idv.timeChartManager.activateWellAsAreaChart(wellName);
+          idv.comparisonChart.generateAverageComparisonChart('average', wellName, false);
+
         })
         .on("mouseout", function(d) {
             div.transition()
