@@ -26,7 +26,9 @@
       <tr>
           <td align="left" valign="top" style="width: 750px; ">
 
-              <table class="tableSub" width="600px">
+              <fieldset class="controlBoard standardFont">
+                  <legend>Control Panel</legend>
+                  <table class="tableSub" width="100%">
                       <tr>
                           <td class="spacing">&nbsp;</td>
                           <td class="firstColumn">
@@ -38,6 +40,7 @@
                           <td align="right">
                               <div id="showHorizon"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>View Horizon Chart</div>
                           </td>
+                          <td class="spacing">&nbsp;</td>
 
 
                       </tr>
@@ -56,9 +59,21 @@
                           <td align="right" valign="middle">
                               <input type="checkbox" onclick="idv.controller.showContourMap(this);" checked />Show Contour Map
                           </td>
+                          <td class="spacing">&nbsp;</td>
 
                       </tr>
                   </table>
+
+              </fieldset>
+              <!--<fieldset class="controlBoard standardFont">-->
+                  <!--<legend>Control Panel</legend>-->
+
+                  <!--<div id="selectDiv"> Well radius by </div>-->
+                  <!--<div id="selectDiveOption"></div>-->
+                  <!--<div id="showHorizon"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>View Horizon Chart</div>-->
+                  <!--<div id="averageDivOption" style="font-family: sans-serif; font-size: 12px;"></div>-->
+                  <!--<input type="checkbox" onclick="idv.controller.showContourMap(this);" checked />Show Contour Map-->
+              <!--</fieldset>-->
               <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
 
 
@@ -68,7 +83,7 @@
 
           <td valign="top" style="width: 100%">
               <div id="mouseOverWellInstructionText">
-                  <span>Mouse over each well's icon to see its comparison with average of all selected wells</span>
+                  <span>Mouse over each well's icon to see its comparison with average of all active wells</span>
               </div>
               <div id="wellTimeSeries"></div>
               <div id="horizonChart"></div>
