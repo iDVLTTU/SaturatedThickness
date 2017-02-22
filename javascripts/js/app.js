@@ -185,7 +185,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
 
 };
 
-idv.plotData = function () {
+idv.plotContourMap = function () {
     var plotContourMap = function (divId, data2D) {
         var contourMap = {
             z: data2D,
@@ -281,7 +281,7 @@ idv.load = function() {
                 computeCountyAverage();
                 interpolate();
                 
-                idv.plotData();
+                idv.plotContourMap();
 
                 // In select.js
                 changeSelection();
