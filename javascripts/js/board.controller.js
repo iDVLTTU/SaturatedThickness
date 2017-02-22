@@ -1,6 +1,8 @@
 var idv = idv || {};
 idv.controller = idv.controller || {};
 
+idv.controller.showContour = true;
+
 idv.controller.addWell = function(checkBox) {
     d3.select("#boardController")
         .append("svg")
@@ -23,6 +25,16 @@ idv.controller.handleAverageClick = function(averageCheckBox) {
 idv.controller.isAverageActivated = function() {
     var average = document.getElementById("average");
     return average.checked === true;
+};
+
+idv.controller.isContourMapEnabled = function () {
+    return this.showContour === true;
+};
+
+idv.controller.showContourMap = function(contourCheckbox) {
+
+    this.showContour = contourCheckbox.checked;
+    idv.plotContourMap(this.showContour);
 };
 
 idv.controller.testActivateWells = function(activateWellCheckbox) {
