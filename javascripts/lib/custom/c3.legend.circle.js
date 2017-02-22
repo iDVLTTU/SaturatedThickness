@@ -144,7 +144,8 @@ c3.chart.internal.fn.updateLegend = function (targetIds, options, transitions) {
         .style('visibility', function (id) {
             return $$.isLegendToShow(id) ? 'visible' : 'hidden';
         })
-        .style('cursor', 'pointer')
+        // .style('cursor', 'pointer')
+        .style('cursor', 'default')
         .on('click', function (id) {
             config.legend_item_onclick ? config.legend_item_onclick.call($$, id) : $$.api.toggle(id);
         })
