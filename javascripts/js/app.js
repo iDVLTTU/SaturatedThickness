@@ -224,7 +224,7 @@ idv.handleWellDataLoadComplete = function(allWellData) {
 };
 
 idv.plotContourMap = function () {
-    var plotContourMap = function (divId, data2D) {
+    var plotContour = function (divId, data2D) {
         var contourMap = {
             z: data2D,
             type: 'contour',
@@ -257,13 +257,14 @@ idv.plotContourMap = function () {
             yaxis: {
                 autorange: 'reversed'
             },
-            legend: {
-                font: {
-                    size: 10
-                },
-                yanchor: 'bottom',
-                xanchor: 600
-            }
+            showlegend: false
+            // legend: {
+            //     font: {
+            //         size: 10
+            //     },
+            //     yanchor: 'bottom',
+            //     xanchor: 600
+            // }
         };
 
         Plotly.newPlot(divId, data, layout);
@@ -273,7 +274,7 @@ idv.plotContourMap = function () {
     };
 
     // plot contour map
-    plotContourMap(idv.CONTOUR_DIV_ID, idv.data2D);
+    plotContour(idv.CONTOUR_DIV_ID, idv.data2D);
 
     idv.wellManager.enableWellClick();
     // plot time chart
@@ -282,18 +283,13 @@ idv.plotContourMap = function () {
     // console.log(idv.timeChart);
 
 
-    //
+    // plot my position - will create trace 1
+    idv.plotMyPositionAtPoint(idv.myPosition.pointIndex);
 
     // plot well on top of contour
     // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
     // plot well markers on contour
-    idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true);
-
-    idv.colorManager.updateContourWellColors();
-
-    // plot my position
-    // idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
-    idv.plotMyPositionAtPoint(idv.myPosition.pointIndex);
+    idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true); // created trace 2; size of well change, so we will update this trace index
 
 };
 

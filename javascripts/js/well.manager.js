@@ -281,6 +281,11 @@ idv.wellManager.enableWellClick = function() {
 };
 
 idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGraph) {
+
+    if (!idv.controller.isContourMapEnabled()) {
+        return;
+    }
+
     var tmpWell;
     var xCoords = [];
     var yCoords = [];
@@ -356,8 +361,9 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             }
         };
 
-        Plotly.deleteTraces(contourDivId, 1);
+        Plotly.deleteTraces(contourDivId, 2);
         Plotly.addTraces(contourDivId, update);
+        // Plotly.moveTraces(graphDiv, 1);
 
         // Plotly.restyle(contourDivId, update, 1);
     }

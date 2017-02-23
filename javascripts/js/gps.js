@@ -28,6 +28,7 @@ idv.plotMyPositionAtPoint = function(pointId) {
     var myPositionMarker = [{
         x: [myPoint.x],
         y: [myPoint.y],
+
         // line: {'color': 'rgb(0, 0, 0,)',},
         // mode: 'circle',
         name: "Current Position",
@@ -39,7 +40,7 @@ idv.plotMyPositionAtPoint = function(pointId) {
         }
     }];
 
-    Plotly.addTraces(idv.CONTOUR_DIV_ID , myPositionMarker, 2);
+    Plotly.addTraces(idv.CONTOUR_DIV_ID , myPositionMarker);
     alertFunc();
     function alertFunc() {
         d3.selectAll(".point").style("stroke-width", function (d) {

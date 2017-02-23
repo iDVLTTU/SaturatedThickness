@@ -95,6 +95,10 @@ idv.colorManager.getColorObject = function(colorKey) {
 };
 
 idv.colorManager.updateContourWellColors = function () {
+    if (!idv.controller.isContourMapEnabled()) {
+        return;
+    }
+
     idv.wellManager.selectAllWells()
         .style("fill",
         function(d) {
