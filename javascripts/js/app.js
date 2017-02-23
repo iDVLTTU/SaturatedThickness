@@ -69,14 +69,38 @@ idv.handlePixelDataLoadComplete = function(pixelData) {
 
 idv.updateRasterPointPositionData = function(rasterPoint) {
     var pointData;
+
+    var index = -1;
+    var min = 1000;
+    var x;
+    var y;
+
+    var lat = idv.myPosition.lat;
+    var lon = idv.myPosition.lon;
+    var dis;
+
     for(var i=0; i< rasterPoint.length; i++) {
         pointData = rasterPoint[i];
-
         if (!idv.pointMap.hasOwnProperty(pointData.POINTID)) {
             continue;
         }
 
         idv.pointMap[pointData.POINTID]["position"] = {lon: pointData.x_center, lat: pointData.y_center};
+        if (!lat || !lon) {
+            continue; // ignore position
+        }
+        x = pointData.x_center;
+        y = pointData.y_center;
+        dis = (lon - x) * (lon - x) + (lat - y) * (lat - y);
+        if (dis < min) {
+            min = dis;
+            index = i;
+        }
+
+    }
+
+    if (index > -1) {
+        idv.myPosition.pointIndex = index + 1;
     }
 };
 
@@ -221,10 +245,10 @@ idv.plotContourMap = function () {
 
         var layout = {
             title: 'Saturated Thickness of Ogallala Aquifier in 2013',
-            // width: 800,
-            // height: 900,
-            width: 700,
-            height: 450,
+            width: 800,
+            height: 900,
+            // width: 700,
+            // height: 450,
 
             xaxis: {
                 side: 'top'
@@ -257,8 +281,7 @@ idv.plotContourMap = function () {
      // idv.timeChartManager.generateTimeChart("wellTimeSeries1");
     // console.log(idv.timeChart);
 
-    // plot my position
-    //idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
+
     //
 
     // plot well on top of contour
@@ -267,6 +290,10 @@ idv.plotContourMap = function () {
     idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true);
 
     idv.colorManager.updateContourWellColors();
+
+    // plot my position
+    // idv.showMyPosition(idv.myPosition, idv.plotMyPositionAtPoint);
+    idv.plotMyPositionAtPoint(idv.myPosition.pointIndex);
 
 };
 
@@ -283,8 +310,8 @@ idv.handleContourZoom = function () {
 
 idv.load = function() {
 
-    d3.tsv("data/ascii_2013.csv", function(error, pixelData) {
-    // d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
+    // d3.tsv("data/ascii_2013.csv", function(error, pixelData) {
+    d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
         idv.handlePixelDataLoadComplete(pixelData);
 
         d3.csv("data/raster_to_point.csv", function(error, rasterPoint) {
@@ -292,8 +319,6 @@ idv.load = function() {
 
             d3.csv('data/well_data_full.csv', function(error, allWellData) {
                 idv.handleWellDataLoadComplete(allWellData);
-                // In horizon.js
-                // cleanNegativeData();
                 computeCountyAverage();
                 interpolate();
                 
