@@ -27,7 +27,7 @@ idv.contourPlotted = false;
 idv.wellCustomNames = {};
 
 idv.isContourMapPlotted = function () {
-    return this.contourPlotted;
+    return idv.contourPlotted;
 };
 
 idv.getWellMapAsArray = function () {
@@ -282,14 +282,13 @@ idv.plotContourMap = function () {
 
         console.log("Done plotting contour map ion: " + (idv.util.getTime() - startPlotting));
 
-        this.contourPlotted = true;
-
         idv.handleContourZoom();
 
     };
 
     // plot contour map
     plotContour(idv.CONTOUR_DIV_ID, idv.data2D);
+    idv.contourPlotted = true;
 
     idv.wellManager.enableWellClick();
     // plot time chart
