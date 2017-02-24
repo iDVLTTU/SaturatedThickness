@@ -266,7 +266,7 @@ function drawHorizon(wellList){
             .attr("width", 700)
             .attr("height", 20)
             .append("g")
-              .attr("transform", "translate(" + 75 + "," + 20 +")");
+              .attr("transform", "translate(" + 85 + "," + 20 +")");
         
   svgAxis.append("g")
       .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
