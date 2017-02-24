@@ -148,6 +148,9 @@ idv.wellManager.activateWells = function(wells) {
     if (idv.controller.isHorizonShown()) {
         idv.controller.showHorizonChart();
     }
+
+    idv.util.removeChildren('charts');
+    idv.comparisonChart.setupSvg(true);
 };
 
 /**

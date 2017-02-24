@@ -1,7 +1,7 @@
 var idv = idv || {};
 idv.controller = idv.controller || {};
 
-idv.controller.showContour = true;
+idv.controller.showContour = false;
 idv.controller.showHorizon = false;
 
 idv.controller.addWell = function(checkBox) {

@@ -19,8 +19,14 @@ idv.comparisonChart.setting["yAxis"] = d3.svg.axis().scale(idv.comparisonChart.s
 idv.comparisonChart.zoomX = null;
 idv.comparisonChart.zoomXScale = 1;
 idv.comparisonChart.currentComparisonWell = '';
+idv.comparisonChart.chartCreated = false;
 
-var setupSvg = function () {
+idv.comparisonChart.setupSvg = function (force) {
+
+    if (!force && this.svg != null) {
+        return;
+    }
+
     var margin = idv.comparisonChart.setting.margin;
     var svgWidth = idv.comparisonChart.setting.svgWidth;
     var svgHeight = idv.comparisonChart.setting.svgHeight;
@@ -38,7 +44,7 @@ var setupSvg = function () {
     //
     // idv.comparisonChart.zoomX = zm;
 
-    var svg = d3.select("body").select("#charts").append("svg")
+    var mySvg = d3.select("body").select("#charts").append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeight)
         .append("g")
@@ -46,7 +52,9 @@ var setupSvg = function () {
         // .call(zm)
         ;
 
-    return svg;
+    this.svg = mySvg;
+
+    return mySvg;
 };
 
 idv.comparisonChart.yDomainMax = 0;
@@ -68,7 +76,7 @@ idv.comparisonChart.getYDomain = function() {
     return [this.yDomainMin, this.yDomainMax];
 };
 
-idv.comparisonChart.svg = setupSvg();
+idv.comparisonChart.setupSvg();
 
 idv.comparisonChart.initForTest = function () {
     // idv.wellManager.activateWells(
@@ -109,6 +117,11 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
     if (this.currentComparisonWell == columnKey) {
         return;
+    }
+
+    if (this.chartCreated == false) {
+        this.chartCreated = true;
+        newChart = this.chartCreated;
     }
 
     this.currentComparisonWell = columnKey;
@@ -159,7 +172,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     var wellId = idv.util.getWellIdFromItsName(columnKey);
     var myWell = idv.wellMap[wellId];
 
-    if (!newChart) {
+    // if (!newChart) {
 
         // clipping ----------------------------
         svg.datum(data);
@@ -268,7 +281,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .attr("r", 3.5)
             .each(flickering)
         ;
-    }
+    // }
 
     // svg.selectAll("circle")
     //     .each(flickering);

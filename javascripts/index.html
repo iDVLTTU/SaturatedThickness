@@ -38,7 +38,9 @@
                               <div id="selectDiveOption"></div>
                           </td>
                           <td >
-                              <div id="showHorizon"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>Show Horizon Chart</div>
+                              <input type="checkbox" onclick="idv.controller.showContourMap(this);" />Show Contour Map
+
+
                           </td>
                           <td class="spacing">&nbsp;</td>
 
@@ -57,7 +59,9 @@
                           </td>
 
                           <td valign="middle">
-                              <input type="checkbox" onclick="idv.controller.showContourMap(this);" checked />Show Contour Map
+                              <div id="showHorizon"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>Show Horizon Chart
+
+                              </div>
                           </td>
                           <td class="spacing">&nbsp;</td>
 
