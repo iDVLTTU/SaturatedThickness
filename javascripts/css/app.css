@@ -37,9 +37,20 @@ html, body {
 .controlBoard {
     background: #DDDDDD;
     font-weight: bold;
-    padding: 0;
-    margin-right: 0px;
-    margin-top: 0px;
+    padding: 10px;
+
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    border: groove 2px ThreeDFace;
+    padding: 0.35em 0.625em 0.75em;
+
+    border: 1px solid #666;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px #666;
+
     /*-moz-border-radius:5px;*/
     /*border-radius: 5px;*/
     /*-webkit-border-radius: 5px; */
@@ -54,7 +65,7 @@ html, body {
 }
 
 .spacing {
-    width: 80px;
+    width: 50px;
 }
 /*#myDiv {*/
     /*height: 850px;*/
