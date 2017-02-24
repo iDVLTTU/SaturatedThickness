@@ -204,20 +204,23 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
     var tmpCols = myCols.concat([idv.timeChartManager.xAxis]);
     var myColors = (colors == null || colors == undefined) ? {} : colors;
     var myTypes = (types == null || types == undefined) ? {} : types;
-    var names = {};
+    var names = idv.wellCustomNames;
     var mW;
-    for(var wId in idv.wellMap) {
-        if (!idv.wellMap.hasOwnProperty(wId)) {
-            continue;
-        }
 
-        mW = idv.wellMap[wId];
-        names[mW.getName()] = 'well ' + mW.id;
-    }
+    var creatingData = idv.util.getTime();
+    // for(var wId in idv.wellMap) {
+    //     if (!idv.wellMap.hasOwnProperty(wId)) {
+    //         continue;
+    //     }
+    //
+    //     mW = idv.wellMap[wId];
+    //     names[mW.getName()] = 'well ' + mW.id;
+    // }
+
+
 
     var myData = {
         x: 'year',
-        // labels: true,
         names: names,
         columns: tmpCols,
         colors: myColors,
@@ -230,6 +233,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
     var div = d3.select("body").append("div")
         .attr("class", "tooltip horizon-tooltip")
         .style("opacity", 0);
+
+    var doneCreatingData = idv.util.getTime();
+
+    console.log("creating data for time chart generation:" + (doneCreatingData-creatingData));
 
     var timeChart = c3.generate({
         bindto: ("#" + bindToId),
@@ -293,7 +300,6 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                         console.log('mouse over');
                         console.log(name);
 
-                        debugger;
                         idv.timeChartManager.activateWellAsAreaChart(name);
 
                         idv.comparisonChart.generateAverageComparisonChart('average', name, false);
@@ -361,6 +367,11 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
             }
         }
     });
+
+    var doneGenerateTimeSeries = idv.util.getTime();
+
+    console.log("done creating time chart" + (doneGenerateTimeSeries-doneCreatingData));
+
 
     if (bindToId == 'wellTimeSeries') {
 

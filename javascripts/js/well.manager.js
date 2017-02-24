@@ -104,20 +104,45 @@ idv.wellManager.activateWells = function(wells) {
         removedWells = myWells.splice(20);
     }
 
+    var getTime = function () {
+        var time = new Date();
+
+        return time.getTime();
+
+    };
+
     myWells = myWells.map(function (w) {
         return w.hasOwnProperty('id') ? idv.wellMap[w['id']]: idv.wellMap[w];
     });
 
+    var startingTime = getTime();
+
     var deactivateWells = this.updateWellSelection(myWells);
 
+    var afterUpdatingSelection = getTime();
+
+    console.log("update Selection:" + (afterUpdatingSelection - startingTime));
     var tmpWell;
     for(var i=0; i< myWells.length; i++) {
         tmpWell = myWells[i];
         this.activateWell(tmpWell, false);
     }
 
+    var afterActivateWells = getTime();
+
+    console.log("after activate wells:" + (afterActivateWells - afterUpdatingSelection));
+
+
     idv.timeChartManager.resetWellChart(deactivateWells);
+    var afterResetWell = getTime();
+    console.log("after reset wells:" + (afterResetWell - afterActivateWells));
+
     this.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+
+    var afterPlotWell = getTime();
+    console.log("after plotWell on contour:" + (afterPlotWell - afterResetWell));
+
+
 
     var maxInterpolatedValue = d3.max(myWells, function(w) {
         return d3.max(w.interpolate);
@@ -130,6 +155,10 @@ idv.wellManager.activateWells = function(wells) {
     idv.comparisonChart.setYDomainMax(idv.util.getWaterElevationFromInterpolatedValue(maxInterpolatedValue));
 
     idv.comparisonChart.setYDomainMin(idv.util.getWaterElevationFromInterpolatedValue(minInterpolatedValue));
+
+    var afterSettingDomain = getTime();
+
+    console.log("after setting domain on contour:" + (afterSettingDomain - afterPlotWell));
 
     if (!!removedWells) {
         idv.timeChartManager.updateAverageData(wells);
@@ -151,6 +180,10 @@ idv.wellManager.activateWells = function(wells) {
 
     idv.util.removeChildren('charts');
     idv.comparisonChart.setupSvg(true);
+
+    var done = getTime();
+    console.log("after done:" + (done - afterSettingDomain));
+
 };
 
 /**
@@ -301,6 +334,8 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
     var insertAtEnd;
     var radius;
 
+    var startTime = idv.util.getTime();
+
     for(var wellId in allWells) {
         if (!allWells.hasOwnProperty(wellId)) {
             continue;
@@ -331,6 +366,9 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
 
         }
     }
+
+    var afterSorting = idv.util.getTime();
+    console.log("After sorting: " + (afterSorting-startTime));
 
     if (!!newGraph) {
         var wellMarkers = {
@@ -369,10 +407,18 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         };
 
         Plotly.deleteTraces(contourDivId, 2);
+        var doneDelete = idv.util.getTime();
+        console.log('done remvoving trace: ' + (doneDelete-afterSorting));
         Plotly.addTraces(contourDivId, update);
+
+        var doneAddTrace = idv.util.getTime();
+        console.log("done add trace: " + (doneAddTrace - doneDelete));
         // Plotly.moveTraces(graphDiv, 1);
 
         // Plotly.restyle(contourDivId, update, 1);
     }
+
+    var done = idv.util.getTime();
+    console.log("Done marker on contour: " + (done-afterSorting));
 
 };

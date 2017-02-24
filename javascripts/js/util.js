@@ -68,3 +68,10 @@ idv.util.formatSaturatedThickness = function(d) {
     return format(d);
 };
 
+
+idv.util.getTime = function () {
+    var time = new Date();
+
+    return time.getTime();
+
+};

@@ -1,7 +1,7 @@
 var idv = idv || {};
 idv.controller = idv.controller || {};
 
-idv.controller.showContour = true;
+idv.controller.showContour = false;
 idv.controller.showHorizon = false;
 
 idv.controller.addWell = function(checkBox) {
@@ -68,9 +68,17 @@ idv.controller.showTimeChart = function () {
     // timeChart.style.visibility = "visible";
 
     // debugger;
+    var currentTime = idv.util.getTime();
+
     idv.timeChartManager.generateTimeChart("wellTimeSeries");
 
+    var afterGenTime = idv.util.getTime();
+    console.log("Generate time chart: " + (afterGenTime-currentTime));
+
     idv.wellManager.activateWells(idv.wellManager.getActiveWells());
+
+    var activeWell = idv.util.getTime();
+    console.log("done activate all wells: " + (activeWell-afterGenTime));
 
 
 };

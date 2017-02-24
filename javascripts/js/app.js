@@ -22,6 +22,8 @@ idv.wellXs = [];
 idv.wellYs = [];
 idv.wellIds = [];
 
+idv.wellCustomNames = {};
+
 idv.getWellMapAsArray = function () {
     var mySelectedWell = [];
     var tmpWell;
@@ -210,6 +212,8 @@ idv.handleWellDataLoadComplete = function(allWellData) {
             this.wellXs.push(tmpPoint.x);
             this.wellYs.push(tmpPoint.y);
             this.wellIds.push(tmpWell.Well_ID);
+
+            idv.wellCustomNames['well' + tmpWell.Well_ID] = 'well ' + tmpWell.Well_ID;
             wellCount ++;
         }
 
@@ -318,7 +322,7 @@ idv.load = function() {
                 computeCountyAverage();
                 interpolate();
                 
-                idv.plotContourMap();
+                // idv.plotContourMap();
 
                 idv.timeChartManager.generateTimeChart("wellTimeSeries");
 
