@@ -308,10 +308,10 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                         var d = idv.wellMap[wellId];
                         div.transition()
                             .duration(200)
-                            .style("opacity", .9);
+                            .style("opacity", .95);
                         div.html("County: " + d.detail.county)
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
+                            .style("left", (d3.event.pageX +20) + "px")
+                            .style("top", (d3.event.pageY - 40) + "px");
 
                         // idv.timeChartManager.getColumnDataByKey(name);
                         // idv.timeChartManager.getColumnDataByKey('average');

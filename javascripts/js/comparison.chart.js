@@ -160,9 +160,9 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
 
   //  svg.selectAll("*:not(.line)").remove();
 
-    // svg.selectAll("*").remove();
+     svg.selectAll("*").remove();
 
-    svg.selectAll("circle").remove();
+    //svg.selectAll("circle").remove();
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
     var data = this.getData(averageKey, columnKey);
