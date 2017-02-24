@@ -56,10 +56,10 @@ idv.plotMyPositionAtPoint = function(pointId) {
                     return "#a0f";
                 }
                 // return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? "#a0f" : false;
-                // return "#a0f";
+                return "#000";
             })
             .style("stroke-width", function (d) {
-                return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? 12 : false;
+                return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? 12 : 0.5;
                 // return 12;
 
             });
