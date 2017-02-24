@@ -22,7 +22,13 @@ idv.wellXs = [];
 idv.wellYs = [];
 idv.wellIds = [];
 
+idv.contourPlotted = false;
+
 idv.wellCustomNames = {};
+
+idv.isContourMapPlotted = function () {
+    return this.contourPlotted;
+};
 
 idv.getWellMapAsArray = function () {
     var mySelectedWell = [];
@@ -271,7 +277,12 @@ idv.plotContourMap = function () {
             // }
         };
 
+        var startPlotting = idv.util.getTime();
         Plotly.newPlot(divId, data, layout);
+
+        console.log("Done plotting contour map ion: " + (idv.util.getTime() - startPlotting));
+
+        this.contourPlotted = true;
 
         idv.handleContourZoom();
 
@@ -332,7 +343,7 @@ idv.load = function() {
 
                 // plot well markers on contour
                 // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
-                idv.colorManager.updateContourWellColors();
+                // idv.colorManager.updateContourWellColors();
 
                 // print out the max Saturated Thickness
                 console.log("Max Saturated Thickness: " +computeMaxST());

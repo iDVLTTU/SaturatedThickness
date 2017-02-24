@@ -386,7 +386,11 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
                 }
             }
         };
+
+
         Plotly.addTraces(contourDivId, wellMarkers);
+        var done = idv.util.getTime();
+        console.log("Done marker on contour: " + (done-afterSorting));
     }
     else {
 
@@ -418,7 +422,5 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         // Plotly.restyle(contourDivId, update, 1);
     }
 
-    var done = idv.util.getTime();
-    console.log("Done marker on contour: " + (done-afterSorting));
 
 };

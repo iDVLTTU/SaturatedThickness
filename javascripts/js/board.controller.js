@@ -36,13 +36,23 @@ idv.controller.showContourMap = function(contourCheckbox) {
 
     this.showContour = contourCheckbox.checked;
     if (this.showContour == true) {
-        // idv.plotContourMap();
-        // if (idv)
-        d3.select('#' + idv.CONTOUR_DIV_ID)
-            .style('visibility', 'visible');
 
-        idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+        if (!idv.isContourMapPlotted()) {
+            idv.plotContourMap();
+        }else {
+
+            d3.select('#' + idv.CONTOUR_DIV_ID)
+                .style('visibility', 'visible');
+
+            var startPlottingWellMarker = idv.util.getTime();
+            idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+            var donePlottingWell = idv.util.getTime();
+            console.log("Plotting well marker in: " + (donePlottingWell-startPlottingWellMarker));
+        }
+
+        var updateWellColor = idv.util.getTime();
         idv.colorManager.updateContourWellColors();
+        console.log("updating contour well color in: " + (idv.util.getTime() - updateWellColor));
 
 
     }
