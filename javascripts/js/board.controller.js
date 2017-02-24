@@ -2,6 +2,7 @@ var idv = idv || {};
 idv.controller = idv.controller || {};
 
 idv.controller.showContour = true;
+idv.controller.showHorizon = false;
 
 idv.controller.addWell = function(checkBox) {
     d3.select("#boardController")
@@ -87,13 +88,19 @@ idv.controller.showHorizonChart = function () {
 idv.controller.handleHorizonCheckboxClick = function (horizonCheckbox) {
 
     if (horizonCheckbox.checked == true) {
+        this.showHorizon = true;
         this.hideTimeChart();
         this.showHorizonChart();
     }
     else {
+        this.showHorizon = false;
         this.hideHorizonChart();
         this.showTimeChart();
     }
+};
+
+idv.controller.isHorizonShown = function() {
+  return this.showHorizon;
 };
 
 idv.controller.testActivateWells = function(activateWellCheckbox) {

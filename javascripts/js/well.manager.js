@@ -144,6 +144,10 @@ idv.wellManager.activateWells = function(wells) {
     // }
 
     idv.colorManager.updateContourWellColors();
+
+    if (idv.controller.isHorizonShown()) {
+        idv.controller.showHorizonChart();
+    }
 };
 
 /**
