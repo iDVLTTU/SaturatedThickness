@@ -318,7 +318,7 @@ idv.load = function() {
                 computeCountyAverage();
                 interpolate();
                 
-                //idv.plotContourMap();
+                idv.plotContourMap();
 
                 idv.timeChartManager.generateTimeChart("wellTimeSeries");
 

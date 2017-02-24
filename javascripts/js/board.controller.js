@@ -1,7 +1,7 @@
 var idv = idv || {};
 idv.controller = idv.controller || {};
 
-idv.controller.showContour = false;
+idv.controller.showContour = true;
 idv.controller.showHorizon = false;
 
 idv.controller.addWell = function(checkBox) {
@@ -36,10 +36,21 @@ idv.controller.showContourMap = function(contourCheckbox) {
 
     this.showContour = contourCheckbox.checked;
     if (this.showContour == true) {
-        idv.plotContourMap();
+        // idv.plotContourMap();
+        // if (idv)
+        d3.select('#' + idv.CONTOUR_DIV_ID)
+            .style('visibility', 'visible');
+
+        idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+        idv.colorManager.updateContourWellColors();
+
+
     }
     else {
-        idv.util.removeChildren(idv.CONTOUR_DIV_ID);
+
+        d3.select('#' + idv.CONTOUR_DIV_ID)
+            .style('visibility', 'hidden');
+        // idv.util.removeChildren(idv.CONTOUR_DIV_ID);
 
     }
 };
