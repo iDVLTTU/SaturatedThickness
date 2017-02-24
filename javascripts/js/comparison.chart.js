@@ -108,6 +108,7 @@ idv.comparisonChart.handleZoomXEvent = function () {
 
 };
 
+var countAverage = 0;
 idv.comparisonChart.generateAverageComparisonChart = function(averageKey, columnKey, newChart) {
     var x = this.setting.xScale;
     var y = this.setting.yScale;
@@ -156,8 +157,12 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         .y1(function(d) { return height + y(d[averageKey]); });
 
     var svg = this.svg;
-    svg.selectAll("*:not(.line)").remove();
+
+  //  svg.selectAll("*:not(.line)").remove();
+
     // svg.selectAll("*").remove();
+
+    svg.selectAll("circle").remove();
 
     var parseDate = d3.time.format("%Y-%m-%d").parse;
     var data = this.getData(averageKey, columnKey);
@@ -189,38 +194,60 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .attr("d", area.y0(0));
 
         //----------- Creating lines with clip path items created-------
-        svg.append("path")
-            .attr("class", "areaAbove")
-            .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
-            .attr("clip-path", "url(#clip-above)")
-            .attr('opacity', 0)
-            .attr("d", areaBase.y0(function(d) { return y(d[columnKey]); }))
-        ;
+
+
+
+
+        svg.selectAll('.areaAbove').remove();//.transition()
+          //  .duration(2000).attr('opacity', 0);
+
 
         svg.append("path")
-            .attr("class", "areaBelow")
-            .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
-            .attr("clip-path", "url(#clip-below)")
-            .attr('opacity', 0)
-            .attr("d", areaBase)
-        ;
+                .attr("class", "areaAbove")
+                .attr('opacity', 1)
+                .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
+                .attr("clip-path", "url(#clip-above)")
+                .attr("d", area.y0(function(d) {  return y(d[columnKey]); }))
+            ;
 
-        svg.selectAll('.areaAbove')
-            .transition()
-            .duration(2000)
-            .attr('opacity', 1)
-            .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
-            .attr("clip-path", "url(#clip-above)")
-            .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
-        ;
-        svg.selectAll('.areaBelow')
-            .transition()
-            .duration(2000)
-            .attr('opacity', 1)
-            .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
-            .attr("clip-path", "url(#clip-below)")
-            .attr("d", area)
-        ;
+        svg.selectAll('.areaBelow').remove();//.transition()
+           // .duration(2000).attr('opacity', 0);
+
+           // svg.selectAll('.areaBelow').transition()
+           ///     .duration(2000).remove();
+            svg.append("path")
+                .attr("class", "areaBelow")
+                .attr('opacity', 1)
+                .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
+                .attr("clip-path", "url(#clip-below)")
+                .attr("d", area)
+            ;
+        //}
+        //else{
+            //area.y0(function(d) { return y(d[columnKey]);});
+           /* svg.selectAll('.areaAbove')
+                .transition()
+                .duration(2000)
+                .attr('opacity', 1)
+                .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
+                .attr("clip-path", "url(#clip-above)")
+                .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
+            ;*/
+            /*
+            svg.selectAll(".areaBelow")
+                //.selectAll('.areaBelow')
+              //  .transition()
+              //  .duration(2000)
+                .attr('opacity', 1)
+                .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
+                .attr("clip-path", "url(#clip-below)")
+                .attr("d", area)
+            ;*/
+
+
+       // }
+
+
         // update
         // svg.append('path').
 
@@ -232,8 +259,8 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .attr("d", lineBase);
 
         svg.selectAll('.wline')
-            .transition()
-            .duration(2000)
+           // .transition()
+           // .duration(2000)
             .attr("d", line)
             .attr('opacity', 1)
 
@@ -282,6 +309,9 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .each(flickering)
         ;
     // }
+
+
+    countAverage++;
 
     // svg.selectAll("circle")
     //     .each(flickering);

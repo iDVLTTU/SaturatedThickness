@@ -293,7 +293,6 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                         console.log('mouse over');
                         console.log(name);
 
-                        debugger;
                         idv.timeChartManager.activateWellAsAreaChart(name);
 
                         idv.comparisonChart.generateAverageComparisonChart('average', name, false);
