@@ -25,7 +25,7 @@ var selectedWells=[];
 redrawMap();
 
 function setCenter(lat, lon) {
-    map.setZoom(13);      // This will trigger a zoom_changed on the map
+    //map.setZoom(13);      // This will trigger a zoom_changed on the map
     map.setCenter(new google.maps.LatLng(lat, lon));
 }
 
