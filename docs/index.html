@@ -1,8 +1,115 @@
 <html>
+<head>
+    <link rel="stylesheet" href="lib/c3.min.css" />
+    <script src="lib/d3.v3.min.js" charset="utf-8"></script>
+    <script src="lib/c3.min.js"></script>
+    <script src="lib/custom/c3.legend.circle.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/plotly-latest.min.js"></script>
+    <script src="lib/d3.tip.v0.6.3.js"></script>
+    <script src="lib/d3-time.v1.min.js"></script>
+    <script src="lib/d3-time-format.v2.min.js"></script>
+
+    <script src="//maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="https://square.github.io/cubism/cubism.v1.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/map.css" />
+    <link rel="stylesheet" href="css/horizon.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+
 <body>
-<h1>Saturated thickness of Gallalala aquifer</h1>
-<iframe src="..\javascripts\index.html" frameborder="0" width="100%" height="100%"></iframe>
+<!-- GPS location-->
+<table class="tableLayout" width="100%" height="100%">
+    <tr>
+        <td align="left" valign="top" style="width: 750px; ">
+
+            <fieldset class="controlBoard standardFont">
+                <legend>Control Panel</legend>
+                <table class="tableSub" width="100%">
+                    <tr>
+                        <td class="spacing">&nbsp;</td>
+                        <td class="firstColumn">
+                            <div id="selectDiv"> Well radius by </div>
+                        </td>
+                        <td>
+                            <div id="selectDiveOption"></div>
+                        </td>
+                        <td >
+                            <input type="checkbox" onclick="idv.controller.showContourMap(this);"  />Show contour map
+
+
+                        </td>
+                        <td class="spacing">&nbsp;</td>
+
+
+                    </tr>
+                    <tr>
+                        <td class="spacing">&nbsp;</td>
+
+                        <td class="firstColumn">
+
+                            <div id="averageDiv" style="font-family: sans-serif; font-size: 12px;"> Average by </div>
+                        </td>
+                        <td>
+                            <div id="averageDivOption" style="font-family: sans-serif; font-size: 12px;"></div>
+
+                        </td>
+
+                        <td valign="middle">
+                            <div id="showHorizon"> <input type="checkbox" onclick="idv.controller.handleHorizonCheckboxClick(this)"/>Show horizon chart
+
+                            </div>
+                        </td>
+                        <td class="spacing">&nbsp;</td>
+
+                    </tr>
+                </table>
+
+            </fieldset>
+
+            <div id="map"></div>
+
+            <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+
+
+
+
+
+
+
+        <td valign="top" style="width: 100%">
+            <div id="mouseOverWellInstructionText">
+                <span>Mouseover well icon to compare to the average</span>
+            </div>
+            <div id="wellTimeSeries"></div>
+            <div id="horizonChart"></div>
+            <br/>
+            <div id="charts"></div>
+        </td>
+    </tr>
+</table>
+
+<p id="demo"></p>
+
+
+<script src="js/util.js"></script>
+<script src="js/board.controller.js"></script>
+<script src="js/color.manager.js"></script>
+<script src="js/time.chart.manager.js"></script>
+<script src="js/well.manager.js"></script>
+<script src="js/comparison.chart.js"></script>
+<script src="js/gps.js"></script>
+<script src="js/app.js"></script>
+
+<script src="js/googleMap/tooltip.js"></script>
+<script src="js/googleMap/map.js"></script>
+<script src="js/googleMap/horizonLib.js"></script>
+<script src="js/googleMap/horizon.js"></script>
+<script src="js/googleMap/select.js"></script>
 
 </body>
-
 </html>

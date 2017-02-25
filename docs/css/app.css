@@ -1,0 +1,183 @@
+html, body {
+    margin: 0;
+    height: 1500px;
+    width: 1530px;
+    overflow: visible;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+.standardFont {
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+.horizon-tooltip {
+    display: block;
+    background-color: #aaa !important;
+    height: 20px !important;
+}
+
+#mouseOverWellInstructionText {
+    font-family: sans-serif;
+    font-size: 12px;
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
+    /*text-align: center;*/
+}
+
+.tableSub td{
+    background: #DDDDDD; !important;
+
+}
+
+.tableSub {
+    font-family: sans-serif;
+    font-size: 12px;
+    /*margin-top: 10px;*/
+    background: #DDDDDD; !important;
+
+}
+
+.controlBoard {
+    background: #DDDDDD;
+    font-weight: bold;
+    padding: 10px;
+
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    border: groove 2px ThreeDFace;
+    padding: 0.35em 0.625em 0.75em;
+
+    border: 1px solid #666;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px #666;
+
+    /*-moz-border-radius:5px;*/
+    /*border-radius: 5px;*/
+    /*-webkit-border-radius: 5px; */
+}
+
+.floatRight {
+    float: right;
+}
+
+.firstColumn {
+    width: 80px;
+}
+
+.spacing {
+    width: 50px;
+}
+/*#myDiv {*/
+    /*height: 850px;*/
+/*}*/
+
+table.tableLayout {
+    overflow: visible;
+}
+
+table.c3-tool-tip {
+    font-family: sans-serif;
+    font-size: 10px;!important;
+}
+
+.c3-align-left-text {
+    text-align: left; !important;
+}
+/** circle legend */
+.c3-legend-item-tile {
+    shape-rendering: initial;
+}
+
+.c3 line,
+.c3 path {
+    stroke: black;
+    stroke-width: 1px;
+}
+
+table.c3-tool-tip-background {
+    opacity: 1;
+    border-spacing: 0 2px;
+}
+/**
+ circle tool tip
+*/
+.c3-tooltip span {
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0, 0.25);
+}
+
+.c3-tooltip td > span {
+    width: 8px; !important;
+    height: 8px; !important;
+}
+.c3-tooltip td, th {
+    font-size: 12px; !important;
+}
+
+.c3-tooltip th {
+    font-family: sans-serif; !important;
+    font-size: 12px; !important;
+}
+
+.horizon-chart-well {
+    margin-top: -20px;
+}
+
+
+tr.c3-tooltip-header1 {
+    background-color: #000;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+    stroke-width: 1px;
+}
+
+.axis { font: 12px sans-serif; }
+
+.x.axis path {
+    fill: none;
+    stroke: black;
+    /*stroke-width: -0.5;*/
+}
+
+.area.above {
+    fill: rgb(252,141,89);
+}
+
+.area.below {
+    fill: rgb(145,207,96);
+}
+
+.line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+}
+/** Change font size of c3 chart label **/
+.c3 svg g g.c3-axis {
+    font: 12px sans-serif;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 120px;
+    height: 30px;
+    padding-left: 10px;
+    padding-top: 5px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}

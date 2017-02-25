@@ -1,0 +1,29 @@
+#map {
+  width: 800px;
+  height: 600px;
+  margin-right: 0px;
+  padding: 0;
+}
+
+.stations, .stations svg {
+  position: absolute;}
+  
+.stations svg {
+  width: 16px;
+  height: 16px;
+  font: 12px sans-serif; }
+
+.stations circle {
+  stroke: black;
+  stroke-width: 0.5px;
+  -webkit-animation-name: redPulse;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite; }
+
+.stations circle:hover {
+  stroke-width: 1.5px;
+  cursor: pointer; }
+
+.marker_text {
+  fill: black;
+  visibility: hidden; }
