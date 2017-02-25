@@ -306,6 +306,7 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
 
                         var wellId = idv.util.getWellIdFromItsName(name);
                         var d = idv.wellMap[wellId];
+                        console.log(d);
                         div.transition()
                             .duration(200)
                             .style("opacity", .95);
@@ -313,6 +314,8 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
                             .style("left", (d3.event.pageX +20) + "px")
                             .style("top", (d3.event.pageY - 40) + "px");
 
+
+                        setCenter(d.detail.position.lat, d.detail.position.lon);
                         // idv.timeChartManager.getColumnDataByKey(name);
                         // idv.timeChartManager.getColumnDataByKey('average');
 

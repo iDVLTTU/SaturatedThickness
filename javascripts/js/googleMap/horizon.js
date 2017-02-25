@@ -219,6 +219,9 @@ function drawHorizon(wellList){
           idv.timeChartManager.activateWellAsAreaChart(wellName);
           idv.comparisonChart.generateAverageComparisonChart('average', wellName, false);
 
+            setCenter(d.detail.position.lat, d.detail.position.lon);
+
+
         })
         .on("mouseout", function(d) {
             div.transition()
