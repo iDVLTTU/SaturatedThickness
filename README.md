@@ -1,7 +1,9 @@
 # Saturated Thickness of Ogallala
 This visualization displays a contour map of Saturated thickness of Ogallala Aquifier in 2013.
 
-https://tommy-dang.github.io/WaterLevel/Contour/
+## Demo
+https://idatavisualizationlab.github.io/SaturatedThickness/
+
 
 ![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
 
@@ -18,6 +20,8 @@ All winners will be publicized in the daily TechAnnounce, and automatically ente
 Posters are due no later than April 1st, 2017.
 
 ## References
+
+https://tommy-dang.github.io/WaterLevel/Contour/
 
 [Texas Water Department Board](http://www.twdb.texas.gov/index.asp) 
 
