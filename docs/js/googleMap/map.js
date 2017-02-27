@@ -25,18 +25,20 @@ var selectedWells=[];
 redrawMap();
 
 function setCenter(lat, lon) {
-    //map.setZoom(13);      This will trigger a zoom_changed on the map
+    //map.setZoom(13);      // This will trigger a zoom_changed on the map
     map.setCenter(new google.maps.LatLng(lat, lon));
 }
 
 // Initialize the google map
 function init(){
 	map = new google.maps.Map(d3.select("#map").node(),{
-     zoom: mapZoom,
-     draggableCursor: 'crosshair',
-    center: new google.maps.LatLng(mapLat, mapLng),
-    mapTypeId: mapId
-  });
+        zoom: mapZoom,
+        draggableCursor: 'crosshair',
+        center: new google.maps.LatLng(mapLat, mapLng),
+        mapTypeId: mapId,
+        gestureHandling: 'cooperative'
+
+    });
   bounds   = new google.maps.LatLngBounds();
 	overlay  = new google.maps.OverlayView();
   overlay.onAdd = function() {
