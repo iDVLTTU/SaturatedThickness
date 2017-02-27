@@ -10,7 +10,7 @@
 var numNeighbor = 19;  //Numeber of Neighbors to compute average
 
 var choices = ["Number of measurements", "Average over time", "Standard deviation", "Sudden increase", "Sudden decrease"];
-var averageChoices = [numNeighbor +" Neighbor", "County", "Ogallala"];
+var averageChoices = [numNeighbor +" Neighbor", "County"];
 var wellDomain = {};
 
 var select =d3.select("#selectDiveOption")
