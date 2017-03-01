@@ -90,8 +90,8 @@ var optimizePixeldata = function () {
     var cellVal;
 
     var rowToSkip = 0;
-    var REDUCE_ROW_FACTOR = 2;
-    var REDUCE_COL_FACTOR = 2;
+    var REDUCE_ROW_FACTOR = 0;
+    var REDUCE_COL_FACTOR = 0;
 
     writer.pipe(fs.createWriteStream('ascii_2013all.optimized.csv'));
 
@@ -105,8 +105,9 @@ var optimizePixeldata = function () {
         .on('data', function(csvrow) {
             if (!skipHeader) {
                 rowToSkip ++;
+                debugger;
 
-                skipRow = (REDUCE_ROW_FACTOR != 0 && rowToSkip % REDUCE_ROW_FACTOR) == 0 ? true : false;
+                skipRow = (REDUCE_ROW_FACTOR != 0 && rowToSkip % REDUCE_ROW_FACTOR == 0) ? true : false;
 
                 if (skipRow == true) {
                     for(var j=0; j< csvrow.length; j++) {
@@ -147,7 +148,7 @@ var optimizePixeldata = function () {
             else {
 
                 for(var i = 0; i < csvrow.length; i++) {
-                   if ((REDUCE_COL_FACTOR == 0 || i % REDUCE_COL_FACTOR) != 0) {
+                   if (REDUCE_COL_FACTOR == 0 || i % REDUCE_COL_FACTOR != 0) {
                         rowHeader[csvrow[i].trim()] = null;
                     }
                 }
