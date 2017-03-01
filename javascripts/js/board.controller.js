@@ -35,19 +35,32 @@ idv.controller.isContourMapEnabled = function () {
 idv.controller.showContourMap = function(contourCheckbox) {
 
     this.showContour = contourCheckbox.checked;
+
     if (this.showContour == true) {
+        this.setWaitCursor();
 
         if (!idv.isContourMapPlotted()) {
-            idv.plotContourMap();
+            console.log("plotting contour");
+
+            setTimeout(function () {
+                idv.plotContourMap();
+
+            }, 100);
+
+
         }else {
 
-            d3.select('#' + idv.CONTOUR_DIV_ID)
-                .style('visibility', 'visible');
+            setTimeout(function () {
+                d3.select('#' + idv.CONTOUR_DIV_ID)
+                    .style('visibility', 'visible');
 
-            var startPlottingWellMarker = idv.util.getTime();
-            idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
-            var donePlottingWell = idv.util.getTime();
-            console.log("Plotting well marker in: " + (donePlottingWell-startPlottingWellMarker));
+                var startPlottingWellMarker = idv.util.getTime();
+                idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
+                var donePlottingWell = idv.util.getTime();
+                console.log("Plotting well marker in: " + (donePlottingWell-startPlottingWellMarker));
+            }, 100);
+
+
         }
 
         var updateWellColor = idv.util.getTime();
@@ -58,11 +71,36 @@ idv.controller.showContourMap = function(contourCheckbox) {
     }
     else {
 
+
         d3.select('#' + idv.CONTOUR_DIV_ID)
             .style('visibility', 'hidden');
         // idv.util.removeChildren(idv.CONTOUR_DIV_ID);
 
     }
+
+    // contourCheckbox.style.cursor = 'default';
+    // controlPanel.style.cursor = 'default';
+
+
+};
+
+idv.controller.setWaitCursor = function () {
+    var controlPanel = document.getElementById("myControlPanel");
+    var contourCheckbox = document.getElementById("showContourMapCheckbox");
+
+    document.body.style.cursor = 'wait';
+    contourCheckbox.style.cursor = 'wait';
+    controlPanel.style.cursor = 'wait';
+
+};
+
+idv.controller.setDefaultCursor = function () {
+    var controlPanel = document.getElementById("myControlPanel");
+    var contourCheckbox = document.getElementById("showContourMapCheckbox");
+
+    document.body.style.cursor = 'default';
+    contourCheckbox.style.cursor = 'default';
+    controlPanel.style.cursor = 'default';
 };
 
 idv.controller.hideTimeChart = function () {
