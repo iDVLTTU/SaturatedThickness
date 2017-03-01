@@ -82,6 +82,7 @@ public class WellToPoint {
 
 
             Map<Integer, PointPixel> wellPositions = new HashMap<Integer, PointPixel>();
+            double saturatedThickness = -1;
 
             for(CSVRecord record : records) {
 
@@ -95,6 +96,7 @@ public class WellToPoint {
                         }
                     }
 
+                    headerRecord.add("SaturatedThickness");
                     csvFilePrinter.printRecord(headerRecord); // print header
                     skipHeader = false;
                     continue;
@@ -121,6 +123,19 @@ public class WellToPoint {
                         myNewCsvRecord.add(Integer.toString(closestPoint.id));
                     }
                 }
+
+                if (record.get(8).length() < 1 || record.get(9).length() < 1) {
+                    continue;
+                }
+                saturatedThickness = Double.parseDouble(record.get(8)) - Double.parseDouble(record.get(9));
+//                try {
+//
+//                    saturatedThickness = Double.parseDouble(record.get(8)) - Double.parseDouble(record.get(9));
+//                }
+//                catch (Exception ec) {
+//                    ec.printStackTrace();
+//                }
+                myNewCsvRecord.add(Double.toString(saturatedThickness));
 
                 csvFilePrinter.printRecord(myNewCsvRecord);
             }
