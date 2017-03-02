@@ -9,6 +9,13 @@ https://idatavisualizationlab.github.io/SaturatedThickness/
 
 This work is in collaboration with a group in the Civil Engineering department at TTU.
 
+## User Story
+Our domain analyst wants to see wells that have high sudden saturated thickness increase. He will go to the tool, from Control panel, for the **Well radius by**
+option, he chooses **Sudden increase**. Just one selection, he immediately gets list of wells with highest sudden saturated thickness increase.
+Then he wants to see time period of a particular well that has this change, he just needs to do mouse over a well on time series chart legend.
+And the Comparison graph will appear with two points flickering telling the period of this big increase.
+He makes mouse over each point, the date of this measurement and its saturated thickness value will be shown up.
+
 ## GLEAMM POSTER SHOWCASE
 https://techannounce.ttu.edu/Client/ViewMessage.aspx?MsgId=206458
 

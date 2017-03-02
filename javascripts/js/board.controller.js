@@ -74,6 +74,8 @@ idv.controller.showContourMap = function(contourCheckbox) {
 
         d3.select('#' + idv.CONTOUR_DIV_ID)
             .style('visibility', 'hidden');
+
+        this.setDefaultCursor();
         // idv.util.removeChildren(idv.CONTOUR_DIV_ID);
 
     }
