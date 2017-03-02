@@ -11,7 +11,7 @@
 
 idv.CONTOUR_DIV_ID = "myDiv";
 idv.TOTAL_WELLS = 10;
-idv.TOTAL_COLS = 588;
+idv.TOTAL_COLS = 299;
 idv.INTERPOLATION_CUT = 3000;
 
 idv.data2D = [];
@@ -49,7 +49,7 @@ idv.handlePixelDataLoadComplete = function(pixelData) {
     var pointId = 0;
     var col = 0;
     var index = 0;
-    for (var i=0;i<pixelData.length-19;i++){ // rows loop
+    for (var i=0;i<pixelData.length - 19;i++){ // rows loop
         var currentRow=[];
         col = 0; // reset for column value
         for (var key in pixelData[i]){ // columns loop
@@ -237,6 +237,7 @@ idv.plotContourMap = function () {
     var plotContour = function (divId, data2D) {
         var contourMap = {
             z: data2D,
+
             type: 'contour',
             showscale: true,
             autocontour: false,
@@ -245,6 +246,16 @@ idv.plotContourMap = function () {
                 end: 700,
                 size: 60
             },
+
+            dx: 1,
+            x0: 0,
+            dy: 1,
+            y0: 0,
+            // contours: {
+            //     start: 0,
+            //     end: 200,
+            //     size: 40
+            // },
             colorscale: [[0, 'rgba(255, 255, 255,0)'],[0.1, 'rgba(250,200,160,1)'], [0.2, 'rgba(200,150,130,255)'], [0.3, 'rgb(160,160,80)'], [0.4, 'rgb(0,120,160)'], [0.7, 'rgb(0,60,120)'] , [1, 'rgb(0,0,60)']]
         };
 
@@ -282,7 +293,8 @@ idv.plotContourMap = function () {
 
         console.log("Done plotting contour map ion: " + (idv.util.getTime() - startPlotting));
 
-        idv.handleContourZoom();
+        idv.handlePlotlyEvent();
+
 
     };
 
@@ -307,12 +319,18 @@ idv.plotContourMap = function () {
 
 };
 
-idv.handleContourZoom = function () {
+
+idv.handlePlotlyEvent = function () {
+
     var myContour = document.getElementById('myDiv');
     myContour.on('plotly_relayout',
         function(eventdata){
             idv.colorManager.updateContourWellColors();
         });
+
+    myContour.on('plotly_afterplot', function(){
+        idv.controller.setDefaultCursor();
+    });
 
 
 };
@@ -320,14 +338,14 @@ idv.handleContourZoom = function () {
 
 idv.load = function() {
 
-    // d3.tsv("data/ascii_2013.csv", function(error, pixelData) {
-    d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
+    // d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
+    d3.csv("data/ascii_2013all.optimized-2-2.csv", function(error, pixelData) {
         idv.handlePixelDataLoadComplete(pixelData);
 
-        d3.csv("data/raster_to_point.csv", function(error, rasterPoint) {
+        d3.csv("data/raster_to_point.optimized.csv", function(error, rasterPoint) {
             idv.updateRasterPointPositionData(rasterPoint);
 
-            d3.csv('data/well_data_full.csv', function(error, allWellData) {
+            d3.csv("data/well_data_full.optimized.csv", function(error, allWellData) {
                 idv.handleWellDataLoadComplete(allWellData);
                 computeCountyAverage();
                 interpolate();
