@@ -89,20 +89,25 @@ idv.controller.showContourMap = function(contourCheckbox) {
 idv.controller.setWaitCursor = function () {
     var controlPanel = document.getElementById("myControlPanel");
     var contourCheckbox = document.getElementById("showContourMapCheckbox");
+    var horizonCheckbox = document.getElementById("showHorizonChartCheckbox");
 
     document.body.style.cursor = 'wait';
     contourCheckbox.style.cursor = 'wait';
     controlPanel.style.cursor = 'wait';
+    horizonCheckbox.style.cursor = 'wait';
 
 };
 
 idv.controller.setDefaultCursor = function () {
     var controlPanel = document.getElementById("myControlPanel");
     var contourCheckbox = document.getElementById("showContourMapCheckbox");
+    var horizonCheckbox = document.getElementById("showHorizonChartCheckbox");
+
 
     document.body.style.cursor = 'default';
     contourCheckbox.style.cursor = 'default';
     controlPanel.style.cursor = 'default';
+    horizonCheckbox.style.cursor = 'default';
 };
 
 idv.controller.hideTimeChart = function () {
@@ -129,6 +134,8 @@ idv.controller.showTimeChart = function () {
 
     var activeWell = idv.util.getTime();
     console.log("done activate all wells: " + (activeWell-afterGenTime));
+
+    this.setDefaultCursor();
 
 
 };
@@ -163,8 +170,17 @@ idv.controller.handleHorizonCheckboxClick = function (horizonCheckbox) {
     }
     else {
         this.showHorizon = false;
-        this.hideHorizonChart();
-        this.showTimeChart();
+
+        this.setWaitCursor();
+
+        setTimeout(
+            function () {
+                idv.controller.hideHorizonChart();
+                idv.controller.showTimeChart();
+            },
+            100
+        );
+
     }
 };
 
