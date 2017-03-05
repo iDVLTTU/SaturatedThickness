@@ -1,11 +1,8 @@
-# Saturated Thickness of Ogallala
-This visualization displays a contour map of Saturated thickness of Ogallala Aquifier in 2013.
-
-## Presentation
+## Saturated Thickness of Ogallala Aquifier in 2013
+Demo video of STOAViz
 https://idatavisualizationlab.github.io/SaturatedThickness/media/video.mp4
 
-
-## Demo
+Online application
 https://idatavisualizationlab.github.io/SaturatedThickness/
 
 
