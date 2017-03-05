@@ -2,7 +2,8 @@
 This visualization displays a contour map of Saturated thickness of Ogallala Aquifier in 2013.
 
 ## Presentation
-https://youtu.be/0LnouTCmxHM
+https://idatavisualizationlab.github.io/SaturatedThickness/media/video.mp4
+
 
 ## Demo
 https://idatavisualizationlab.github.io/SaturatedThickness/
