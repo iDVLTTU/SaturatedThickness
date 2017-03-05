@@ -1,6 +1,6 @@
 ## Saturated Thickness of Ogallala Aquifier in 2013
 Demo video of STOAViz
-https://idatavisualizationlab.github.io/SaturatedThickness/media/demo.mp4
+http://myweb.ttu.edu/longhngu/resources/demo-saturated-thickness.mp4
 
 Online application
 https://idatavisualizationlab.github.io/SaturatedThickness/
