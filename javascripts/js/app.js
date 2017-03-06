@@ -26,6 +26,21 @@ idv.contourPlotted = false;
 
 idv.wellCustomNames = {};
 
+idv.focus = true;
+
+window.onfocus = function () {
+  idv.focus = true;
+    console.log("in focus");
+
+};
+
+window.onblur = function () {
+  idv.focus = false;
+
+  console.log("out of focus");
+};
+
+
 idv.isContourMapPlotted = function () {
     return idv.contourPlotted;
 };
@@ -316,6 +331,8 @@ idv.plotContourMap = function () {
     // idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, this.wellXs, this.wellYs, this.wellIds);
     // plot well markers on contour
     idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, true); // created trace 2; size of well change, so we will update this trace index
+
+    idv.colorManager.updateContourWellColors();
 
 };
 

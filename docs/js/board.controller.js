@@ -58,6 +58,9 @@ idv.controller.showContourMap = function(contourCheckbox) {
                 idv.wellManager.plotWellMarkerOnContour(idv.CONTOUR_DIV_ID, idv.wellMap, false);
                 var donePlottingWell = idv.util.getTime();
                 console.log("Plotting well marker in: " + (donePlottingWell-startPlottingWellMarker));
+
+                idv.colorManager.updateContourWellColors();
+
             }, 100);
 
 

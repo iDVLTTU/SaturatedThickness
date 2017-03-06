@@ -41,8 +41,13 @@ idv.plotMyPositionAtPoint = function(pointId) {
     }];
 
     Plotly.addTraces(idv.CONTOUR_DIV_ID , myPositionMarker);
-    alertFunc();
+    //alertFunc();
     function alertFunc() {
+
+        if (idv.focus == false) {
+            return;
+        }
+        
         d3.selectAll(".point").style("stroke-width", function (d) {
             return d.trace != null && d.trace.x == myPoint.x && d.trace.y==myPoint.y ? 1 : false;
             // return 1;
@@ -64,9 +69,11 @@ idv.plotMyPositionAtPoint = function(pointId) {
 
             });
 
-        idv.colorManager.updateContourWellColors();
-        setTimeout(alertFunc, 500);
+        // idv.colorManager.updateContourWellColors();
+        // setTimeout(alertFunc, 500);
     }
+
+    setInterval(alertFunc, 1000);
 };
 
 function showError(error) {
