@@ -13,7 +13,7 @@ Our STOAViz contour map in three consecutive years 2011, 2012 and 2013
 
 ![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/contour3years.png)
 
-The data is provide by the [Water Resource Center](https://www.depts.ttu.edu/waterresources/) at TTU.
+The data is provided by the [Water Resource Center](https://www.depts.ttu.edu/waterresources/) at TTU.
 
 ## User Story
 Our domain analyst wants to see wells that have high sudden saturated thickness increase. He will go to the tool, from Control panel, for the **Well radius by**
