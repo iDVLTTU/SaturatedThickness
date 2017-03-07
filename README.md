@@ -13,8 +13,6 @@ Our STOAViz contour map in three consecutive years 2011, 2012 and 2013
 
 ![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/contour3years.png)
 
-![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
-
 The data is provide by the [Water Resource Center](https://www.depts.ttu.edu/waterresources/) at TTU.
 
 ## User Story
@@ -26,6 +24,8 @@ He makes mouse over each point, the date of this measurement and its saturated t
 
 ## GLEAMM POSTER SHOWCASE
 https://techannounce.ttu.edu/Client/ViewMessage.aspx?MsgId=206458
+
+![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
 
 Prizes and recognition:
 
