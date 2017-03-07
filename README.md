@@ -11,7 +11,7 @@ https://idatavisualizationlab.github.io/SaturatedThickness/
 
 ![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
 
-This work is in collaboration with a group in the Civil Engineering department at TTU.
+The data is provide by the [Water Resource Center](https://www.depts.ttu.edu/waterresources/) at TTU.
 
 ## User Story
 Our domain analyst wants to see wells that have high sudden saturated thickness increase. He will go to the tool, from Control panel, for the **Well radius by**
@@ -32,15 +32,10 @@ Posters are due no later than April 1st, 2017.
 
 ## References
 
-https://tommy-dang.github.io/WaterLevel/Contour/
-
 [Texas Water Department Board](http://www.twdb.texas.gov/index.asp) 
 
-Related project from CS5331: Visualization and Visual Analytics - Fall 2016. [Demo](http://myweb.ttu.edu/jataber/unemployment/) [Github](https://github.com/jmtaber129/unemployment-visualization)
-
 Tuan Dang and Leland Wilkinson. *TimeExplorer: Similarity Search Time Series by Their Signatures*.
-[PDF](http://www.myweb.ttu.edu/tnhondan/file/TimeExplorer.pdf) 
-
+[PDF](http://www.myweb.ttu.edu/tnhondan/file/TimeExplorer.pdf)
 
 Terrain: https://threejs.org/examples/#webgl_terrain_dynamic
 Particles: https://threejs.org/examples/#webgl_buffergeometry_instancing_billboards
@@ -49,3 +44,7 @@ Points: https://threejs.org/examples/#webgl_custom_attributes_points
 Multiple Pyramics: https://threejs.org/examples/#misc_controls_orbit
 Particles on floor: https://threejs.org/examples/#canvas_particles_floor
 Waves: https://threejs.org/examples/#canvas_particles_waves
+
+https://tommy-dang.github.io/WaterLevel/Contour/
+
+Related project from CS5331: Visualization and Visual Analytics - Fall 2016. [Demo](http://myweb.ttu.edu/jataber/unemployment/) [Github](https://github.com/jmtaber129/unemployment-visualization)
