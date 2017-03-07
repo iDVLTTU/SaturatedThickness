@@ -24,10 +24,12 @@ He makes mouse over each point, the date of this measurement and its saturated t
 
 ## References
 
-[Texas Water Department Board](http://www.twdb.texas.gov/index.asp) 
+[Texas Water Department Board](http://news.mit.edu/2017/underwater-mountains-turbulence-ocean-circulation-0306)
 
 Tuan Dang and Leland Wilkinson. *TimeExplorer: Similarity Search Time Series by Their Signatures*.
 [PDF](http://www.myweb.ttu.edu/tnhondan/file/TimeExplorer.pdf)
+
+[MIT news: Underwater mountains help ocean water rise from abyss](http://www.twdb.texas.gov/index.asp)
 
 Terrain: https://threejs.org/examples/#webgl_terrain_dynamic
 Particles: https://threejs.org/examples/#webgl_buffergeometry_instancing_billboards
