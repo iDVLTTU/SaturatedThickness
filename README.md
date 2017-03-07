@@ -1,5 +1,5 @@
 ## STOAViz: Visualizing Saturated Thickness of Ogallala Aquifier
-STOAViz is a visual analytics tool for analyzing the saturated thickness of the \theOgallala{} aquifer.
+STOAViz is a visual analytics tool for analyzing the saturated thickness of the Ogallala aquifer.
 The saturated thicknesses are monitored by sensors integrated on wells distributed on a vast geographic area.
 Our analytics application also captures the trends and patterns of water in the Southern High Plains Aquifer of Texas.
 
@@ -22,18 +22,6 @@ Then he wants to see time period of a particular well that has this change, he j
 And the Comparison graph will appear with two points flickering telling the period of this big increase.
 He makes mouse over each point, the date of this measurement and its saturated thickness value will be shown up.
 
-## GLEAMM POSTER SHOWCASE
-https://techannounce.ttu.edu/Client/ViewMessage.aspx?MsgId=206458
-
-![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
-
-Prizes and recognition:
-
-1st Place $2000 2nd Place $1000 3rd & 4th Place $500 each
-All winners will be publicized in the daily TechAnnounce, and automatically entered into the 2017 Spark Fund competition with awards reaching as much as $50,000!
-
-Posters are due no later than April 1st, 2017.
-
 ## References
 
 [Texas Water Department Board](http://www.twdb.texas.gov/index.asp) 
@@ -52,3 +40,15 @@ Waves: https://threejs.org/examples/#canvas_particles_waves
 https://tommy-dang.github.io/WaterLevel/Contour/
 
 Related project from CS5331: Visualization and Visual Analytics - Fall 2016. [Demo](http://myweb.ttu.edu/jataber/unemployment/) [Github](https://github.com/jmtaber129/unemployment-visualization)
+
+## GLEAMM POSTER SHOWCASE
+https://techannounce.ttu.edu/Client/ViewMessage.aspx?MsgId=206458
+
+![ScreenShot](https://github.com/iDataVisualizationLab/SaturatedThickness/blob/master/figures/jsVersion.png)
+
+Prizes and recognition:
+
+1st Place $2000 2nd Place $1000 3rd & 4th Place $500 each
+All winners will be publicized in the daily TechAnnounce, and automatically entered into the 2017 Spark Fund competition with awards reaching as much as $50,000!
+
+Posters are due no later than April 1st, 2017.
