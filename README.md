@@ -7,7 +7,7 @@ Demo video of STOAViz
 http://myweb.ttu.edu/longhngu/resources/demo-saturated-thickness.mp4
 
 Online application
-https://idatavisualizationlab.github.io/SaturatedThickness/
+https://iDVLTTU.github.io/SaturatedThickness/
 
 Our STOAViz contour map in three consecutive years 2011, 2012 and 2013
 
