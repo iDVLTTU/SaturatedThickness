@@ -24,15 +24,17 @@ public class Optimizer {
 
         Reader in = null;
         Iterable<CSVRecord> records = null;
-
+        String filename = "ascii_2016all.optimized-2-2";
         boolean skipHeader = true;
         Map<Integer, Boolean> removedPoints = new HashMap<Integer, Boolean>();
         try {
 
-            in = new FileReader("ascii_2013all.csv");
-            records = CSVFormat.TDF.parse(in);
+            in = new FileReader(filename + ".csv");
 
-            String outputFile = System.getProperty("user.dir") + "/ascii_2013all.optimized-" + REDUCE_ROW_FACTOR + "-" + REDUCE_COL_FACTOR + ".csv";
+            // !import - change csv for mat CSV or TSV
+            records = CSVFormat.DEFAULT.parse(in);
+
+            String outputFile = System.getProperty("user.dir") + "/" + filename + ".optimized-" + REDUCE_ROW_FACTOR + "-" + REDUCE_COL_FACTOR + ".csv";
             FileWriter fileWriter = new FileWriter(outputFile);
             CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, CSVFormat.EXCEL);
 
