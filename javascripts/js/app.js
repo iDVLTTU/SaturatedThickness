@@ -28,6 +28,20 @@ idv.wellCustomNames = {};
 
 idv.focus = true;
 
+// adding spinning icon on starting
+var target = document.getElementById('spin');
+idv.spinner = new Spinner().spin();
+
+idv.startSpinning = function () {
+    if (!target.hasChildNodes()) {
+        target.appendChild(idv.spinner .el);
+    }
+};
+
+idv.stopSpinning = function () {
+    idv.spinner.stop();
+};
+
 window.onfocus = function () {
   idv.focus = true;
     console.log("in focus");
@@ -354,7 +368,6 @@ idv.handlePlotlyEvent = function () {
 
 
 idv.load = function() {
-
     // d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
     d3.csv("data/ascii_2013all.optimized-2-2.csv", function(error, pixelData) {
         idv.handlePixelDataLoadComplete(pixelData);
@@ -393,7 +406,7 @@ idv.load = function() {
     });
 };
 
-
+idv.startSpinning();
 getLocation();
 
 

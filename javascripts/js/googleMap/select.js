@@ -267,10 +267,12 @@ function changeSelection() {
         redrawAllWells();
 
         idv.controller.setDefaultCursor();
+
     };
 
     setTimeout(function () {
         handleSelection();
+        idv.stopSpinning();
     }, 100);
 
 };
