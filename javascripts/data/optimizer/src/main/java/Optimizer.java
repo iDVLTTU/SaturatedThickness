@@ -24,7 +24,7 @@ public class Optimizer {
 
         Reader in = null;
         Iterable<CSVRecord> records = null;
-        String filename = "ascii_2016all.optimized-2-2";
+        String filename = "ascii_2010all.optimized-2-2";
         boolean skipHeader = true;
         Map<Integer, Boolean> removedPoints = new HashMap<Integer, Boolean>();
         try {
