@@ -369,13 +369,13 @@ idv.handlePlotlyEvent = function () {
 
 idv.load = function() {
     // d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
-    d3.csv("data/ascii_2013all.optimized-2-2.csv", function(error, pixelData) {
+    d3.csv("javascripts/data/ascii_2013all.optimized-2-2.csv", function(error, pixelData) {
         idv.handlePixelDataLoadComplete(pixelData);
 
-        d3.csv("data/raster_to_point.optimized.csv", function(error, rasterPoint) {
+        d3.csv("javascripts/data/raster_to_point.optimized.csv", function(error, rasterPoint) {
             idv.updateRasterPointPositionData(rasterPoint);
 
-            d3.csv("data/well_data_full.optimized.csv", function(error, allWellData) {
+            d3.csv("javascripts/data/well_data_full.optimized.csv", function(error, allWellData) {
                 idv.handleWellDataLoadComplete(allWellData);
                 computeCountyAverage();
                 interpolate();
