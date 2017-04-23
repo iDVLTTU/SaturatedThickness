@@ -248,6 +248,14 @@ idv.timeChartManager.generateTimeChart = function(bindToId, columns, colors, typ
         line: {
             connectNull: true
         },
+        onrendered: function () {
+
+            // setTimeout(function () {
+            //     idv.stopSpinning();
+            //
+            // }, 10500);
+
+        },
         axis: {
             y: {
                 min: 0,
