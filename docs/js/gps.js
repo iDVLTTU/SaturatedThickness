@@ -10,7 +10,15 @@ idv.handlePositionSuccess = function(position) {
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError);
+        navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError, {timeout: 5000, enableHighAccuracy: false, maximumAge: 3000});
+
+        setTimeout(function () {
+            if (!!idv.myPosition) {
+                return;
+            }
+
+            showError({TIMEOUT: true});
+        }, 3000);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
