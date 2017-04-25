@@ -9,6 +9,8 @@ http://myweb.ttu.edu/longhngu/resources/demo-saturated-thickness.mp4
 Online application
 https://iDataVisualizationLab.github.io/SaturatedThickness/
 
+An implementaion of 3D saturated thickness visualization: https://github.com/iDataVisualizationLab/vr-saturated-thickness
+
 The application is best used in Chrome browser
 
 Our STOAViz contour map in three consecutive years 2011, 2012 and 2013
