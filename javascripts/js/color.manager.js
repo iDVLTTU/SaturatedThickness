@@ -101,20 +101,82 @@ idv.colorManager.updateContourWellColors = function () {
 
     idv.wellManager.selectAllWells()
         .style("fill",
-        function(d) {
-            if (d.tx == null || d.tx == undefined) {
-                return;
-            }
-            var relatedWell = idv.wellMap[d.tx];
-            return relatedWell.getMyColor();
-        })
-        .style("opacity", function (d) {
+        function(d, index) {
             if (d.tx == null || d.tx == undefined) {
                 return;
             }
 
-            var relatedWell = idv.wellMap[d.tx];
+            var wellId = d.tx + '';
+            var whiteBackground = false;
+
+
+            if (wellId.indexOf('-') > -1) {
+                whiteBackground = true;
+                wellId = wellId.substring(0, wellId.indexOf('-'));
+            }
+            var relatedWell = idv.wellMap[wellId];
+            return whiteBackground ? '#FFFFFF' : relatedWell.getMyColor();
+        })
+        .style("opacity", function (d, index) {
+            if (d.tx == null || d.tx == undefined) {
+                return;
+            }
+
+            var wellId = d.tx + '';
+            var whiteBackground = false;
+
+
+            if (wellId.indexOf('-') > -1) {
+                whiteBackground = true;
+                wellId = wellId.substring(0, wellId.indexOf('-'));
+            }
+
+            var relatedWell = idv.wellMap[wellId];
+
             return relatedWell.active == true ? 1 : 0.5;
+        })
+        .style("stroke", function (d, index) {
+            if (d.tx == null || d.tx == undefined) {
+                return;
+            }
+
+            var wellId = d.tx + '';
+            var whiteBackground = false;
+
+
+            if (wellId.indexOf('-') > -1) {
+                whiteBackground = true;
+            }
+            // return whiteBackground ? '#FFFFFF' : '#000';
+            return  '#FFFFFF';
+        })
+        .style("stroke-width", function (d, index) {
+            if (d.tx == null || d.tx == undefined) {
+                return;
+            }
+
+            var wellId = d.tx + '';
+            var noStroke = false;
+
+
+            if (wellId.indexOf('-') > -1) {
+                noStroke = true;
+            }
+            return noStroke ? 0 : 0.5;
+        })
+        .style("stroke-opacity", function (d, index) {
+            if (d.tx == null || d.tx == undefined) {
+                return;
+            }
+
+            var wellId = d.tx + '';
+            var whiteBackground = false;
+
+
+            if (wellId.indexOf('-') > -1) {
+                whiteBackground = true;
+            }
+            return whiteBackground ? 0 : 1;
         })
     ;
 };

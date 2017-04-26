@@ -280,6 +280,9 @@ idv.handleWellDataLoadComplete = function(allWellData) {
                         this.color = idv.colorManager.getUnusedColorKey();
                     }
                     return idv.colorManager.getColorObject(this.color).code;
+                },
+                "getRadius": function () {
+                    return this.active ? this.radius : 0.6 * this.radius;
                 }
             };
 

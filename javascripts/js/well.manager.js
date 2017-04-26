@@ -335,6 +335,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
     var radius;
 
     var startTime = idv.util.getTime();
+    var strokes = [];
 
     for(var wellId in allWells) {
         if (!allWells.hasOwnProperty(wellId)) {
@@ -343,7 +344,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
 
         tmpWell = allWells[wellId];
         insertAtEnd = tmpWell.active;
-        radius = tmpWell.hasOwnProperty('radius') ? 2*tmpWell.radius : 2;
+        radius = tmpWell.hasOwnProperty('radius') ? 2*tmpWell.getRadius() : 2;
 
         // if (tmpWell.id != 712401) {
         //     radius = 2;
@@ -353,18 +354,30 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
         // }
 
         if (insertAtEnd == true) {
+            // white background
+            xCoords.push(tmpWell.pointX);
+            yCoords.push(tmpWell.pointY);
+            ids.push(tmpWell.id + '-white');
+            sizes.push(radius + 2);
+            strokes.push({ width: 3, color: '#FFF', stroke: '#FFF', fill: '#FFF'});
+
             xCoords.push(tmpWell.pointX);
             yCoords.push(tmpWell.pointY);
             ids.push(tmpWell.id);
             sizes.push(radius);
+            strokes.push({ width: 0.5, color: '#000'});
+
         }
         else {
+
             xCoords.splice(0, 0, tmpWell.pointX);
             yCoords.splice(0, 0, tmpWell.pointY);
             ids.splice(0, 0, tmpWell.id);
             sizes.splice(0, 0, radius);
+            strokes.splice(0, 0, { width: 0.5, color: '#000'});
 
         }
+
     }
 
     var afterSorting = idv.util.getTime();
@@ -380,10 +393,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             text: ids,
             marker: {
                 size: sizes,
-                line: {
-                    width: 0.5,
-                    color: '#000'
-                }
+                line: strokes
             }
         };
 
@@ -403,10 +413,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             text: ids,
             marker: {
                 size : sizes,
-                line: {
-                    width: 0.5,
-                    color: '#000'
-                }
+                line: strokes
             }
         };
 
