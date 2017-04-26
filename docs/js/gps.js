@@ -1,24 +1,18 @@
 var x = document.getElementById("demo");
 var idv = idv || {};
+idv.myPosition = {lon: null, lat: null};
 
 idv.handlePositionSuccess = function(position) {
     idv.myPosition = {lon: position.coords.longitude, lat: position.coords.latitude};
-    console.log("Position success");
+    console.log("Position success. Now set my position");
 
-    idv.load();
+    idv.setMyPositionIndex();
 };
 
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(idv.handlePositionSuccess, showError, {timeout: 5000, enableHighAccuracy: false, maximumAge: 3000});
 
-        setTimeout(function () {
-            if (!!idv.myPosition) {
-                return;
-            }
-
-            showError({TIMEOUT: true});
-        }, 3000);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -101,6 +95,5 @@ function showError(error) {
     }
 
     idv.myPosition = {};
-    idv.load();
 }
 

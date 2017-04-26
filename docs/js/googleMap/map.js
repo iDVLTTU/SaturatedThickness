@@ -98,7 +98,7 @@ function redrawMap(wellList) {
       // Add a circle.
       marker.append("svg:circle")
                         .attr("r", function(d,i){ 
-                          return d.radius;})
+                          return d.getRadius();})
                         .attr("cx", padding)
                         .attr("cy", padding)
                         .attr("fill", function(d){ return d.getMyColor(); })
