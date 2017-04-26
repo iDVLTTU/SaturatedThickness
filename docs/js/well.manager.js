@@ -1,7 +1,7 @@
 var idv = idv || {};
 idv.wellManager = idv.wellManager || {};
 
-idv.wellManager.DEFAULT_WELL_COLOR = "#000";
+idv.wellManager.DEFAULT_WELL_COLOR = "rgba(0,0,0,0.5)";
 idv.wellManager.activeWells = [];
 
 idv.wellManager.selectAllWells = function() {
@@ -374,8 +374,7 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             yCoords.splice(0, 0, tmpWell.pointY);
             ids.splice(0, 0, tmpWell.id);
             sizes.splice(0, 0, radius);
-            strokes.splice(0, 0, { width: 0.5, color: '#000'});
-
+            strokes.splice(0, 0, { width: 1, color: '#000'});
         }
 
     }
@@ -417,7 +416,8 @@ idv.wellManager.plotWellMarkerOnContour = function(contourDivId, allWells, newGr
             }
         };
 
-        Plotly.deleteTraces(contourDivId, 2);
+        var wellTracePosition = idv.myPosition.plotted === true ? 2 : 1;
+        Plotly.deleteTraces(contourDivId, wellTracePosition);
         var doneDelete = idv.util.getTime();
         console.log('done remvoving trace: ' + (doneDelete-afterSorting));
         Plotly.addTraces(contourDivId, update);

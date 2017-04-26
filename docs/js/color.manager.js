@@ -133,7 +133,7 @@ idv.colorManager.updateContourWellColors = function () {
 
             var relatedWell = idv.wellMap[wellId];
 
-            return relatedWell.active == true ? 1 : 0.5;
+            return relatedWell.active == true ? 1 : 0.6;
         })
         .style("stroke", function (d, index) {
             if (d.tx == null || d.tx == undefined) {
@@ -147,8 +147,8 @@ idv.colorManager.updateContourWellColors = function () {
             if (wellId.indexOf('-') > -1) {
                 whiteBackground = true;
             }
-            // return whiteBackground ? '#FFFFFF' : '#000';
-            return  '#FFFFFF';
+            return whiteBackground ? '#FFFFFF' : '#000000';
+            // return  '#000000';
         })
         .style("stroke-width", function (d, index) {
             if (d.tx == null || d.tx == undefined) {
@@ -162,7 +162,10 @@ idv.colorManager.updateContourWellColors = function () {
             if (wellId.indexOf('-') > -1) {
                 noStroke = true;
             }
-            return noStroke ? 0 : 0.5;
+
+            var relatedWell = idv.wellMap[wellId];
+
+            return noStroke ? 0 : (relatedWell.active == true ? 0.5 : 0.8);
         })
         .style("stroke-opacity", function (d, index) {
             if (d.tx == null || d.tx == undefined) {

@@ -43,6 +43,7 @@ idv.plotMyPositionAtPoint = function(pointId) {
     }];
 
     Plotly.addTraces(idv.CONTOUR_DIV_ID , myPositionMarker);
+    idv.myPosition.plotted = true;
     //alertFunc();
     function alertFunc() {
 
