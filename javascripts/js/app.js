@@ -25,8 +25,9 @@ idv.wellIds = [];
 idv.contourPlotted = false;
 
 idv.wellCustomNames = {};
-
+idv.rasterPoint = null;
 idv.focus = true;
+idv.started = false;
 
 // adding spinning icon on starting
 var target = document.getElementById('spin');
@@ -126,6 +127,44 @@ idv.updateRasterPointPositionData = function(rasterPoint) {
         if (!lat || !lon) {
             continue; // ignore position
         }
+        x = pointData.x_center;
+        y = pointData.y_center;
+        dis = (lon - x) * (lon - x) + (lat - y) * (lat - y);
+        if (dis < min) {
+            min = dis;
+            index = i;
+        }
+
+    }
+
+    if (index > -1) {
+        idv.myPosition.pointIndex = index + 1;
+    }
+};
+
+idv.setMyPositionIndex = function () {
+    var pointData;
+
+    var index = -1;
+    var min = 1000;
+    var x;
+    var y;
+
+    var lat = idv.myPosition.lat;
+    var lon = idv.myPosition.lon;
+    var dis;
+
+
+    if (!lat || !lon) {
+        return; // ignore position
+    }
+
+    for(var i=0; i< idv.rasterPoint.length; i++) {
+        pointData = idv.rasterPoint[i];
+        if (!idv.pointMap.hasOwnProperty(pointData.POINTID)) {
+            continue;
+        }
+
         x = pointData.x_center;
         y = pointData.y_center;
         dis = (lon - x) * (lon - x) + (lat - y) * (lat - y);
@@ -368,11 +407,18 @@ idv.handlePlotlyEvent = function () {
 
 
 idv.load = function() {
+    if (!!idv.started) {
+        return;
+    }
+
+    idv.started = true;
+
     // d3.tsv("data/ascii_2013all.csv", function(error, pixelData) {
     d3.csv("data/ascii_2013all.optimized-2-2.csv", function(error, pixelData) {
         idv.handlePixelDataLoadComplete(pixelData);
 
         d3.csv("data/raster_to_point.optimized.csv", function(error, rasterPoint) {
+            idv.rasterPoint = rasterPoint;
             idv.updateRasterPointPositionData(rasterPoint);
 
             d3.csv("data/well_data_full.optimized.csv", function(error, allWellData) {
@@ -401,11 +447,14 @@ idv.load = function() {
                 // In map.js
                 //redrawAllWells();
 
+
+
             });    
         });    
     });
 };
 
+idv.load();
 idv.startSpinning();
 getLocation();
 
