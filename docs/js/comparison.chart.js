@@ -74,6 +74,7 @@ idv.comparisonChart.setYDomainMin = function(min) {
 
 idv.comparisonChart.getYDomain = function() {
     return [this.yDomainMin, this.yDomainMax];
+    // return [100, 250];
 };
 
 idv.comparisonChart.setupSvg();
@@ -126,11 +127,11 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
     }
 
     this.currentComparisonWell = columnKey;
-    var line = d3.svg.area()
-        .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
+    var lineAverage = d3.svg.area()
+        .defined(function(d) { return !!d[averageKey]; }) // Omit empty values.
         .x(function(d) { return x(d.year); })
         .y(function(d) {
-            return y(d[columnKey]); }
+            return y(d[averageKey]); }
             );
 
     var lineBase = d3.svg.area()
@@ -148,13 +149,6 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
         })
         .y1(function(d) { return y(d[averageKey]); });
 
-    var areaBase = d3.svg.area()
-    // .interpolate("basis")
-        .defined(function(d) { return !!d[columnKey]; }) // Omit empty values.
-        .x(function(d) {
-            return x(d.year);
-        })
-        .y1(function(d) { return height + y(d[averageKey]); });
 
     var svg = this.svg;
 
@@ -211,47 +205,15 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             ;
 
         svg.selectAll('.areaBelow').remove();//.transition()
-           // .duration(2000).attr('opacity', 0);
 
-           // svg.selectAll('.areaBelow').transition()
-           ///     .duration(2000).remove();
-            svg.append("path")
+        svg.append("path")
                 .attr("class", "areaBelow")
                 .attr('opacity', 1)
                 .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
                 .attr("clip-path", "url(#clip-below)")
                 .attr("d", area)
             ;
-        //}
-        //else{
-            //area.y0(function(d) { return y(d[columnKey]);});
-           /* svg.selectAll('.areaAbove')
-                .transition()
-                .duration(2000)
-                .attr('opacity', 1)
-                .style("fill", idv.colorManager.getAboveAverageColor())     // set the fill colour
-                .attr("clip-path", "url(#clip-above)")
-                .attr("d", area.y0(function(d) { return y(d[columnKey]); }))
-            ;*/
-            /*
-            svg.selectAll(".areaBelow")
-                //.selectAll('.areaBelow')
-              //  .transition()
-              //  .duration(2000)
-                .attr('opacity', 1)
-                .style("fill", idv.colorManager.getBelowAverageColor())     // set the fill colour
-                .attr("clip-path", "url(#clip-below)")
-                .attr("d", area)
-            ;*/
 
-
-       // }
-
-
-        // update
-        // svg.append('path').
-
-        // svg.selectAll('.wline').remove();
         svg.append('path')
             .attr("class", "wline")
             .style("stroke", '#000')
@@ -259,12 +221,22 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .attr("d", lineBase);
 
         svg.selectAll('.wline')
-           // .transition()
-           // .duration(2000)
-            .attr("d", line)
+            .attr("d", lineBase)
             .attr('opacity', 1)
 
         // .style("stroke", "#f00")
+        ;
+
+        // painting average line
+        svg.append('path')
+            .attr("class", "lineAverage")
+            .style("stroke", '#000')
+            .attr('opacity', 0.6)
+            .attr("d", lineAverage);
+
+        svg.selectAll('.lineAverage')
+            .attr("d", lineAverage)
+            .attr('opacity', 0.6)
         ;
 
         // preparing tooltip for each dot
@@ -305,7 +277,7 @@ idv.comparisonChart.generateAverageComparisonChart = function(averageKey, column
             .style("stroke-width", 0.5)
             .style("stroke", '#000')
             .style("fill", myWell.getMyColor())
-            .attr("r", 3.5)
+            .attr("r", 2)
             .each(flickering)
         ;
     // }
