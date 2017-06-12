@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Tommy Dang - Data visualization</title>
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="shortcut icon" href="icons/fav.gif">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>Data visualization and visual analytics</h2>
+					<br>
+					<p> Tommy Dang <p>
+					<p> Assistant Professor <p>
+					<p> Department of Computer Science <p>
+					<p> Texas Tech University <p>	
+					<video width="50%" autoplay loop> <source src="videos/Lyme.mp4" type="video/mp4"></video>
+					<!--<video width="55%" autoplay loop> <source src="videos/Scag1.mov" type="video/mp4"></video>-->									
+				</section>
+				<section data-background="#ccc" data-background-transition="convex" data-transition="convex" align="left">
+					<h2>Outline</h2>
+					<br>
+					<li> Chemical Simulations</li>
+					<li> Geospatial visualizations </li>
+					<li> Multivariate data analysis </li>
+					<li> Images analysis </li>
+					<li> Matrix visualizations</li>
+					<li> Networks and structures</li>
+				</section>
+
+				<section>
+					<img width="99%" data-src="figures2/EVL_Group_Photo_May2016.jpg">
+				</section>
+
+				<section>
+					<iframe src="https://www.evl.uic.edu/list.php?id=5" width="100%" height="800px">
+					</iframe>
+				</section>
+
+				<section>
+					<iframe src="http://www.myweb.ttu.edu/tnhondan/" width="100%" height="800px">
+					</iframe>
+				</section>
+
+				<section>
+					<iframe src="CS5331/index.html" width="100%" height="800px">
+					</iframe>
+				</section>
+
+			
+				<section>
+					<h3>Chemical Simulations</h3>
+					<img width="700" border="0" data-src="figures/Conchem.png" alt="Down arrow">
+					<p> Link to the <a href="http://www.connchem.org/" target="_blank"> Connected Chemistry </a> application
+					</p>
+				</section>
+				<section>
+					<h3>Geospatial visualizations</h3>
+					<img width="2000" border="0" data-src="figures/UFO.png" alt="Down arrow">
+				</section>
+				<section data-background="#ccc" data-background-transition="convex"  data-transition="convex" align="left">
+					<h2>Outline</h2>
+					<li> <font color="#aaa"> Chemical Simulations </font> </li>
+					<li> <font color="#aaa"> Geospatial visualizations </font> </li>
+					<li> Multivariate data analysis </li>
+					<li> Images analysis </li>
+					<li> Matrix visualizations</li>
+					<li> Networks and structures</li>
+				</section>
+
+				<section>
+					<h3>Scatterplot</h3><br>
+					<img width="400" border="0" data-src="figures/Scatterplot.png">
+				</section>
+
+				<section>
+					<h3>Visual features</h3>
+					<br>
+					<li align="left"> <font color="#900">Scagnostics</font> (<font color="#900">Sca</font>tterplot Dia<font color="#900">gnostics</font>) </li>
+					<li align="left"> <font color="#900">Scagnostics</font>  help us to characterize 2D scatterplots</li>
+				</section>
+				<section>
+					<img width="700" data-src="figures/Scagnostics1.png" alt="Down arrow">
+				</section>				
+				<section>
+					<p> Scagnostics are computed on on three geometric graphs </p> <br> 
+					<img width="100%" data-src="figures/Scagnostics2.png" alt="Down arrow">
+				</section>
+				<section>
+					<p align="left"> A <b>Stringy</b> shape is a skinny shape with no branches </p> 
+					<img width="33%" data-src="figures/Scagnostics6.png" >
+					<img width="75%" data-src="figures/Scagnostics7.png" >
+				</section>
+				<section>
+					<p align="left"> Computing <b>Convex</b>: The ratio of the area of the alpha hull and the convex hull  </p> 
+					<img width="75%" data-src="figures/Scagnostics8.png" >
+				</section>
+
+				<section>
+					<p> Example: Stringy <font color="#900">Scagnostics</font> </p> <br> 
+					<img width="100%" data-src="figures/Scagnostics14.png" alt="Down arrow">
+				</section>
+				<section>
+					<p><b>TimeSeer demo</b></p>
+					<p align="left"> The US Employment data comprise monthly employment rates of various economy factors for 50 states over 22 years from 1990 to 2011.  </p>
+					<img width="40%" data-src="figures/Scagnostics15.png"> &nbsp; &nbsp; &nbsp; &nbsp;
+					<img width="50%" data-src="figures/Scagnostics16.png">
+					<small> The data are retrieved from <a href="http://www.bls.gov/"> Bureau of Labor Statistics</a>  </small>	
+				</section>
+				<section data-background-video="videos/Scag2.mp4" data-background-color="#000000"  data-background-transition="convex" data-transition="convex" controls>
+				</section>
+				
+				<section data-background-transition="default-out" data-transition="default-out">
+					<p> Transforming Scagnostics</p> <br> 
+					<img width="90%" data-src="figures/image37.png">
+					<small> Annual NYC subway ridership from 1904-2006: <a href="http://davis.wpi.edu/xmdv/datasets/subway.html"> http://davis.wpi.edu/xmdv/datasets/subway.html </a>  </small>	
+				</section>
+				
+				<section data-background="#777" data-background-transition="default-out" data-transition="default-out">
+					<p> Transforming Scagnostics</p> <br> 
+					<video width="99%" autoplay loop> <source src="videos/Scag1.mov" type="video/mp4"></video>
+					<br>
+					<small align="left"> Tuan Dang and Leland Wilkinson. <i>Transforming Scagnostics to Reveal Hidden Features</i>. IEEE Transactions on Visualization and Computer Graphics 20(12), presented at VAST 2014</small>	
+				</section>		
+				
+
+				<section data-background-transition="default-out" data-transition="default-out">
+					<img width="64%" data-src="figures/image39.png">
+					<small> Musk dataset from UCI: <a href="https://archive.ics.uci.edu/ml/datasets/Musk+(Version+2)"> https://archive.ics.uci.edu/ml/datasets/Musk+(Version+2) </a>  </small>	
+				</section>
+				
+				<section>
+					<p><b>Choice of transformation</b></p>
+					<br><br>
+					<ul>
+					   	<li> The classical statistical transformations arose out of experiences applying models based on theoretical distributions to real data </li><br>
+					   	<li> ransformations we choose ought to cover the full range of negative to positive skewness as well as mixtures of distributions that are relatively symmetric </li>
+					</ul>   	
+				</section>
+
+				<section>
+					<p><b>Choice of transformation</b></p>
+					<img width="63%" data-src="figures/image48.png">
+				</section>
+				<section>
+					<p><b>Example: Monotonic</b></p>
+					<img width="43%" data-src="figures/image49.png">
+					<small> <i>Rural population</i> vs. <i>Urban population</i> from the World Bank data: <a href="http://data.worldbank.org/indicator"> http://data.worldbank.org/indicator</a>  </small>
+				</section>
+				<section>
+					<p><b>Case study: Monotonic</b></p><br>
+					<img width="53%" data-src="figures/image50.png">
+					<br><br>
+					<small> We inspect <b>100</b> variables in Economy and Growth from the World Bank data: <a href="http://data.worldbank.org/indicator"> http://data.worldbank.org/indicator</a>  </small>
+				</section>
+				<section>
+					<p><b>Case study: Monotonic</b></p>
+					<img width="48%" data-src="figures/image52.png">
+					<img width="48%" data-src="figures/image51.png">
+					<br>
+					<small> We inspect <b>100</b> variables in Economy and Growth from the World Bank data: <a href="http://data.worldbank.org/indicator"> http://data.worldbank.org/indicator</a>  </small>
+				</section>
+
+				<section data-background="#000" data-background-transition="default-out" data-transition="default-out">
+					<video width="100%" controls> <source src="videos/Transforming.mov" type="video/mp4"></video>
+				</section>	
+
+				<section>
+					<p> Using Scagnostics for classification</p> <br> 
+					<ul>
+						<li> <small>Leland Wilkinson, Anushka Anand, and Tuan Dang. <i>CHIRP: A new classifier based on Composite Hypercubes on Iterated Random Projections</i>. Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, KDD 2011</small></li>	
+						<br>
+						<li> <small>Leland Wilkinson, Anushka Anand, and Tuan Dang. <i>Substantial improvements in the set-covering projection classifier CHIRP</i>. Journal ACM Transactions on Knowledge Discovery from Data, TKDD 2012</small></li>	
+						<br>
+						<img width="20%" data-src="figures/image54.png"><br>
+						<small>CHIRP is maintained on Weka: <a href="http://weka.sourceforge.net/packageMetaData/CHIRP/index.html"> http://weka.sourceforge.net/packageMetaData/CHIRP/index.html</a> </small>			
+					</ul>
+				</section>		
+					
+					
+				<!--
+				<section data-background="#ccc" data-background-transition="convex" data-transition="convex" align="left">
+					<h2>Outline</h2>
+					<br>
+					<ol>
+					  <li>Visual Patterns for 2D scatterplots:
+					    <ul>
+					    <li><font color="#aaa">Time Series data (TVCG 2012)</font></li>
+					    <li>High-dimensional data (PacificVis 2014)</li>
+					    <li>Images (ISVC 2014)</li>
+					   	</ul>
+					  </li>
+					  <br>
+					  <li>Network visualizations:
+					    <ul>
+					    <li>Protein interaction networks (BioVis 2015, VOILA 2015)</li>
+					    <li>Dynamic networks (EuroVis 2016)	</li>
+					    </ul>
+					  </li>
+					</ol>
+				</section>
+				<section data-background-video="videos/Scag3.mov" data-background-color="#fff"  data-background-transition="convex" data-transition="convex">
+				</section>
+				<section>
+					<p> <b> Our approach</b> </p> 
+					<img width="100%" data-src="figures/Scagnostics21.png" alt="Down arrow">
+				</section>
+				<section>
+					<p> <b> Schematic overview</b> </p> <br> 
+					<img width="100%" data-src="figures/Scagnostics22.png" alt="Down arrow">
+				</section>
+				<section>
+					<p><b>Leader algorithm</b></p>
+					<br>
+					<p align="left"> Input: <i>n</i> scatterplots and a threshold <i>r</i> </p>
+					<ol>
+					    <li>We initialize the leader list <i>L</i>= Ø</font></li>
+					    <li>For each scatterplot <i>S<sub>i</sub></i>, we find the nearest leader in <i>L</i> (<i>dist(S<sub>i</sub>,L)≤ r</i>)</li>
+					    <li>If we find a nearest leader, we add S<sub>i</sub> to the follower list of the nearest leader</li>
+					    <li>Otherwise, we make S<sub>i</sub> a new leader and add S<sub>i</sub> into <i>L</i></li>
+					</ol>
+
+					<p align="left"> The complexity  is roughly <i>O(n)</i> </p>			
+					<br><br>
+					<small> J. Hartigan. Clustering Algorithms. John Wiley & Sons, New York, 1975  </small>	
+				</section>
+				<section data-background-video="videos/Scag4.mov" data-background-color="#fff"  data-background-transition="convex" data-transition="convex">
+					<br><br><br><br><br><br><br><br><br><br><br><br>
+					<br><br><br><br>
+					<small> Example 1: <b>Gas Sensor</b> data set  <b>128</b> variables (<b>8128</b> scatterplots), <b>3600</b> observations  </small>	
+				</section>
+				<section data-background-video="videos/Scag5.mov" data-background-color="#fff"  data-background-transition="convex" data-transition="convex">
+					<br><br><br><br><br><br><br><br><br><br><br><br>
+					<br><br><br><br>
+					<small> Example 2:   <b>Madelon</b> data set  <b>500</b> variables (<b>124,750</b> scatterplots), <b>1042</b> observations  </small>	
+				</section>
+				<section data-background-video="videos/Scag6.mov" data-background-color="#fff"  data-background-transition="convex" data-transition="convex">
+					<br><br><br><br><br><br><br><br><br><br><br><br>
+					<br><br><br><br>
+					<small> Example 3:   <b>Breast cancer</b> dataset  </small>	
+				</section>
+				<section data-background="#ccc" data-background-transition="convex" data-transition="convex" align="left">
+					<h2>Outline</h2>
+					<br>
+					<ol>
+					  <li>Visual Patterns for 2D scatterplots:
+					    <ul>
+					    <li><font color="#aaa">Time Series data (TVCG 2012)</font></li>
+					    <li><font color="#aaa">High-dimensional data (PacificVis 2014)</font></li>
+					    <li>Images (ISVC 2014)</li>
+					    </ul>
+					  </li>
+					  <br>
+					  <li>Network visualizations:
+					    <ul>
+					    <li>Protein interaction networks (BioVis 2015, VOILA 2015)</li>
+					    <li>Dynamic networks (EuroVis 2016)	</li>
+					    </ul>
+					  </li>
+					</ol>
+				</section>-->
+
+				<section data-background="#ccc" data-background-transition="convex" data-transition="convex" align="left">
+					<h2>Outline</h2>
+					<br>
+					<li> <font color="#aaa"> Chemical Simulations </font></li>
+					<li> <font color="#aaa"> Geospatial visualizations </font></li>
+					<li> <font color="#aaa"> Multivariate data analysis </font></li>
+					<li> Images analysis </li>
+					<li> Matrix visualizations</li>
+					<li> Networks and structures</li>
+				</section>
+
+				<section>
+					<img width="100%" data-src="figures/ScagPixSeacher1.png">
+				</section>
+				<section>
+					<img width="80%" data-src="figures/ScagPixSeacher2.png">
+				</section>
+				<section>
+					<img width="90%" data-src="figures/ScagPixSeacher21.png">
+				</section>
+				<section>
+					<img width="90%" data-src="figures/ScagPixSeacher22.png">
+				</section>
+				<section>
+					<p> Testing dataset: Wang </p> 
+					<img width="90%" data-src="figures/ScagPixSeacher5.png">
+				</section>
+				<section>
+					<p> Testing dataset: ZuBuD </p> 
+					<img width="90%" data-src="figures/ScagPixSeacher6.png">
+				</section>
+				<section>
+					<p> Comparison of different Image Retrieval systems</p> 
+					<img width="80%" data-src="figures/ScagPixSeacher7.png">
+				</section>
+				<section data-background-image="figures/ScagPixSeacher8.png" data-background-color="#000000"  data-background-transition="convex" data-transition="convex">
+				</section>
+
+				<section>
+					<p> <b>Demo: 1,000 images in the Wang collection </b><p>
+					<img width="90%" data-src="figures/ScagPixSeacher5.png">
+				</section>
+				
+
+				<section>
+					<p> <b> Demo on SETI plots </b><p> 
+					<p> Examples of SETI Waterfall Plots</p> 
+					<img width="32%" data-src="figures/ScagPixSeacher10.png">
+					<img width="32%" data-src="figures/ScagPixSeacher11.png">
+					<img width="32%" data-src="figures/ScagPixSeacher12.png">
+					<small> More information on Waterfall_plot: <a href="http://setiquest.org/wiki/index.php/"> http://setiquest.org/wiki/index.php/ </a>  </small>	
+				</section>
+				
+				<section data-background-video="videos/SETI.mp4" data-background-color="#666"  data-background-transition="convex" data-transition="convex">
+				</section>
+
+	
+
+				<section data-background="#ccc" data-background-transition="convex" data-transition="convex" align="left">
+					<h2>Outline</h2>
+					<br>
+					<li> <font color="#aaa"> Chemical Simulations </font></li>
+					<li> <font color="#aaa"> Geospatial visualizations </font></li>
+					<li> <font color="#aaa"> Multivariate data analysis </font></li>
+					<li> <font color="#aaa"> Images analysis  </font></li>
+					<li> Matrix visualizations</li>
+					<li> Networks and structures</li>
+				</section>
+
+				<section>
+					<h3> Pathway Matrix (BioVis 2015)</h3> 
+					<img width="50%" data-src="figures/Matrix1.png">
+				</section>
+
+				<section>
+					<h3> Provenance Matrix (VOILA 2015)</h3> 
+					<img width="90%" data-src="figures/Matrix2.png">
+				</section>
+
+				<section data-background="#000" data-background-transition="convex" data-transition="convex" align="left">
+					<video width="100%"  controls> <source src="videos/Matrix1.mp4" type="video/mp4"></video>
+				</section>
+
+				<section>
+					<h3> Reaction Flow (BioVis 2015)</h3> 
+					<img width="60%" data-src="figures/Network2.png">
+				</section>
+
+				<section data-background="#fff" data-background-transition="convex" data-transition="convex" align="left">
+					<video width="100%"  controls> <source src="videos/Matrix2.mp4" type="video/mp4"></video>
+				</section>
+
+				<section>
+					<h3> Networks and structures</h3> 
+					<img width="100%" data-src="figures/image60.png">
+				</section>
+
+				<section>
+					<iframe src="http://cactustrees.github.io/" width="100%" height="800px">
+					</iframe>
+				</section>
+
+				<section>
+					<p> User study of Tree layouts</p> 
+					<img width="88%" data-src="figures/image61.png">
+				</section>
+				<section>
+					<p> Visualizing dynamic networks </p> 
+					<img width="70%" data-src="figures/image63.png">
+					<small> TimeArcs github repository: <a href="https://github.com/CreativeCodingLab/TimeArcs"> http://github.com/CreativeCodingLab/TimeArcs</a>  </small>	
+				</section>
+				
+
+				<section data-background="#fff" data-background-transition="convex" data-transition="convex" align="left">
+					<video width="100%"   controls> <source src="videos/TimeArcs.mp4" type="video/mp4"></video>
+				</section>
+				
+				<section>
+					<h3> Questions? </h3>
+					<p> Email: Tommy.Dang@ttu.edu</p> 
+					<img width="31%" data-src="figures/Conchem.png">
+					<img width="38.5%" data-src="figures/UFO.png">
+					<img width="28%" data-src="figures/Scagnostics16.png">
+					<img width="32%" data-src="figures/Matrix2.png">
+					<img width="31%" data-src="figures/ScagPixSeacher8.png">
+					<img width="35%" data-src="figures/image60.png">
+					<small> This work was supported by <b>NSF/DHS</b> grant DMS-FODAVA-0808860 and <b>DARPA</b> Big Mechanism Program under ARO contract WF911NF-14-1-0395  </small>	
+				</section>
+
+				<section>
+					<img width="100%" data-src="figures/imageLab.png">
+				</section>
+				<section>
+					<img width="100%" data-src="figures/imageLab1.jpg">
+				</section>
+				<section>
+					<img width="100%" data-src="figures/imageLab2.jpg">
+				</section>
+				<section>
+					<p> BioLinker </p> 
+					<img width="60%" data-src="figures/image62.png">
+				</section>
+				
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
